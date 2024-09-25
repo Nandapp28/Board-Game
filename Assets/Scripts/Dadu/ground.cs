@@ -2,50 +2,42 @@ using UnityEngine;
 
 public class FaceDetector : MonoBehaviour
 {
-    public DiceRoll diceRollScript;  // Public so it can be manually assigned in the Inspector
-    public int faceNumber;
+    public DiceRoll diceRollScript1;
+    public DiceRoll diceRollScript2;
+    public int faceNumber1;
+    public int faceNumber2;
 
     void Start()
     {
-        // If diceRollScript is not manually assigned, try to get it from the parent
-        if (diceRollScript == null)
-        {
-            diceRollScript = GetComponentInParent<DiceRoll>();
-        }
-
-        // If it's still null, log an error
-        if (diceRollScript != null)
-        {
-            Debug.Log("DiceRollScript assigned correctly.");
-        }
-        else
-        {
-            Debug.LogError("DiceRollScript is still null. Make sure the Dice object has the DiceRoll script and it's assigned correctly.");
-        }
+        diceRollScript1 = FindObjectOfType<DiceRoll>();
+        diceRollScript2 = FindObjectOfType<DiceRoll>();
     }
 
     void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Face"))
+        if (other.CompareTag("Dice1"))
         {
-            if (diceRollScript != null && diceRollScript.GetComponent<Rigidbody>() != null)
+            Rigidbody rb = diceRollScript1.GetComponent<Rigidbody>();
+            if (rb.velocity.magnitude == 0)
             {
-                Rigidbody rb = diceRollScript.GetComponent<Rigidbody>();
-
-                if (rb.velocity.magnitude == 0 && rb.angularVelocity.magnitude == 0)
+                
+                if (int.TryParse(other.name.Replace("Face", ""), out faceNumber1))
                 {
-                    if (int.TryParse(other.name.Replace("Face", ""), out faceNumber))
-                    {
-                        diceRollScript.diceFaceNumber = faceNumber;
-                        Debug.Log("Dice Face Number: " + diceRollScript.diceFaceNumber);
-                    }
+                    diceRollScript1.diceFaceNumber = faceNumber1;
+                    Debug.Log("Dice1 Face Number: " + diceRollScript1.diceFaceNumber);
                 }
             }
-            else
+        }
+        if (other.CompareTag("Dice2"))
+        {
+            Rigidbody rb = diceRollScript2.GetComponent<Rigidbody>();
+            if (rb.velocity.magnitude == 0)
             {
-                if (diceRollScript == null)
+                
+                if (int.TryParse(other.name.Replace("Face", ""), out faceNumber2))
                 {
-                    Debug.LogError("diceRollScript is null. Ensure the Dice object has the DiceRoll script and it's assigned correctly.");
+                    diceRollScript2.diceFaceNumber = faceNumber2;
+                    Debug.Log("Dice2 Face Number: " + diceRollScript2.diceFaceNumber);
                 }
             }
         }
