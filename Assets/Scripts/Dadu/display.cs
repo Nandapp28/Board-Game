@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class display : MonoBehaviour
+public class DisplayScore : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public TextMeshProUGUI scoreText;
+    public DiceRoll dice1;  // First dice
+    public DiceRoll dice2;  // Second dice
+
     void Start()
     {
-        
+        // You can assign the DiceRoll components from the Inspector, or use FindObjectOfType
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (dice1.diceFaceNumber != 0 && dice2.diceFaceNumber != 0)
+        {
+            int totalScore = dice1.diceFaceNumber + dice2.diceFaceNumber;
+            Debug.Log(totalScore);
+            scoreText.text = "Total: " + totalScore.ToString(); 
+        }
     }
 }
