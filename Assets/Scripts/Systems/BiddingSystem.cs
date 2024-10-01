@@ -171,7 +171,7 @@ public class BiddingSystem : MonoBehaviour
     // Fungsi untuk mengurutkan pemain berdasarkan nilai dadu
     void SortPlayersByDiceResult()
     {
-        // Urutkan pemain berdasarkan total nilai dari yang tertinggi ke terendah
+        // Urutkan pemain berdasarkan total nilai dari yang tertinggi ke terendah 
         PlayerList = PlayerList.OrderByDescending(p => p.totalNilai).ToList();
 
         // Tetapkan urutan main berdasarkan urutan yang baru
