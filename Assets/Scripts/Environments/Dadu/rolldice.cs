@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class DiceRoll : MonoBehaviour
@@ -6,7 +7,6 @@ public class DiceRoll : MonoBehaviour
     public float maxRandomForce = 10f;
     public float startRollForce = 10f;
     private float forceX, forceY, forceZ;
-    public int diceFaceNumber;
 
     void Start()
     {
@@ -14,15 +14,8 @@ public class DiceRoll : MonoBehaviour
         rb.isKinematic = true;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            RollDice();
-        }
-    }
-
-    void RollDice()
+    // Ubah tingkat akses metode RollDice menjadi public
+    public void RollDice()
     {
         rb.isKinematic = false;
 
