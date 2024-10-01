@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq; // Untuk menggunakan LINQ
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BiddingSystem : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class BiddingSystem : MonoBehaviour
     private int CurrentPlayerIndex = 0;
     private bool isRollingDice = false;
     private bool isWaitingForDiceResult = false;
-    private bool isReRolling = false;
+    public event Action OnBiddingCompleted;
 
     void Update()
     {
@@ -29,6 +31,7 @@ public class BiddingSystem : MonoBehaviour
     // Fungsi untuk memulai bidding
     public void StartBidding()
     {
+        Debug.Log("Bidding Phase Dimulai");
         CollectingPlayer();
 
         if (PlayerList != null && PlayerList.Count > 0)
@@ -101,7 +104,7 @@ public class BiddingSystem : MonoBehaviour
         {
             Debug.Log("Semua pemain telah melempar dadu.");
             CurrentPlayerIndex = 0;
-            CheckForDuplicateDiceResults(); // Cek apakah ada pemain yang mendapatkan hasil yang sama
+            HandleDuplicateDiceResults(); // Cek apakah ada pemain yang mendapatkan hasil yang sama
         }
     }
 
@@ -135,37 +138,34 @@ public class BiddingSystem : MonoBehaviour
         StartDiceRollForNextPlayer();
     }
 
-    // Cek apakah ada nilai dadu yang sama di antara para pemain
-    void CheckForDuplicateDiceResults()
+    // Cek apakah ada nilai dadu yang sama di antara para pemain dan beri prioritas berdasarkan urutan pemain asli
+    void HandleDuplicateDiceResults()
     {
-        var groupedResults = PlayerList.GroupBy(p => p.totalNilai)
-                                       .Where(g => g.Count() > 1)
-                                       .ToList();
+        var groupedResults = PlayerList.GroupBy(p => p.totalNilai).Where(g => g.Count() > 1).ToList();
 
         if (groupedResults.Count > 0)
         {
-            Debug.Log("Ada pemain dengan nilai dadu yang sama. Pemain tersebut akan mengulang lemparan.");
+            Debug.Log("Ada pemain dengan nilai dadu yang sama. Menentukan prioritas berdasarkan urutan pemain asli.");
 
-            List<Player> playersWithSameResult = new List<Player>();
             foreach (var group in groupedResults)
             {
-                playersWithSameResult.AddRange(group);
-            }
+                List<Player> playersWithSameResult = group.ToList();
 
-            foreach (var player in playersWithSameResult)
-            {
-                Debug.Log(player.nama + " harus mengulang lemparan dadu.");
-            }
+                // Urutkan berdasarkan urutan asli mereka di dalam daftar pemain
+                playersWithSameResult = playersWithSameResult.OrderBy(p => PlayerList.IndexOf(p)).ToList();
 
-            CurrentPlayerIndex = 0;
-            isReRolling = true;
-            StartDiceRollForNextPlayer();
+                float increment = 0.01f; // Nilai tambahan kecil untuk pemain berdasarkan prioritas
+                for (int i = 0; i < playersWithSameResult.Count; i++)
+                {
+                    playersWithSameResult[i].totalNilai += increment;
+                    increment += 0.01f; // Tambahkan nilai kecil untuk membedakan urutan
+                    Debug.Log($"{playersWithSameResult[i].nama} diberi prioritas dengan nilai baru: {playersWithSameResult[i].totalNilai}");
+                }
+            }
         }
-        else
-        {
-            Debug.Log("Tidak ada nilai dadu yang sama. Mengurutkan pemain berdasarkan nilai dadu.");
-            SortPlayersByDiceResult(); // Mengurutkan pemain
-        }
+
+        Debug.Log("Tidak ada nilai dadu yang sama atau semua telah diselesaikan. Mengurutkan pemain berdasarkan nilai dadu.");
+        SortPlayersByDiceResult(); // Mengurutkan pemain berdasarkan nilai
     }
 
     // Fungsi untuk mengurutkan pemain berdasarkan nilai dadu
@@ -180,5 +180,6 @@ public class BiddingSystem : MonoBehaviour
             PlayerList[i].SetUrutan(i + 1); // Urutan dimulai dari 1
             Debug.Log(PlayerList[i].nama + " berada di urutan ke-" + (i + 1) + " dengan total nilai: " + PlayerList[i].totalNilai);
         }
+        OnBiddingCompleted?.Invoke();
     }
 }
