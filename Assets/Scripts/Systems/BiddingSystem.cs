@@ -17,11 +17,13 @@ public class BiddingSystem : MonoBehaviour
 
     void Update()
     {
-        if (isRollingDice && Input.GetKeyDown(KeyCode.Space))
+        // Mencegah lemparan ganda ketika dadu sedang diroll
+        if (isRollingDice && Input.GetKeyDown(KeyCode.Space) && !isWaitingForDiceResult)
         {
             RollDice();
         }
 
+        // Proses hasil dadu hanya ketika dadu benar-benar sudah berhenti
         if (isWaitingForDiceResult && faceDetector.AreBothDiceStopped())
         {
             ProcessDiceResults();
@@ -111,32 +113,42 @@ public class BiddingSystem : MonoBehaviour
     // Fungsi untuk melempar dadu
     void RollDice()
     {
-        Player currentPlayer = PlayerList[CurrentPlayerIndex];
-        Debug.Log(currentPlayer.nama + " sedang melempar dadu...");
+        // Mengunci input lemparan sampai hasil dadu diproses
+        if (!isWaitingForDiceResult)
+        {
+            Player currentPlayer = PlayerList[CurrentPlayerIndex];
+            Debug.Log(currentPlayer.nama + " sedang melempar dadu...");
 
-        dice1.RollDice();
-        dice2.RollDice();
+            dice1.RollDice();
+            dice2.RollDice();
 
-        isRollingDice = false;
-        isWaitingForDiceResult = true;
+            isRollingDice = false;
+            isWaitingForDiceResult = true;
+        }
     }
 
     // Fungsi untuk memproses hasil lemparan dadu
     void ProcessDiceResults()
     {
         Player currentPlayer = PlayerList[CurrentPlayerIndex];
-        var (diceResult1, diceResult2) = faceDetector.GetDiceResults();
+        
+        // Pastikan hasil hanya diproses setelah kedua dadu benar-benar berhenti
+        if (faceDetector.AreBothDiceStopped())
+        {
+            var (diceResult1, diceResult2) = faceDetector.GetDiceResults();
+            currentPlayer.RollDice(diceResult1, diceResult2); // Simpan hasil ke player
 
-        currentPlayer.RollDice(diceResult1, diceResult2); // Simpan hasil ke player
-        Debug.Log(currentPlayer.nama + " mendapat nilai dadu: " + diceResult1 + " dan " + diceResult2);
-        Debug.Log("Total nilai: " + currentPlayer.totalNilai);
+            Debug.Log(currentPlayer.nama + " mendapat nilai dadu: " + diceResult1 + " dan " + diceResult2);
+            Debug.Log("Total nilai: " + currentPlayer.totalNilai);
 
-        faceDetector.ResetDiceDetection(); // Reset deteksi dadu sebelum lemparan berikutnya
-        CurrentPlayerIndex++;
-        isWaitingForDiceResult = false;
+            faceDetector.ResetDiceDetection(); // Reset deteksi dadu sebelum giliran berikutnya
+            CurrentPlayerIndex++;
+            isWaitingForDiceResult = false; // Reset untuk giliran berikutnya
 
-        StartDiceRollForNextPlayer();
+            StartDiceRollForNextPlayer();
+        }
     }
+
 
     // Cek apakah ada nilai dadu yang sama di antara para pemain dan beri prioritas berdasarkan urutan pemain asli
     void HandleDuplicateDiceResults()

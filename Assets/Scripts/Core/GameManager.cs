@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -15,7 +14,6 @@ public class GameManager : MonoBehaviour
     void StartBiddingSystem()
     {
         biddingSystem.StartBidding();
-        // Setelah fase bidding selesai, lanjutkan ke fase action
         biddingSystem.OnBiddingCompleted += StartActionSystem;
     }
 
