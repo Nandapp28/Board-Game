@@ -7,6 +7,7 @@ public class ActionSystem : MonoBehaviour
     public float timeLimitPerTurn = 30f; // Time limit for each player's turn
     public GameObject Players; // GameObject containing player instances
     public List<Player> PlayerList = new List<Player>(); // List to hold player instances
+    public ActionCardDeck carddeck;
     private int currentPlayerIndex = 0; // Index of the current player
     private Player currentPlayer;
     private float turnTimer; // Timer for each player's turn
@@ -58,9 +59,9 @@ public class ActionSystem : MonoBehaviour
 
         if (PlayerList.Count > 0)
         {
-            Debug.Log("There are " + PlayerList.Count + " players.");
             SortPlayersByTurnOrder();
             StartTurn(); // Start the first player's turn
+            carddeck.StartCardDeck();
         }
         else
         {
@@ -90,7 +91,6 @@ public class ActionSystem : MonoBehaviour
     public void SortPlayersByTurnOrder()
     {
         PlayerList.Sort((player1, player2) => player1.urutanMain.CompareTo(player2.urutanMain));
-        Debug.Log("Players sorted by turn order.");
     }
 
     private void StartTurn()

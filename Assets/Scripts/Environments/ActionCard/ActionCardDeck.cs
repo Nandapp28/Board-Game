@@ -3,109 +3,86 @@ using System.Collections;
 
 public class ActionCardDeck : MonoBehaviour
 {
-    public Transform cameraTransform; // Transform kamera
-    public Vector3 offsetFromCamera = new Vector3(0, 0, 2); // Jarak offset parent dari kamera (maju ke depan)
-    public Vector3 targetScale = new Vector3(1.5f, 1.5f, 1.5f); // Skala target kartu
-    public Vector3 manualRotation = new Vector3(0, 0, 0); // Manual rotation of the card
+    [Header("Camera Settings")]
+    public Transform cameraTransform; // Transform camera
+    public Vector3 offsetFromCamera = new Vector3(0, 0, 2); // Offset distance from camera
+    public Vector3 manualRotation = Vector3.zero; // Manual rotation of the cards
 
-    public int rows = 2; // Jumlah baris
-    public int columns = 5; // Jumlah kolom
-    public float spacingX = 1.0f; // Jarak antar kartu dalam sumbu X
-    public float spacingY = 1.0f; // Jarak antar kartu dalam sumbu Y
-    public float spacingZ = 0.0f; // Jika Anda ingin menyusun kartu dalam sumbu Z (misalnya lapisan)
+    [Header("Card Settings")]
+    public GameObject cardPrefab; // Card prefab
+    public int rows = 2; // Number of rows
+    public int columns = 5; // Number of columns
+    public float spacingX = 1.0f; // Spacing between cards in the X axis
+    public float spacingY = 1.0f; // Spacing between cards in the Y axis
+    public float spacingZ = 0.0f; // Optional depth spacing
 
-    public GameObject cardPrefab; // Prefab kartu
-    private GameObject[] cards; // Array untuk menyimpan kartu
+    [Header("Animation Settings")]
+    public float animationDuration = 0.5f; // Duration of card appearance animation
+    public float cardDelay = 0.2f; // Delay between card appearances
+    public Vector3 targetScale = new Vector3(1.5f, 1.5f, 1.5f); // Target scale of the card
 
-    public float animationDuration = 0.5f; // Durasi animasi munculnya kartu
-    public float cardDelay = 0.2f; // Delay antar kartu muncul
+    private GameObject[] cards; // Array to store cards
+    private int prevRows, prevColumns; // Previous layout values
+    private float prevSpacingX, prevSpacingY; // Previous spacing values
 
-    // Variabel untuk menyimpan nilai sebelumnya
-    private int prevRows;
-    private int prevColumns;
-    private float prevSpacingX;
-    private float prevSpacingY;
-
-    private void Start()
+    public void StartCardDeck()
     {
-        // Inisialisasi array sesuai dengan jumlah kartu
-        cards = new GameObject[rows * columns];
-
-        // Set posisi parent di depan kamera
-        PositionParentInFrontOfCamera();
-
-        // Inisialisasi nilai cache
-        CacheCurrentValues();
-
-        // Membuat kartu-kartu dan menempatkannya dalam grid dengan animasi
-        StartCoroutine(GenerateCardGridWithAnimation());
-    }
-
-    private void Update()
-    {
-        // Set posisi parent di depan kamera
-        PositionParentInFrontOfCamera();
-
-        // Hanya regenerate kartu jika ada perubahan pada properti layout
-        if (ValuesChanged())
-        {
-            // Jika ada perubahan pada jumlah baris/kolom atau spacing
-            ClearOldCards(); // Hapus kartu lama
-            cards = new GameObject[rows * columns]; // Buat ulang array untuk menyimpan kartu baru
-            StartCoroutine(GenerateCardGridWithAnimation());
-            CacheCurrentValues(); // Simpan nilai-nilai yang baru untuk perbandingan di frame berikutnya
-        }
+        cards = new GameObject[rows * columns]; // Initialize array for cards
+        PositionParentInFrontOfCamera(); // Position parent in front of camera
+        CacheCurrentValues(); // Cache current values
+        StartCoroutine(GenerateCardGridWithAnimation()); // Generate card grid with animation
     }
 
     private void PositionParentInFrontOfCamera()
     {
-        // Hitung posisi target agar parent berada di depan kamera
         Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * offsetFromCamera.z +
                                  cameraTransform.right * offsetFromCamera.x +
                                  cameraTransform.up * offsetFromCamera.y;
 
-        // Set posisi dan rotasi parent
-        transform.position = targetPosition;
-        transform.rotation = Quaternion.Euler(manualRotation);
+        transform.position = targetPosition; // Set position
+        transform.rotation = Quaternion.Euler(manualRotation); // Set rotation
     }
 
     private IEnumerator GenerateCardGridWithAnimation()
     {
-        // Hitung offset untuk memusatkan grid kartu di tengah parent
-        float totalWidth = (columns - 1) * spacingX; // Total lebar grid (sumbu X)
-        float totalHeight = (rows - 1) * spacingY;   // Total tinggi grid (sumbu Y)
-        float totalDepth = spacingZ;                 // Sumbu Z tetap diatur ke 0 kecuali ingin ada variasi kedalaman
-
-        // Offset untuk menempatkan grid tepat di tengah parent pada semua sumbu
-        Vector3 centerOffset = new Vector3(totalWidth / 2, totalHeight / 2, totalDepth / 2);
-
-        // Loop untuk membuat kartu sesuai dengan baris dan kolom dengan animasi
+        Vector3 centerOffset = CalculateCenterOffset(); // Calculate offset to center the grid
         int cardIndex = 0;
+
         for (int row = 0; row < rows; row++)
         {
             for (int column = 0; column < columns; column++)
             {
-                // Buat kartu baru dari prefab
-                GameObject newCard = Instantiate(cardPrefab, transform);
-
-                // Hitung posisi kartu relatif terhadap parent
-                Vector3 cardPosition = new Vector3(column * spacingX, row * spacingY, 0) - centerOffset;
-
-                // Set posisi kartu dan skala awal (Vector3.zero untuk animasi muncul)
-                newCard.transform.localPosition = cardPosition; // Menggunakan localPosition agar diatur relatif terhadap parent
-                newCard.transform.localScale = Vector3.zero; // Skala awal untuk animasi muncul
-
-                // Simpan kartu ke dalam array
-                cards[cardIndex] = newCard;
-
-                // Mulai animasi muncul untuk kartu ini
-                StartCoroutine(AnimateCardAppearance(newCard, targetScale));
-
-                // Jeda sebelum kartu berikutnya muncul
-                yield return new WaitForSeconds(cardDelay);
-                cardIndex++;
+                GameObject newCard = CreateCard(cardIndex++, row, column, centerOffset); // Create card
+                StartCoroutine(AnimateCardAppearance(newCard, targetScale)); // Animate card appearance
+                yield return new WaitForSeconds(cardDelay); // Wait before next card
             }
         }
+    }
+
+    private Vector3 CalculateCenterOffset()
+    {
+        float totalWidth = (columns - 1) * spacingX; // Total width of grid
+        float totalHeight = (rows - 1) * spacingY;   // Total height of grid
+        return new Vector3(totalWidth / 2, totalHeight / 2, spacingZ / 2); // Center offset
+    }
+
+    private GameObject CreateCard(int cardIndex, int row, int column, Vector3 centerOffset)
+    {
+        GameObject newCard = Instantiate(cardPrefab, transform); // Instantiate card prefab
+        Vector3 cardPosition = new Vector3(column * spacingX, row * spacingY, 0) - centerOffset; // Calculate position
+        newCard.transform.localPosition = cardPosition; // Set local position
+        newCard.transform.localScale = Vector3.zero; // Set initial scale
+
+        // Set initial position and scale for ActionCardAnimation component
+        ActionCardAnimation cardAnimation = newCard.GetComponent<ActionCardAnimation>();
+        if (cardAnimation != null)
+        {
+            cardAnimation.SetInitialPosition(cardPosition);
+            cardAnimation.SetInitialScale(targetScale);
+        }
+
+        cards[cardIndex] = newCard; // Store card in array
+        return newCard; // Return created card
     }
 
     private IEnumerator AnimateCardAppearance(GameObject card, Vector3 targetScale)
@@ -116,16 +93,13 @@ public class ActionCardDeck : MonoBehaviour
         while (elapsedTime < animationDuration)
         {
             elapsedTime += Time.deltaTime;
-            // Interpolasi skala dari 0 ke targetScale
-            card.transform.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / animationDuration);
-            yield return null; // Lanjut ke frame berikutnya
+            card.transform.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / animationDuration); // Scale animation
+            yield return null; // Wait for next frame
         }
 
-        // Pastikan skala akhir benar-benar sesuai target
-        card.transform.localScale = targetScale;
+        card.transform.localScale = targetScale; // Ensure final scale is correct
     }
 
-    // Fungsi untuk menghapus kartu lama
     private void ClearOldCards()
     {
         if (cards != null)
@@ -134,22 +108,20 @@ public class ActionCardDeck : MonoBehaviour
             {
                 if (card != null)
                 {
-                    Destroy(card); // Hapus game object kartu
+                    Destroy(card); // Destroy old card
                 }
             }
         }
     }
 
-    // Fungsi untuk memeriksa apakah ada perubahan pada layout
     private bool ValuesChanged()
     {
-        return rows != prevRows || columns != prevColumns || spacingX != prevSpacingX || spacingY != prevSpacingY;
+        return rows != prevRows || columns != prevColumns || spacingX != prevSpacingX || spacingY != prevSpacingY; // Check if layout changed
     }
 
-    // Fungsi untuk menyimpan nilai-nilai properti saat ini
     private void CacheCurrentValues()
     {
-        prevRows = rows;
+        prevRows = rows; // Cache current values
         prevColumns = columns;
         prevSpacingX = spacingX;
         prevSpacingY = spacingY;
