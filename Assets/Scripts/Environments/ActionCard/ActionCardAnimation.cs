@@ -9,12 +9,15 @@ public class ActionCardAnimation : MonoBehaviour
     public Vector3 targetScale = new Vector3(1.5f, 1.5f, 1.5f); // Skala target kartu
     public float animationDuration = 0.5f; // Durasi animasi
     public Vector3 manualRotation = new Vector3(0, 0, 0); // Rotasi manual yang dapat diatur
+    public Vector3 activecardposition = Vector3.zero;
+    public Vector3 activecardrotation = Vector3.zero;
 
     private Vector3 initialPosition;
     private Vector3 initialRotation;
     private Vector3 initialScale;
 
     private bool isAtTarget = false; // Menyimpan status apakah kartu sedang di posisi target
+    private ActionCardDeck cardDeck;
 
     void Start()
     {
@@ -23,7 +26,10 @@ public class ActionCardAnimation : MonoBehaviour
         {
             cameraTransform = Camera.main.transform;
         }
+         cardDeck = FindObjectOfType<ActionCardDeck>();
     }
+
+    
 
     public void SetInitialPosition(Vector3 position)
     {
@@ -54,31 +60,51 @@ public class ActionCardAnimation : MonoBehaviour
             AnimateToTarget();
         }
 
+        if (cardDeck != null)
+        {
+            cardDeck.OnCardClick(this); // Kirim referensi kartu yang diklik ke deck
+        }
+
         // Tukar status posisi kartu
         isAtTarget = !isAtTarget;
     }
 
-    void AnimateToTarget()
+    public void AnimateToTarget()
     {
         // Hitung posisi target agar selalu di depan kamera menggunakan transform kamera
-        Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * offsetFromCamera.z +
+        Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * offsetFromCamera.z  +
                                  cameraTransform.right * offsetFromCamera.x +
-                                 cameraTransform.up * offsetFromCamera.y;
+                                 cameraTransform.up * offsetFromCamera.y  ;
 
         // Gunakan rotasi manual yang telah diatur
         Quaternion targetRotation = Quaternion.Euler(manualRotation);
 
         // Animasi ke target menggunakan DoTween
         transform.DOMove(targetPosition, animationDuration).SetEase(Ease.InOutQuad);
-        // transform.DORotateQuaternion(targetRotation, animationDuration).SetEase(Ease.InOutQuad);
+        transform.DORotateQuaternion(targetRotation, animationDuration).SetEase(Ease.InOutQuad);
         transform.DOScale(targetScale, animationDuration).SetEase(Ease.InOutQuad);
     }
 
-    void AnimateToInitial()
+    public void AnimateToInitial()
     {
         // Animasi kembali ke posisi awal menggunakan DoTween
         transform.DOLocalMove(initialPosition, animationDuration).SetEase(Ease.InOutQuad);
         // transform.DOLocalRotate(initialRotation, animationDuration).SetEase(Ease.InOutQuad);
         transform.DOScale(initialScale, animationDuration).SetEase(Ease.InOutQuad);
+    }
+
+    public void ActiveCardAnimation()
+    {
+        // Hitung posisi target agar selalu di depan kamera menggunakan transform kamera
+        Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * activecardposition.z  +
+                                 cameraTransform.right * activecardposition.x +
+                                 cameraTransform.up * activecardposition.y  ;
+
+        // Gunakan rotasi manual yang telah diatur
+        Quaternion targetRotation = Quaternion.Euler(activecardrotation);
+
+        // Animasi ke target menggunakan DoTween
+        transform.DOMove(targetPosition, animationDuration).SetEase(Ease.InOutQuad);
+        transform.DORotateQuaternion(targetRotation, animationDuration).SetEase(Ease.InOutQuad);
     }
 }

@@ -22,9 +22,27 @@ public class ActionCardDeck : MonoBehaviour
     public float animationDuration = 0.5f; // Duration of card appearance animation
     public float cardDelay = 0.2f; // Delay between card appearances
     public Vector3 targetScale = new Vector3(1.5f, 1.5f, 1.5f); // Target scale of the card
+    private ActionCardAnimation activeCard = null;
 
     private List<Transform> allCards; // List to store all child cards
     private List<Transform> selectedCards; // List to store selected random cards
+
+    // Method ini dipanggil ketika sebuah kartu diklik
+    public void OnCardClick(ActionCardAnimation clickedCard)
+    {
+        // Jika ada kartu aktif dan itu bukan kartu yang baru diklik, kembalikan ke posisi semula
+        if (activeCard != null && activeCard != clickedCard)
+        {
+            activeCard.AnimateToInitial(); // Kembalikan kartu aktif ke posisi semula
+        }
+
+        // Jika kartu yang diklik berbeda dari kartu yang aktif, pindahkan kartu baru
+        if (activeCard != clickedCard)
+        {
+            clickedCard.AnimateToTarget(); // Pindahkan kartu yang baru diklik ke posisi target
+            activeCard = clickedCard; // Set kartu ini sebagai kartu aktif yang baru
+        }
+    }
 
     public void StartCardDeck()
     {
