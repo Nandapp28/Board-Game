@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ActionCardDeck : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class ActionCardDeck : MonoBehaviour
     public Vector3 manualRotation = Vector3.zero; // Manual rotation of the cards
 
     [Header("Card Settings")]
-    public GameObject cardPrefab; // Card prefab
+    public GameObject CardParent; // Parent object containing all cards as children
+    public Transform newParent; // New parent to hold selected cards to display
     public int rows = 2; // Number of rows
     public int columns = 5; // Number of columns
     public float spacingX = 1.0f; // Spacing between cards in the X axis
@@ -21,26 +23,58 @@ public class ActionCardDeck : MonoBehaviour
     public float cardDelay = 0.2f; // Delay between card appearances
     public Vector3 targetScale = new Vector3(1.5f, 1.5f, 1.5f); // Target scale of the card
 
-    private GameObject[] cards; // Array to store cards
-    private int prevRows, prevColumns; // Previous layout values
-    private float prevSpacingX, prevSpacingY; // Previous spacing values
+    private List<Transform> allCards; // List to store all child cards
+    private List<Transform> selectedCards; // List to store selected random cards
 
     public void StartCardDeck()
     {
-        cards = new GameObject[rows * columns]; // Initialize array for cards
-        PositionParentInFrontOfCamera(); // Position parent in front of camera
-        CacheCurrentValues(); // Cache current values
-        StartCoroutine(GenerateCardGridWithAnimation()); // Generate card grid with animation
+        // Initialize lists
+        allCards = new List<Transform>();
+        selectedCards = new List<Transform>();
+
+        // Get all children of CardParent and add them to the list
+        int childCount = CardParent.transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            Transform child = CardParent.transform.GetChild(i);
+            allCards.Add(child); // Add each child to the list
+        }
+
+        // Randomly select 10 unique cards
+        SelectRandomCards();
+
+        // Position the newParent in front of the camera
+        PositionNewParentInFrontOfCamera();
+
+        // Start displaying selected cards in grid with animation
+        StartCoroutine(GenerateCardGridWithAnimation());
     }
 
-    private void PositionParentInFrontOfCamera()
+    private void SelectRandomCards()
     {
-        Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * offsetFromCamera.z +
-                                 cameraTransform.right * offsetFromCamera.x +
-                                 cameraTransform.up * offsetFromCamera.y;
+        // Create a temporary list to store available cards
+        List<Transform> availableCards = new List<Transform>(allCards);
 
-        transform.position = targetPosition; // Set position
-        transform.rotation = Quaternion.Euler(manualRotation); // Set rotation
+        // Randomly select 10 unique cards
+        for (int i = 0; i < Mathf.Min(10, availableCards.Count); i++)
+        {
+            int randomIndex = Random.Range(0, availableCards.Count);
+            Transform selectedCard = availableCards[randomIndex];
+            selectedCards.Add(selectedCard);
+            availableCards.RemoveAt(randomIndex); // Remove selected card to avoid duplicates
+        }
+    }
+
+    private void PositionNewParentInFrontOfCamera()
+    {
+        // Calculate position in front of the camera, ensuring it is centered
+        Vector3 targetPosition = cameraTransform.position + cameraTransform.forward * offsetFromCamera.z;
+
+        // Ensure the grid is centered vertically relative to the camera
+        targetPosition += cameraTransform.up * (offsetFromCamera.y + (rows * spacingY) / 2);
+
+        newParent.position = targetPosition; // Set new parent position
+        newParent.rotation = Quaternion.Euler(manualRotation); // Set rotation for new parent
     }
 
     private IEnumerator GenerateCardGridWithAnimation()
@@ -52,8 +86,20 @@ public class ActionCardDeck : MonoBehaviour
         {
             for (int column = 0; column < columns; column++)
             {
-                GameObject newCard = CreateCard(cardIndex++, row, column, centerOffset); // Create card
-                StartCoroutine(AnimateCardAppearance(newCard, targetScale)); // Animate card appearance
+                if (cardIndex >= selectedCards.Count) yield break; // Exit if no more cards to display
+                Transform card = selectedCards[cardIndex++];
+                card.SetParent(newParent, false); // Re-parent the card to newParent
+                PositionCard(card, row, column, centerOffset); // Position the card in grid
+
+                // Mendapatkan komponen ActionCardAnimation dan mengatur posisi dan skala inisial
+                ActionCardAnimation cardAnimation = card.GetComponent<ActionCardAnimation>();
+                if (cardAnimation != null)
+                {
+                    cardAnimation.SetInitialPosition(card.localPosition);
+                    cardAnimation.SetInitialScale(targetScale);
+                }
+
+                StartCoroutine(AnimateCardAppearance(card)); // Animate card appearance
                 yield return new WaitForSeconds(cardDelay); // Wait before next card
             }
         }
@@ -66,64 +112,27 @@ public class ActionCardDeck : MonoBehaviour
         return new Vector3(totalWidth / 2, totalHeight / 2, spacingZ / 2); // Center offset
     }
 
-    private GameObject CreateCard(int cardIndex, int row, int column, Vector3 centerOffset)
+    private void PositionCard(Transform card, int row, int column, Vector3 centerOffset)
     {
-        GameObject newCard = Instantiate(cardPrefab, transform); // Instantiate card prefab
-        Vector3 cardPosition = new Vector3(column * spacingX, row * spacingY, 0) - centerOffset; // Calculate position
-        newCard.transform.localPosition = cardPosition; // Set local position
-        newCard.transform.localScale = Vector3.zero; // Set initial scale
-
-        // Set initial position and scale for ActionCardAnimation component
-        ActionCardAnimation cardAnimation = newCard.GetComponent<ActionCardAnimation>();
-        if (cardAnimation != null)
-        {
-            cardAnimation.SetInitialPosition(cardPosition);
-            cardAnimation.SetInitialScale(targetScale);
-        }
-
-        cards[cardIndex] = newCard; // Store card in array
-        return newCard; // Return created card
+        // Position the card in local space relative to the newParent
+        Vector3 cardPosition = new Vector3(column * spacingX, -row * spacingY, 0) - centerOffset;
+        card.localPosition = cardPosition; // Set local position relative to newParent
+        card.localScale = Vector3.zero; // Set initial scale
+        card.gameObject.SetActive(true); // Show card
     }
 
-    private IEnumerator AnimateCardAppearance(GameObject card, Vector3 targetScale)
+    private IEnumerator AnimateCardAppearance(Transform card)
     {
         float elapsedTime = 0f;
-        Vector3 initialScale = card.transform.localScale;
+        Vector3 initialScale = card.localScale;
 
         while (elapsedTime < animationDuration)
         {
             elapsedTime += Time.deltaTime;
-            card.transform.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / animationDuration); // Scale animation
+            card.localScale = Vector3.Lerp(initialScale, targetScale, elapsedTime / animationDuration); // Scale animation
             yield return null; // Wait for next frame
         }
 
-        card.transform.localScale = targetScale; // Ensure final scale is correct
-    }
-
-    private void ClearOldCards()
-    {
-        if (cards != null)
-        {
-            foreach (GameObject card in cards)
-            {
-                if (card != null)
-                {
-                    Destroy(card); // Destroy old card
-                }
-            }
-        }
-    }
-
-    private bool ValuesChanged()
-    {
-        return rows != prevRows || columns != prevColumns || spacingX != prevSpacingX || spacingY != prevSpacingY; // Check if layout changed
-    }
-
-    private void CacheCurrentValues()
-    {
-        prevRows = rows; // Cache current values
-        prevColumns = columns;
-        prevSpacingX = spacingX;
-        prevSpacingY = spacingY;
+        card.localScale = targetScale; // Ensure final scale is correct
     }
 }
