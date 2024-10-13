@@ -19,6 +19,11 @@ public class ActionSystem : MonoBehaviour
     // Example card pool (You can expand this list with actual card data)
     private List<string> cardPool = new() { "Flash Buy", "Trade Fee", "Stock Split", "Insider Trade" };
 
+    // develop metode saja
+    void Start()
+    {
+        StartActionPhase();
+    }
     void Update()
     {
         // Check for input only if the current player's turn is active and action phase is active

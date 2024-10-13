@@ -160,4 +160,16 @@ public class ActionCardDeck : MonoBehaviour
 
         card.localScale = targetScale; // Pastikan skala akhir sesuai
     }
+
+     public void ActivateCurrentCardAnimation()
+    {
+        if (activeCard != null && activeCard.IsAtTarget()) // Cek apakah kartu sudah di posisi target
+        {
+            activeCard.ActiveCardAnimation(); // Hanya aktifkan animasi untuk kartu yang berada di posisi target
+        }
+        else
+        {
+            Debug.Log("Tidak ada kartu yang siap untuk diaktifkan animasinya.");
+        }
+    }
 }
