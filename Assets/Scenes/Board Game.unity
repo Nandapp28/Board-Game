@@ -8110,6 +8110,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4276455212753992803}
+  - component: {fileID: 4276455212753992806}
+  - component: {fileID: 4276455212753992805}
+  - component: {fileID: 4276455212753992804}
   m_Layer: 0
   m_Name: Cards
   m_TagString: Untagged
@@ -8418,6 +8421,53 @@ Transform:
   - {fileID: 7605309104386269293}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4276455212753992804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802744800645277247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1194f5db14eac9e47a9a650826d628e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_Stock: 0
+  Type: 5
+  Descriptions: Stock price drops by 3 points due to negative financial reports.
+--- !u!114 &4276455212753992805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802744800645277247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f452367766b2ae5428e1df7f57ef2156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_Stock: 0
+  Type: 17
+  Descriptions: Increase stock price by 2 points.
+  Connected_Sectors: 0
+  PriceChanges: 2
+--- !u!114 &4276455212753992806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802744800645277247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Descriptions: Split the value of shares, granting additional shares.
+  Connected_Sectors: 3
 --- !u!1 &4321020680465269002
 GameObject:
   m_ObjectHideFlags: 0
