@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class ActionCardDeck : MonoBehaviour
 {
@@ -22,27 +23,10 @@ public class ActionCardDeck : MonoBehaviour
     public float animationDuration = 0.5f; // Durasi animasi kemunculan kartu
     public float cardDelay = 0.2f; // Jeda antara kemunculan kartu
     public Vector3 targetScale = new Vector3(1.5f, 1.5f, 1.5f); // Skala target dari kartu
-    private ActionCardAnimation activeCard = null;
 
     private List<Transform> allCards; // Daftar untuk menyimpan semua kartu anak
-    private List<Transform> selectedCards; // Daftar untuk menyimpan kartu-kartu acak yang dipilih
+    public List<Transform> selectedCards; // Daftar untuk menyimpan kartu-kartu acak yang dipilih
 
-    // Metode ini dipanggil ketika sebuah kartu diklik
-    public void OnCardClick(ActionCardAnimation clickedCard)
-    {
-        // Jika ada kartu aktif dan itu bukan kartu yang baru diklik, kembalikan ke posisi semula
-        if (activeCard != null && activeCard != clickedCard)
-        {
-            activeCard.AnimateToInitial(); // Kembalikan kartu aktif ke posisi semula
-        }
-
-        // Jika kartu yang diklik berbeda dari kartu yang aktif, pindahkan kartu baru
-        if (activeCard != clickedCard)
-        {
-            clickedCard.AnimateToTarget(); // Pindahkan kartu yang baru diklik ke posisi target
-            activeCard = clickedCard; // Set kartu ini sebagai kartu aktif yang baru
-        }
-    }
 
     // Memulai dek kartu
     public void StartCardDeck()
@@ -161,15 +145,30 @@ public class ActionCardDeck : MonoBehaviour
         card.localScale = targetScale; // Pastikan skala akhir sesuai
     }
 
-     public void ActivateCurrentCardAnimation()
+
+    public void AnimateAndDestroyCard(Transform card)
     {
-        if (activeCard != null && activeCard.IsAtTarget()) // Cek apakah kartu sudah di posisi target
+        // Pastikan kartu memiliki komponen ActionCardAnimation
+        ActionCardAnimation cardAnimation = card.GetComponent<ActionCardAnimation>();
+        
+        if (cardAnimation != null)
         {
-            activeCard.ActiveCardAnimation(); // Hanya aktifkan animasi untuk kartu yang berada di posisi target
+            // Panggil animasi menuju target
+            cardAnimation.AnimateToTarget();
+
+            // Buat sequence untuk animasi dengan jeda sebelum penghancuran
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(cardAnimation.transform.DOScale(cardAnimation.targetScale, cardAnimation.animationDuration))
+                    .AppendInterval(3f) // Tambahkan jeda 1 detik
+                    .OnComplete(() =>
+                    {
+                        Destroy(card.gameObject); // Hancurkan kartu setelah animasi dan jeda selesai
+                    });
         }
         else
         {
-            Debug.Log("Tidak ada kartu yang siap untuk diaktifkan animasinya.");
+            Debug.LogWarning("Kartu tidak memiliki komponen ActionCardAnimation.");
         }
     }
+
 }

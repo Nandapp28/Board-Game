@@ -29,7 +29,8 @@ public class ActionCardAnimation : MonoBehaviour
     private Vector3 initialScale;
 
     private bool isAtTarget = false; // Menyimpan status apakah kartu sedang di posisi target
-    private ActionCardDeck cardDeck;
+    private ActionSystem actionSystem;
+    private StockCard stockCard;
 
     void Start()
     {
@@ -38,7 +39,8 @@ public class ActionCardAnimation : MonoBehaviour
         {
             cameraTransform = Camera.main.transform;
         }
-        cardDeck = FindObjectOfType<ActionCardDeck>();
+        actionSystem = FindObjectOfType<ActionSystem>();
+        stockCard = GetComponent<StockCard>();
 
         // Awalnya sembunyikan tombol dengan skala 0 dan blokir raycast
         if (actionButton != null && actionButtonCanvasGroup != null)
@@ -48,6 +50,8 @@ public class ActionCardAnimation : MonoBehaviour
             actionButtonCanvasGroup.blocksRaycasts = false; // Blokir interaksi tombol saat tidak aktif
         }
     }
+
+    
 
     public void SetInitialPosition(Vector3 position)
     {
@@ -72,13 +76,25 @@ public class ActionCardAnimation : MonoBehaviour
             AnimateToTarget();
         }
 
-        if (cardDeck != null)
+        if (actionSystem != null)
         {
-            cardDeck.OnCardClick(this); // Kirim referensi kartu yang diklik ke deck
+            actionSystem.OnCardClick(this); // Kirim referensi kartu yang diklik ke deck
+            SendStockCardToActionSystem();
         }
 
         // Tukar status posisi kartu
         isAtTarget = !isAtTarget;
+    }
+    public void SendStockCardToActionSystem()
+    {
+        if (actionSystem != null && stockCard != null)
+        {
+            actionSystem.ReceiveStockCard(stockCard); // Kirim StockCard ke ActionSystem
+        }
+        else
+        {
+            Debug.LogWarning("ActionSystem or StockCard is not assigned.");
+        }
     }
 
     public void AnimateToTarget()

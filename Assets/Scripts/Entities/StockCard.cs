@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 
 public class StockCard : MonoBehaviour
 {
-    // Enum for the Stock Card types
     public enum StockType
     {
         FlashBuy,
@@ -13,7 +11,6 @@ public class StockCard : MonoBehaviour
         RumorCard
     }
 
-    // Enum for the connected sectors
     public enum Sector
     {
         Economy,
@@ -22,17 +19,13 @@ public class StockCard : MonoBehaviour
         Consumer
     }
 
-    public StockType Type;  // Will show up as a dropdown in Unity Inspector
+    public StockType Type;
+    [TextArea(2, 5)]
+    public string Descriptions;
+    public Sector Connected_Sectors;
 
-    [TextArea(2, 5)] // Makes the description appear as a multiline text area
-    public string Descriptions;  // This will be dynamically updated
-
-    public Sector Connected_Sectors;  // Sector related to the stock
-
-    // This method runs when values in the Inspector are changed
     void OnValidate()
     {
-        // Update the Descriptions field based on the selected StockType
         switch (Type)
         {
             case StockType.FlashBuy:
@@ -49,6 +42,29 @@ public class StockCard : MonoBehaviour
                 break;
             case StockType.RumorCard:
                 Descriptions = "Can affect stock prices positively or negatively when revealed.";
+                break;
+        }
+    }
+    public void ActivateEffect(Player player)
+    {
+        Debug.Log(player.nama + " activated the card: " + Type);
+        switch (Type)
+        {
+            case StockType.FlashBuy:
+                Debug.Log("Effect: Draw an additional card.");
+                // Logic for drawing an additional card here
+                break;
+            case StockType.TradeFee:
+                Debug.Log("Effect: Apply trade fee logic.");
+                // Logic for trade fee here
+                break;
+            case StockType.StockSplit:
+                Debug.Log("Effect: Apply stock split logic.");
+                // Logic for stock split here
+                break;
+            case StockType.InsiderTrade:
+                Debug.Log("Effect: Apply insider trading logic.");
+                // Logic for insider trade here
                 break;
         }
     }
