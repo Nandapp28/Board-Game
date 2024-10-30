@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
     public string nama;       // Nama pemain
     public int nilaiDadu1;    // Nilai dadu pertama
     public int nilaiDadu2;    // Nilai dadu kedua
-    public int totalNilai;    // Total nilai dari kedua dadu
+    public float totalNilai;    // Total nilai dari kedua dadu
     public int urutanMain;    // Urutan main
 
     public void RollDice(int dice1, int dice2)

@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class FaceDetector : MonoBehaviour
@@ -17,17 +19,20 @@ public class FaceDetector : MonoBehaviour
 
     public void OnTriggerStay(Collider other)
     {
-        // Cek apakah dadu pertama telah berhenti
+   
         if (other.CompareTag("Dice1"))
         {
             Rigidbody rb = diceRollScript1.GetComponent<Rigidbody>();
-            if (rb.IsSleeping() && !isDice1Stopped) // Gunakan IsSleeping untuk deteksi berhenti
+            if (rb.IsSleeping() && !isDice1Stopped)
             {
-                if (int.TryParse(other.name.Replace("Face", ""), out faceNumber1))
-                {
-                    isDice1Stopped = true;
-                    Debug.Log("Dice 1 stopped with face: " + faceNumber1);
-                }
+                // Tunggu sebentar sebelum mendeteksi apakah benar-benar berhenti
+                StartCoroutine(WaitForDiceToSettle(() => {
+                    if (int.TryParse(other.name.Replace("Face", ""), out faceNumber1))
+                    {
+                        isDice1Stopped = true;
+                        Debug.Log("Dice 1 stopped with face: " + faceNumber1);
+                    }
+                }));
             }
         }
 
@@ -35,15 +40,25 @@ public class FaceDetector : MonoBehaviour
         if (other.CompareTag("Dice2"))
         {
             Rigidbody rb = diceRollScript2.GetComponent<Rigidbody>();
-            if (rb.IsSleeping() && !isDice2Stopped) // Gunakan IsSleeping untuk deteksi berhenti
+            if (rb.IsSleeping() && !isDice2Stopped)
             {
-                if (int.TryParse(other.name.Replace("Face", ""), out faceNumber2))
-                {
-                    isDice2Stopped = true;
-                    Debug.Log("Dice 2 stopped with face: " + faceNumber2);
-                }
+                // Tunggu sebentar sebelum mendeteksi apakah benar-benar berhenti
+                StartCoroutine(WaitForDiceToSettle(() => {
+                    if (int.TryParse(other.name.Replace("Face", ""), out faceNumber2))
+                    {
+                        isDice2Stopped = true;
+                        Debug.Log("Dice 2 stopped with face: " + faceNumber2);
+                    }
+                }));
             }
         }
+    }
+
+    
+    private IEnumerator WaitForDiceToSettle(Action callback)
+    {
+        yield return new WaitForSeconds(1f); 
+        callback();
     }
 
     // Fungsi untuk mengembalikan apakah kedua dadu sudah berhenti dan mendapatkan hasilnya

@@ -1,9 +1,9 @@
-using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public BiddingSystem biddingSystem;
+    public ActionSystem actionSystem;
 
     void Start()
     {
@@ -14,5 +14,11 @@ public class GameManager : MonoBehaviour
     void StartBiddingSystem()
     {
         biddingSystem.StartBidding();
+        biddingSystem.OnBiddingCompleted += StartActionSystem;
+    }
+
+    void StartActionSystem()
+    {
+        actionSystem.StartActionPhase();
     }
 }
