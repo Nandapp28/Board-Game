@@ -47,7 +47,7 @@ public class StockCard : MonoBehaviour
     }
     public void ActivateEffect(Player player)
     {
-        Debug.Log(player.nama + " activated the card: " + Type);
+        Debug.Log(player.Name + " activated the card: " + Type);
         switch (Type)
         {
             case StockType.FlashBuy:

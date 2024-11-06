@@ -21,47 +21,53 @@ public class ActionSystem : MonoBehaviour
 
     private List<StockCard> cardPool;
 
- void Update()
-{
-    if (currentPlayer != null && actionPhaseActive)
+    private CameraAnimation cameraAnimation;
+
+    void Update()
     {
-        // Jika kartu diaktifkan, langsung pindah ke pemain berikutnya tanpa menunggu timer
-        if (cardActivated)
+        if (currentPlayer != null && actionPhaseActive)
         {
-            Debug.Log("Card effect activated, moving to next player immediately.");
-            waitingForPlayerChoice = false;
-            cardActivated = false; // Reset setelah efek kartu diterapkan
-            MoveToNextPlayer();
-        }
-
-        // Timer berkurang jika tidak ada kartu yang diaktifkan
-        turnTimer -= Time.deltaTime;
-        if (turnTimer <= 0)
-        {
-            Debug.Log(currentPlayer.nama + " time is up! Drawing a random card.");
-            DrawRandomCard(currentPlayer);
-        }
-
-        if (Input.GetKeyDown(KeyCode.A) && !waitingForPlayerChoice)
-        {
-            DrawCard(currentPlayer);
-        }
-
-        if (waitingForPlayerChoice)
-        {
-            if (Input.GetKeyDown(KeyCode.N))
+            // Jika kartu diaktifkan, langsung pindah ke pemain berikutnya tanpa menunggu timer
+            if (cardActivated)
             {
-                Debug.Log(currentPlayer.nama + " chose to store the card: " + currentDrawnCard.Type);
+                Debug.Log("Card effect activated, moving to next player immediately.");
                 waitingForPlayerChoice = false;
+                cardActivated = false; // Reset setelah efek kartu diterapkan
                 MoveToNextPlayer();
+            }
+
+            // Timer berkurang jika tidak ada kartu yang diaktifkan
+            turnTimer -= Time.deltaTime;
+            if (turnTimer <= 0)
+            {
+                Debug.Log(currentPlayer.Name + " time is up! Drawing a random card.");
+                DrawRandomCard(currentPlayer);
+            }
+
+            if (Input.GetKeyDown(KeyCode.A) && !waitingForPlayerChoice)
+            {
+                DrawCard(currentPlayer);
+            }
+
+            if (waitingForPlayerChoice)
+            {
+                if (Input.GetKeyDown(KeyCode.N))
+                {
+                    Debug.Log(currentPlayer.Name + " chose to store the card: " + currentDrawnCard.Type);
+                    waitingForPlayerChoice = false;
+                    MoveToNextPlayer();
+                }
             }
         }
     }
-}
 
     public void StartActionPhase()
     {
         Debug.Log("Action phase started");
+
+        cameraAnimation = FindObjectOfType<CameraAnimation>();
+
+        // cameraAnimation.ActionCamera();
         CollectPlayers();
 
         if (PlayerList.Count > 0)
@@ -97,7 +103,7 @@ public class ActionSystem : MonoBehaviour
 
     public void SortPlayersByTurnOrder()
     {
-        PlayerList.Sort((player1, player2) => player1.urutanMain.CompareTo(player2.urutanMain));
+        PlayerList.Sort((player1, player2) => player1.playOrder.CompareTo(player2.playOrder));
     }
 
     private void StartTurn()
@@ -105,7 +111,7 @@ public class ActionSystem : MonoBehaviour
         if (currentPlayerIndex < PlayerList.Count)
         {
             currentPlayer = PlayerList[currentPlayerIndex];
-            Debug.Log("It's " + currentPlayer.nama + "'s turn.");
+            Debug.Log("It's " + currentPlayer.Name + "'s turn.");
             turnTimer = timeLimitPerTurn;
             isDrawingCard = false;
             waitingForPlayerChoice = false; // Tambahkan ini agar dipastikan tidak tertahan dari turn sebelumnya
@@ -124,8 +130,8 @@ public class ActionSystem : MonoBehaviour
         int cardIndex = Random.Range(0, cardPool.Count);
         currentDrawnCard = cardPool[cardIndex];
 
-        Debug.Log(player.nama + " drew a card: " + currentDrawnCard.Type);
-        Debug.Log(player.nama + ", do you want to activate or store the card: " + currentDrawnCard.Type + "? (Press 'Y' to activate, 'N' to store)");
+        Debug.Log(player.Name + " drew a card: " + currentDrawnCard.Type);
+        Debug.Log(player.Name + ", do you want to activate or store the card: " + currentDrawnCard.Type + "? (Press 'Y' to activate, 'N' to store)");
         waitingForPlayerChoice = true;
         isDrawingCard = false;
     }
@@ -145,7 +151,7 @@ public class ActionSystem : MonoBehaviour
         carddeck.selectedCards.RemoveAt(cardIndex);
         carddeck.AnimateAndDestroyCard(selectedCard);
 
-        Debug.Log(player.nama + " drew a random card.");
+        Debug.Log(player.Name + " drew a random card.");
 
         MoveToNextPlayer();
     }
@@ -191,7 +197,7 @@ public void ActivateCurrentCardAnimation()
         // Aktifkan efek kartu setelah animasi selesai
         if (currentDrawnCard != null)
         {
-            Debug.Log(currentPlayer.nama + " activated the card: " + currentDrawnCard.Type);
+            Debug.Log(currentPlayer.Name + " activated the card: " + currentDrawnCard.Type);
             currentDrawnCard.ActivateEffect(currentPlayer); // Memanggil efek dari StockCard
             cardActivated = true; // Menandai bahwa kartu telah diaktifkan
         }else{

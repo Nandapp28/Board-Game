@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq; // Untuk menggunakan LINQ
 using UnityEngine;
@@ -14,6 +15,8 @@ public class BiddingSystem : MonoBehaviour
     private bool isRollingDice = false;
     private bool isWaitingForDiceResult = false;
     public event Action OnBiddingCompleted;
+
+    private CameraAnimation cameraAnimation;
 
     void Update()
     {
@@ -34,6 +37,10 @@ public class BiddingSystem : MonoBehaviour
     public void StartBidding()
     {
         Debug.Log("Bidding Phase Dimulai");
+
+        cameraAnimation = FindObjectOfType<CameraAnimation>();
+
+        cameraAnimation.BiddingCamera();
         CollectingPlayer();
 
         if (PlayerList != null && PlayerList.Count > 0)
@@ -97,7 +104,7 @@ public class BiddingSystem : MonoBehaviour
         if (CurrentPlayerIndex < PlayerList.Count)
         {
             Player currentPlayer = PlayerList[CurrentPlayerIndex];
-            Debug.Log("Sekarang giliran " + currentPlayer.nama + " untuk melempar dadu.");
+            Debug.Log("Sekarang giliran " + currentPlayer.Name + " untuk melempar dadu.");
 
             isRollingDice = true;
             isWaitingForDiceResult = false;
@@ -117,7 +124,7 @@ public class BiddingSystem : MonoBehaviour
         if (!isWaitingForDiceResult)
         {
             Player currentPlayer = PlayerList[CurrentPlayerIndex];
-            Debug.Log(currentPlayer.nama + " sedang melempar dadu...");
+            Debug.Log(currentPlayer.Name + " sedang melempar dadu...");
 
             dice1.RollDice();
             dice2.RollDice();
@@ -138,8 +145,8 @@ public class BiddingSystem : MonoBehaviour
             var (diceResult1, diceResult2) = faceDetector.GetDiceResults();
             currentPlayer.RollDice(diceResult1, diceResult2); // Simpan hasil ke player
 
-            Debug.Log(currentPlayer.nama + " mendapat nilai dadu: " + diceResult1 + " dan " + diceResult2);
-            Debug.Log("Total nilai: " + currentPlayer.totalNilai);
+            Debug.Log(currentPlayer.Name + " mendapat nilai dadu: " + diceResult1 + " dan " + diceResult2);
+            Debug.Log("Total nilai: " + currentPlayer.TotalScore);
 
             faceDetector.ResetDiceDetection(); // Reset deteksi dadu sebelum giliran berikutnya
             CurrentPlayerIndex++;
@@ -153,7 +160,7 @@ public class BiddingSystem : MonoBehaviour
     // Cek apakah ada nilai dadu yang sama di antara para pemain dan beri prioritas berdasarkan urutan pemain asli
     void HandleDuplicateDiceResults()
     {
-        var groupedResults = PlayerList.GroupBy(p => p.totalNilai).Where(g => g.Count() > 1).ToList();
+        var groupedResults = PlayerList.GroupBy(p => p.TotalScore).Where(g => g.Count() > 1).ToList();
 
         if (groupedResults.Count > 0)
         {
@@ -169,9 +176,9 @@ public class BiddingSystem : MonoBehaviour
                 float increment = 0.01f; // Nilai tambahan kecil untuk pemain berdasarkan prioritas
                 for (int i = 0; i < playersWithSameResult.Count; i++)
                 {
-                    playersWithSameResult[i].totalNilai += increment;
+                    playersWithSameResult[i].TotalScore += increment;
                     increment += 0.01f; // Tambahkan nilai kecil untuk membedakan urutan
-                    Debug.Log($"{playersWithSameResult[i].nama} diberi prioritas dengan nilai baru: {playersWithSameResult[i].totalNilai}");
+                    Debug.Log($"{playersWithSameResult[i].Name} diberi prioritas dengan nilai baru: {playersWithSameResult[i].TotalScore}");
                 }
             }
         }
@@ -183,15 +190,26 @@ public class BiddingSystem : MonoBehaviour
     // Fungsi untuk mengurutkan pemain berdasarkan nilai dadu
     void SortPlayersByDiceResult()
     {
+        StartCoroutine(SortPlayersByDiceResultCoroutine());
+    }
+    private IEnumerator SortPlayersByDiceResultCoroutine()
+    {
         // Urutkan pemain berdasarkan total nilai dari yang tertinggi ke terendah 
-        PlayerList = PlayerList.OrderByDescending(p => p.totalNilai).ToList();
+        PlayerList = PlayerList.OrderByDescending(p => p.TotalScore).ToList();
 
         // Tetapkan urutan main berdasarkan urutan yang baru
         for (int i = 0; i < PlayerList.Count; i++)
         {
-            PlayerList[i].SetUrutan(i + 1); // Urutan dimulai dari 1
-            Debug.Log(PlayerList[i].nama + " berada di urutan ke-" + (i + 1) + " dengan total nilai: " + PlayerList[i].totalNilai);
+            PlayerList[i].SetPlayOrder(i + 1); // Urutan dimulai dari 1
+            Debug.Log(PlayerList[i].Name + " berada di urutan ke-" + (i + 1) + " dengan total nilai: " + PlayerList[i].TotalScore);
         }
+
+        cameraAnimation.ResetCamera();
+
+        yield return new WaitForSeconds(3);
+        
         OnBiddingCompleted?.Invoke();
     }
+
+
 }

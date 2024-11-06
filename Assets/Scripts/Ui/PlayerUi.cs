@@ -10,12 +10,12 @@ public class PlayerUi : MonoBehaviour
 
     void Update()
     {
-        nama.text = player.nama;
+        nama.text = player.Name;
         
         // Casting totalNilai to int first before converting to string
-        int totalScoreInt = (int)player.totalNilai;
+        int totalScoreInt = (int)player.TotalScore;
         Dice.text = totalScoreInt.ToString();
         
-        urutan.text = player.urutanMain.ToString();
+        urutan.text = player.playOrder.ToString();
     }
 }
