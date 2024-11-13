@@ -2,52 +2,74 @@ using DG.Tweening;
 using UnityEngine;
 using System.Collections;
 
-public class Splashscreen : MonoBehaviour
+public class SplashScreen : MonoBehaviour
 {
-    public RectTransform Logo;
-    public GameObject loading;
+    [Header("UI Elements")]
+    [SerializeField] private RectTransform logo;
+    [SerializeField] private GameObject loading;
+
+    [Header("Animation Settings")]
+    [SerializeField] private float animationDelay = 1f;
+    [SerializeField] private float logoMoveDuration = 0.7f;
+    [SerializeField] private float loadingScaleDuration = 0.5f;
+    [SerializeField] private float targetLogoYPosition = 40f;
+
     private RectTransform loadingRectTransform;
-    public float duration;
-
-    private LoadingBar loadingbar;
-
+    private LoadingBar loadingBar;
 
     private void Start()
     {
+        InitializeComponents();
+        StartCoroutine(AnimateSplashScreen());
+    }
+
+    private void InitializeComponents()
+    {
+        if (loading == null || logo == null)
+        {
+            Debug.LogWarning("UI elements not assigned.", this);
+            return;
+        }
+
         loading.SetActive(false);
         loadingRectTransform = loading.GetComponent<RectTransform>();
-        loadingbar = GetComponent<LoadingBar>();
-        // Start the countdown coroutine
-        StartCoroutine(CountdownAndAnimate());
+        loadingBar = GetComponent<LoadingBar>();
+
+        if (loadingRectTransform == null)
+            Debug.LogWarning("Loading GameObject is missing RectTransform component.", loading);
+
+        if (loadingBar == null)
+            Debug.LogWarning("Missing LoadingBar component on SplashScreen GameObject.", this);
     }
 
-    private IEnumerator CountdownAndAnimate()
+    private IEnumerator AnimateSplashScreen()
     {
-
-        // Reset Logo's initial position if needed
-        Logo.localPosition = new Vector2(0, 0);
-        // Wait for the specified duration before starting the animation
-        yield return new WaitForSeconds(duration);
-
-        // Call the animation method
-        DoMoveLogo();
+        ResetLogoPosition();
+        yield return new WaitForSeconds(animationDelay);
+        AnimateLogoMovement();
     }
 
-    private void DoMoveLogo()
+    private void ResetLogoPosition()
     {
-        // Animate the Logo moving to the Y position 40 over 0.7 seconds with linear easing
-        Logo.DOAnchorPosY(40, 0.7f).SetEase(Ease.Linear);
-        Loading();
+        if (logo != null)
+            logo.localPosition = Vector2.zero;
     }
 
-    private void Loading()
+    private void AnimateLogoMovement()
     {
- 
-        loadingRectTransform.localScale = new Vector2(0,0);
+        if (logo == null) return;
+
+        logo.DOAnchorPosY(targetLogoYPosition, logoMoveDuration).SetEase(Ease.Linear)
+            .OnComplete(AnimateLoadingBar);
+    }
+
+    private void AnimateLoadingBar()
+    {
+        if (loadingRectTransform == null || loadingBar == null) return;
+
         loading.SetActive(true);
-
-        loadingRectTransform.DOScale(1,1).SetEase(Ease.Linear);
-
-        loadingbar.StartLoading();
+        loadingRectTransform.localScale = Vector2.zero;
+        loadingRectTransform.DOScale(Vector2.one, loadingScaleDuration).SetEase(Ease.Linear)
+            .OnComplete(loadingBar.StartLoading);
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LoadingBar : MonoBehaviour
 {
@@ -25,6 +26,11 @@ public class LoadingBar : MonoBehaviour
         loadingBar.localScale = new Vector3(0, 1, 1);
 
         // Animate scale X from 0 to 1 over 'animationDuration' seconds with linear easing
-        loadingBar.DOScaleX(1, animationDuration).SetEase(Ease.Linear);
+        loadingBar.DOScaleX(1, animationDuration).SetEase(Ease.Linear).OnComplete(() => LoadNextScene());
+    }
+
+    private void LoadNextScene()
+    {
+        SceneManager.LoadScene(2);
     }
 }
