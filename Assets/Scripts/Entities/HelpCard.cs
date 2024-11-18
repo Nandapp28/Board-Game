@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AssistanceCard : MonoBehaviour
+public class HelpCard : MonoBehaviour
 {
     // Enum for the Assistance Card types
     public enum AssistanceType

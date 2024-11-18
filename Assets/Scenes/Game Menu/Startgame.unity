@@ -520,7 +520,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1991230037}
         m_TargetAssemblyTypeName: ButtonAnimator, Assembly-CSharp
-        m_MethodName: Clicked
+        m_MethodName: OnButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -586,7 +586,7 @@ MonoBehaviour:
   animationDuration: 1
   overshootScale: 1.2
   animationEase: 30
-  targetSceneName: NextScene
+  targetSceneIndex: 3
 --- !u!1 &1585934082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +1006,7 @@ MonoBehaviour:
   animationDuration: 1
   overshootScale: 1.13
   animationEase: 30
-  targetSceneName: NextScene
+  targetSceneIndex: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
