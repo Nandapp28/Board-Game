@@ -8,8 +8,6 @@ public class DisplayScore : MonoBehaviour
 
     void Update()
     {
-    
-
         // Cek jika kedua dadu telah memiliki nilai face (tidak 0)
         if (ground.faceNumber1 != 0 && ground.faceNumber2 != 0)
         {

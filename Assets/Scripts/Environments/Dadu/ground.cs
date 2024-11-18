@@ -53,7 +53,6 @@ public class FaceDetector : MonoBehaviour
             }
         }
     }
-
     
     private IEnumerator WaitForDiceToSettle(Action callback)
     {
