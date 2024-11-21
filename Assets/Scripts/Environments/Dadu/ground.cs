@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class FaceDetector : MonoBehaviour
 {
-    public DiceRoll diceRollScript1;
-    public DiceRoll diceRollScript2;
-    public int faceNumber1;
-    public int faceNumber2;
+    [Header("UI Setinggs")]
+    [SerializeField] private DiceRoll diceRollScript1;
+    [SerializeField] private DiceRoll diceRollScript2;
+
+    [Header("Dice Value")]
+    [SerializeField] public int faceNumber1;
+    [SerializeField] public int faceNumber2;
+
+
     private bool isDice1Stopped = false;
     private bool isDice2Stopped = false;
 

@@ -3,7 +3,10 @@ using TMPro;
 
 public class DisplayScore : MonoBehaviour
 {
+    [Header("UI Settings")]
     public TextMeshProUGUI scoreText; // UI text untuk menampilkan score
+
+    [Header("Depedencies")]
     public FaceDetector ground;  // Referensi untuk DiceRoll dadu kedua
 
     void Update()

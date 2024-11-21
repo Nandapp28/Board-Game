@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class ActionSystem : MonoBehaviour
 {
-    public float timeLimitPerTurn = 30f;
+    [Header("UI Settings")]
     public GameObject Players;
-    public List<Player> PlayerList = new List<Player>();
     public ActionCardDeck carddeck;
+
+    [Header("Action Settings")]
+    public float timeLimitPerTurn = 30f;
+    public List<Player> PlayerList = new List<Player>();
     private int currentPlayerIndex = 0;
-    private Player currentPlayer;
     private float turnTimer;
     private bool actionPhaseActive = true;
+    private Player currentPlayer;
     private bool isDrawingCard = false;
     private StockCard currentDrawnCard;
     private bool waitingForPlayerChoice = false;

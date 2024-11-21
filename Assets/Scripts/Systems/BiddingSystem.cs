@@ -2,21 +2,43 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq; // Untuk menggunakan LINQ
+using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class BiddingSystem : MonoBehaviour
 {
+    [Header("UI Setinggs")]
     public GameObject Players;
-    public List<Player> PlayerList = new List<Player>();
     public DiceRoll dice1, dice2;
     public FaceDetector faceDetector;
-    private int CurrentPlayerIndex = 0;
-    private bool isRollingDice = false;
-    private bool isWaitingForDiceResult = false;
+    public Transform Camera;
+
+    [Header("Bidding Setinggs")]
+    public List<Player> PlayerList = new List<Player>();
     public event Action OnBiddingCompleted;
 
-    private CameraAnimation cameraAnimation;
+    [Header("Dice")]
+    [SerializeField] public Vector3 Dice1OffsetOnCamera = new Vector3(0, 0, 2);
+    [SerializeField] public Vector3 Dice2OffsetOnCamera = new Vector3(0, 0, 2);
+    [SerializeField] public Vector3 manualRotationDice1;
+    [SerializeField] public Vector3 manualRotationDice2;
+    [SerializeField] public float Duration;
+    [SerializeField] private Ease Ease;
+    
+
+    public int CurrentPlayerIndex = 0;
+    public bool isRollingDice = false;
+    public bool isWaitingForDiceResult = false;
+
+    public CameraAnimation cameraAnimation;
+
+
+    public void DiceOnCamera()
+    {
+        dice1.DiceToCamera(Camera,Dice1OffsetOnCamera,manualRotationDice1,Duration,Ease);
+        dice2.DiceToCamera(Camera,Dice2OffsetOnCamera,manualRotationDice2,Duration,Ease);
+    }
 
     void Update()
     {
@@ -151,8 +173,11 @@ public class BiddingSystem : MonoBehaviour
             faceDetector.ResetDiceDetection(); // Reset deteksi dadu sebelum giliran berikutnya
             CurrentPlayerIndex++;
             isWaitingForDiceResult = false; // Reset untuk giliran berikutnya
+            
+            DiceOnCamera();
 
             StartDiceRollForNextPlayer();
+
         }
     }
 
