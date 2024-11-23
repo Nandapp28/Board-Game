@@ -28,9 +28,7 @@ public class ButtonAnimator : MonoBehaviour
         TriggerScaleAnimation();
     }
 
-    /// <summary>
     /// Initializes the Play Button's RectTransform and sets its initial scale.
-    /// </summary>
     private void InitializePlayButton()
     {
         if (playButton == null)
@@ -49,9 +47,7 @@ public class ButtonAnimator : MonoBehaviour
         playButtonRect.localScale = startScale;
     }
 
-    /// <summary>
     /// Triggers the scale bounce animation for the Play Button.
-    /// </summary>
     public void TriggerScaleAnimation()
     {
         if (playButtonRect == null) return;
@@ -64,9 +60,7 @@ public class ButtonAnimator : MonoBehaviour
             .Play();
     }
 
-    /// <summary>
     /// Handles button click event, playing an animation before loading the target scene.
-    /// </summary>
     public void OnButtonClicked()
     {
         if (playButtonRect == null) return;
@@ -80,9 +74,7 @@ public class ButtonAnimator : MonoBehaviour
             .Play();
     }
 
-    /// <summary>
     /// Loads the target scene specified in the settings.
-    /// </summary>
     private void LoadTargetScene()
     {
         SceneManager.LoadScene(targetSceneIndex);

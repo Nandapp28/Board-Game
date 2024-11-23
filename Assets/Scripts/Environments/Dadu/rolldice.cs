@@ -58,7 +58,4 @@ public class DiceRoll : MonoBehaviour
         transform.DOMove(targetPosition, duration).SetEase(Ease.InOutQuad);
         transform.DORotateQuaternion(targetRotation, duration).SetEase(Ease.InOutQuad);
     }
-
-
-
 }
