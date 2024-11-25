@@ -1,0 +1,5 @@
+sceneSetups:
+- path: Assets/Project 4-6.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
