@@ -70,7 +70,7 @@ public class RollDice : MonoBehaviour
         ApplyRandomForceAndTorque(diceRigidbody2);
 
         // Perbarui UI untuk menunjukkan proses rolling
-        resultText.text = "Menggulung...";
+        resultText.text = "...";
     }
 
     /// Mengatur ulang kecepatan dan rotasi Rigidbody.
@@ -145,45 +145,36 @@ public class RollDice : MonoBehaviour
     /// Menggerakkan dadu ke depan kamera dengan sisi atas menghadap kamera.
 /// Menggerakkan dadu ke depan kamera dengan sisi atas menghadap kamera.
 public void MoveDiceToCamera(GameObject dice, Vector3 offsetFromCamera, Vector3 rotationOffset, Quaternion currentRotation)
+{
+    // Hitung posisi target di depan kamera
+    Vector3 targetPosition = Camera.main.transform.position + 
+                             Camera.main.transform.forward * offsetFromCamera.z +
+                             Camera.main.transform.right * offsetFromCamera.x +
+                             Camera.main.transform.up * offsetFromCamera.y;
+
+    // Tentukan rotasi target berdasarkan nilai dadu
+    int diceValue = GetSingleDiceValue(dice);
+    Quaternion targetRotation;
+
+    if (diceValue >= 2 && diceValue <= 5)
     {
-        // Hitung posisi target
-        Vector3 cameraPosition = Camera.main.transform.position;
-        Vector3 cameraForward = Camera.main.transform.forward;
-        Vector3 targetPosition = cameraPosition + cameraForward * offsetFromCamera.z +
-                                Camera.main.transform.right * offsetFromCamera.x +
-                                Camera.main.transform.up * offsetFromCamera.y;
-
-        // Konversi rotasi offset ke Quaternion
-        int dicevalue = GetSingleDiceValue(dice);
-
-        Quaternion targetRotation;
-
-        if(dicevalue == 2 || dicevalue == 3 || dicevalue == 4 || dicevalue == 5 )
-        {
-            targetRotation = Quaternion.Euler(
-                0,
-                0,
-                currentRotation.eulerAngles.z + rotationOffset.z
-            );
-        }else{
-            targetRotation = Quaternion.Euler(
-                currentRotation.eulerAngles.x - rotationOffset.x,
-                90,
-                90
-            );
-        }
-
-
-        // Hitung durasi animasi berdasarkan jarak dan kecepatan
-        float distance = Vector3.Distance(dice.transform.position, targetPosition);
-        float calculatedDuration = distance / moveSpeed;
-
-        // Animasi menggunakan DOTween
-        dice.transform.DOMove(targetPosition, calculatedDuration).SetEase(Ease.Linear);
-        dice.transform.DORotateQuaternion(targetRotation, calculatedDuration).SetEase(Ease.Linear);
+        targetRotation = Quaternion.Euler(0, 0, currentRotation.eulerAngles.z + rotationOffset.z);
+    }
+    else // untuk 1 dan 6
+    {
+        targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x - rotationOffset.x, 90, 90);
     }
 
-    public bool CheckIfDiceReachedCamera(GameObject dice, Vector3 offset)
+    // Hitung durasi animasi
+    float distance = Vector3.Distance(dice.transform.position, targetPosition);
+    float duration = distance / moveSpeed;
+
+    // Animasi menggunakan DOTween
+    dice.transform.DOMove(targetPosition, duration).SetEase(Ease.Linear);
+    dice.transform.DORotateQuaternion(targetRotation, duration).SetEase(Ease.Linear);
+}
+
+    public bool CheckIfDiceReachedCamera(GameObject Dice, Vector3 offset)
     {
         // Hitung posisi target
         Vector3 cameraPosition = Camera.main.transform.position;
@@ -192,13 +183,13 @@ public void MoveDiceToCamera(GameObject dice, Vector3 offsetFromCamera, Vector3 
                                 Camera.main.transform.right * offset.x +
                                 Camera.main.transform.up * offset.y;
 
-        return Vector3.Distance(dice.transform.position, targetPosition) < 0.1f;
+        return Vector3.Distance(Dice.transform.position, targetPosition) < 0.1f;
     }
 
-    public void ResetDicePosition(GameObject dice, Vector3 position, Vector3 rotation, float duration)
+    public void ResetDicePosition(GameObject Dice, Vector3 position, Vector3 rotation, float duration)
     {
-        dice.transform.DOMove(position, duration).SetEase(Ease.InOutQuad);
-        dice.transform.DORotate(rotation, duration).SetEase(Ease.InOutQuad);
+        Dice.transform.DOMove(position, duration).SetEase(Ease.InOutQuad);
+        Dice.transform.DORotate(rotation, duration).SetEase(Ease.InOutQuad);
         // Reset flag saat melakukan reset posisi atau status lainnya
         hasRotationsCaptured = false;
     }
