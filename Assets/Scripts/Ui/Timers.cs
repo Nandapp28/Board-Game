@@ -43,9 +43,7 @@ public class CircularCountdownTimer : MonoBehaviour
         }
     }
 
-    /// <summary>
     /// Memperbarui UI timer
-    /// </summary>
     private void UpdateUI()
     {
         // Format angka timer sebagai menit:detik (00:00)
@@ -58,9 +56,7 @@ public class CircularCountdownTimer : MonoBehaviour
             circleFill.fillAmount = Mathf.Clamp01(currentTime / countdownTime);
     }
 
-    /// <summary>
     /// Fungsi untuk memulai timer
-    /// </summary>
     public void StartTimer()
     {
         if (!isTimerRunning)
@@ -69,26 +65,20 @@ public class CircularCountdownTimer : MonoBehaviour
         }
     }
 
-    /// <summary>
     /// Fungsi untuk menghentikan timer
-    /// </summary>
     public void StopTimer()
     {
         isTimerRunning = false;
     }
 
-    /// <summary>
     /// Fungsi untuk mengatur ulang timer ke waktu awal
-    /// </summary>
     public void ResetTimer()
     {
         currentTime = countdownTime;
         UpdateUI(); // Pastikan UI diperbarui
     }
 
-    /// <summary>
     /// Fungsi yang dipanggil ketika waktu habis
-    /// </summary>
     private void TimerEnd()
     {
         currentTime = 0;

@@ -2,28 +2,31 @@ using UnityEngine;
 
 public class StockCard : MonoBehaviour
 {
+    // Enum untuk jenis kartu saham
     public enum StockType
     {
-        FlashBuy,
-        TradeFee,
-        StockSplit,
-        InsiderTrade,
-        RumorCard
+        FlashBuy,      // Mengambil kartu aksi tambahan
+        TradeFee,      // Biaya saat menjual saham
+        StockSplit,    // Pembagian nilai saham
+        InsiderTrade,  // Informasi dari rumor dalam sektor tertentu
+        TenderOffer    // Mempengaruhi harga saham saat diungkapkan
     }
 
+    // Enum untuk sektor yang terhubung dengan kartu saham
     public enum Sector
     {
-        Economy,
-        Industry,
-        Mining,
-        Consumer
+        Infrastukur,   // Infrastruktur
+        Keuangan,      // Keuangan
+        Mining,        // Pertambangan
+        Consumer       // Konsumen
     }
 
-    public StockType Type;
+    public StockType Type; // Tipe kartu saham
     [TextArea(2, 5)]
-    public string Descriptions;
-    public Sector Connected_Sectors;
+    public string Descriptions; // Deskripsi efek kartu
+    public Sector Connected_Sectors; // Sektor yang terhubung dengan kartu
 
+    // Memperbarui deskripsi berdasarkan tipe kartu saat validasi
     void OnValidate()
     {
         switch (Type)
@@ -40,11 +43,13 @@ public class StockCard : MonoBehaviour
             case StockType.InsiderTrade:
                 Descriptions = "Reveal a rumor card in a specific sector for insider information.";
                 break;
-            case StockType.RumorCard:
+            case StockType.TenderOffer:
                 Descriptions = "Can affect stock prices positively or negatively when revealed.";
                 break;
         }
     }
+
+    // Mengaktifkan efek kartu untuk pemain yang diberikan
     public void ActivateEffect(Player player)
     {
         Debug.Log(player.Name + " activated the card: " + Type);
@@ -52,20 +57,21 @@ public class StockCard : MonoBehaviour
         {
             case StockType.FlashBuy:
                 Debug.Log("Effect: Draw an additional card.");
-                // Logic for drawing an additional card here
+                // Logika untuk menarik kartu tambahan di sini
                 break;
             case StockType.TradeFee:
                 Debug.Log("Effect: Apply trade fee logic.");
-                // Logic for trade fee here
+                // Logika untuk biaya perdagangan di sini
                 break;
             case StockType.StockSplit:
                 Debug.Log("Effect: Apply stock split logic.");
-                // Logic for stock split here
+                // Logika untuk pembagian saham di sini
                 break;
             case StockType.InsiderTrade:
                 Debug.Log("Effect: Apply insider trading logic.");
-                // Logic for insider trade here
+                // Logika untuk perdagangan orang dalam di sini
                 break;
+            // Tambahkan logika untuk TenderOffer jika diperlukan
         }
     }
 }

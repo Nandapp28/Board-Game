@@ -16,8 +16,8 @@ public class CardManager : MonoBehaviour
     public int numberOfPlayers = 3; // Jumlah pemain
     public float animationDuration = 1.0f;
 
-    private CardAnimation currentActiveCard = null;
-    private List<GameObject> selectedCards = new List<GameObject>();
+    public CardAnimation currentActiveCard = null;
+    public List<GameObject> selectedCards = new List<GameObject>();
 
     private ActionPhase ActionPhase;
 
@@ -155,7 +155,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    private void ShowButton(Button button)
+    public void ShowButton(Button button)
     {
         button.gameObject.SetActive(true);
         button.transform.localScale = Vector3.zero; // Set scale awal ke 0
@@ -163,7 +163,7 @@ public class CardManager : MonoBehaviour
             .SetEase(Ease.OutQuad); // Ganti easing function
     }
 
-    private void HideButton(Button button)
+    public void HideButton(Button button)
     {
         button.transform.DOScale(Vector3.zero, animationDuration * 1.5f) // Perpanjang durasi
             .SetEase(Ease.InOutQuad) // Ganti easing function

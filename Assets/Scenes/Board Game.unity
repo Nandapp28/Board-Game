@@ -171,6 +171,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &10111059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10111051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Descriptions: Split the value of shares, granting additional shares.
+  Connected_Sectors: 1
 --- !u!4 &13245701 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7745773677954428063, guid: 11318eb3fe3cac2499159d6a437003b8, type: 3}
@@ -338,6 +353,7 @@ MonoBehaviour:
   cardManager: {fileID: 507855832}
   ActiveButton: {fileID: 1778054495}
   KeepButton: {fileID: 1162076737}
+  timerText: {fileID: 969733941}
 --- !u!1 &114489784
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +408,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
+  Konsumen: 0
+  Mining: 0
+  Industrial: 0
+  Keuangan: 0
 --- !u!1 &121142673
 GameObject:
   m_ObjectHideFlags: 0
@@ -685,6 +705,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &148525032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 148525024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Descriptions: Split the value of shares, granting additional shares.
+  Connected_Sectors: 3
 --- !u!4 &160331195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8b3eca4c34b9e1148a3c4d42a48dd5b8, type: 3}
@@ -784,6 +819,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a124da37d00248341b19d8007ade6eca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1820055894}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a124da37d00248341b19d8007ade6eca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1820055900}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a124da37d00248341b19d8007ade6eca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1820055897}
@@ -1355,6 +1393,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
+  Konsumen: 0
+  Mining: 0
+  Industrial: 0
+  Keuangan: 0
 --- !u!1 &287012793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,6 +1556,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &289985850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289985842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+  Descriptions: Sell shares before the selling phase, but pay a fee of 1 unit.
+  Connected_Sectors: 1
 --- !u!1001 &290043750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1573,6 +1630,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d532e41da9dc53d44ad827eb8ffba986, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1797276105}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d532e41da9dc53d44ad827eb8ffba986, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1797276111}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d532e41da9dc53d44ad827eb8ffba986, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1797276108}
@@ -1711,6 +1771,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &355736817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355736809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 4
+  Descriptions: Can affect stock prices positively or negatively when revealed.
+  Connected_Sectors: 2
 --- !u!1 &358511944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1871,6 +1946,9 @@ PrefabInstance:
       addedObject: {fileID: 289985844}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 38135b7f24a637e4dadba3fc88688d1b, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 289985850}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 38135b7f24a637e4dadba3fc88688d1b, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 289985847}
   m_SourcePrefab: {fileID: 100100000, guid: 38135b7f24a637e4dadba3fc88688d1b, type: 3}
 --- !u!1001 &396712822
@@ -1932,6 +2010,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d58b05b2a35d9c04aac11648ba8a377e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 817443324}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d58b05b2a35d9c04aac11648ba8a377e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 817443330}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d58b05b2a35d9c04aac11648ba8a377e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 817443327}
@@ -2214,6 +2295,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &452794069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452794061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 3
+  Descriptions: Reveal a rumor card in a specific sector for insider information.
+  Connected_Sectors: 1
 --- !u!4 &454068618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d8372b5a8eba08c49ae0989b5ef3f063, type: 3}
@@ -2278,6 +2374,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eb7296f5e695569488098e6cb01747cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 863463401}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eb7296f5e695569488098e6cb01747cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 863463407}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: eb7296f5e695569488098e6cb01747cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 863463404}
@@ -2346,6 +2445,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 139adceabee592842a82e0b626efe17a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1405109425}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 139adceabee592842a82e0b626efe17a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1405109431}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 139adceabee592842a82e0b626efe17a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1405109428}
@@ -2484,6 +2586,9 @@ PrefabInstance:
       addedObject: {fileID: 952899937}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a36c2000a52ac364eb2132e388430011, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 952899943}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a36c2000a52ac364eb2132e388430011, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 952899940}
   m_SourcePrefab: {fileID: 100100000, guid: a36c2000a52ac364eb2132e388430011, type: 3}
 --- !u!4 &499329202 stripped
@@ -2563,6 +2668,8 @@ MonoBehaviour:
   manualRotation: {x: 70, y: 90, z: 0}
   numberOfPlayers: 5
   animationDuration: 0.3
+  currentActiveCard: {fileID: 0}
+  selectedCards: []
 --- !u!4 &511973564 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f46e45f795433184fb92234a3ad75259, type: 3}
@@ -3049,6 +3156,9 @@ PrefabInstance:
       addedObject: {fileID: 148525026}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e56d6c6027d8b4948a2db91da499ff6d, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 148525032}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e56d6c6027d8b4948a2db91da499ff6d, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 148525029}
   m_SourcePrefab: {fileID: 100100000, guid: e56d6c6027d8b4948a2db91da499ff6d, type: 3}
 --- !u!114 &726574708
@@ -3266,6 +3376,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &817443330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817443322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 4
+  Descriptions: Can affect stock prices positively or negatively when revealed.
+  Connected_Sectors: 0
 --- !u!1 &826301994
 GameObject:
   m_ObjectHideFlags: 0
@@ -3403,6 +3528,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &863463407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863463399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 3
+  Descriptions: Reveal a rumor card in a specific sector for insider information.
+  Connected_Sectors: 3
 --- !u!4 &869367890 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7745773677954428063, guid: 11318eb3fe3cac2499159d6a437003b8, type: 3}
@@ -3604,6 +3744,9 @@ PrefabInstance:
       addedObject: {fileID: 10111053}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ed74c269ab490e944bf645086d82a6ca, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 10111059}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ed74c269ab490e944bf645086d82a6ca, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 10111056}
   m_SourcePrefab: {fileID: 100100000, guid: ed74c269ab490e944bf645086d82a6ca, type: 3}
 --- !u!4 &894742996 stripped
@@ -3665,6 +3808,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &903153270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903153262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  Descriptions: Draw 2 additional action cards immediately.
+  Connected_Sectors: 0
 --- !u!4 &912495978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9f98ac1fa383f49baaca3929c28f280e, type: 3}
@@ -3953,6 +4111,9 @@ PrefabInstance:
       addedObject: {fileID: 355736811}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0c7a2cafc3ebadd4ba1401459c0078f5, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 355736817}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0c7a2cafc3ebadd4ba1401459c0078f5, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 355736814}
   m_SourcePrefab: {fileID: 100100000, guid: 0c7a2cafc3ebadd4ba1401459c0078f5, type: 3}
 --- !u!4 &930286281 stripped
@@ -4029,6 +4190,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ffcff0645427f740b7aed90c034bb86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1508804458}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ffcff0645427f740b7aed90c034bb86, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1508804464}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ffcff0645427f740b7aed90c034bb86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1508804461}
@@ -4150,6 +4314,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &952899943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952899935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 4
+  Descriptions: Can affect stock prices positively or negatively when revealed.
+  Connected_Sectors: 3
 --- !u!4 &957291852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: be01aa63d95b95149b4e3644c6bef800, type: 3}
@@ -4172,7 +4351,7 @@ GameObject:
   - component: {fileID: 969733942}
   - component: {fileID: 969733941}
   m_Layer: 5
-  m_Name: Hasil Dadu
+  m_Name: Hasil Dadu / timer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4353,6 +4532,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 088e527e3886dee4e9752cbf1b46e803, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1858192070}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 088e527e3886dee4e9752cbf1b46e803, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1858192076}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 088e527e3886dee4e9752cbf1b46e803, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1858192073}
@@ -4641,6 +4823,9 @@ PrefabInstance:
       addedObject: {fileID: 452794063}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5528166c02162e0439380c3315cc0746, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 452794069}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5528166c02162e0439380c3315cc0746, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 452794066}
   m_SourcePrefab: {fileID: 100100000, guid: 5528166c02162e0439380c3315cc0746, type: 3}
 --- !u!1 &1046068487
@@ -4765,6 +4950,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d44f9507c51ef054bbaaeae6873a3dc5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1234575527}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d44f9507c51ef054bbaaeae6873a3dc5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1234575533}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d44f9507c51ef054bbaaeae6873a3dc5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1234575530}
@@ -4964,7 +5152,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1162076738}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 113096501}
+        m_TargetAssemblyTypeName: ActionPhase, Assembly-CSharp
+        m_MethodName: OnCardKeep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1162076738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5122,6 +5322,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
+  Konsumen: 0
+  Mining: 0
+  Industrial: 0
+  Keuangan: 0
 --- !u!1 &1234575525 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d44f9507c51ef054bbaaeae6873a3dc5, type: 3}
@@ -5171,6 +5375,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &1234575533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234575525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+  Descriptions: Sell shares before the selling phase, but pay a fee of 1 unit.
+  Connected_Sectors: 3
 --- !u!114 &1234929503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5270,6 +5489,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
+  Konsumen: 0
+  Mining: 0
+  Industrial: 0
+  Keuangan: 0
 --- !u!4 &1288088517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7745773677954428063, guid: 11318eb3fe3cac2499159d6a437003b8, type: 3}
@@ -5504,6 +5727,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &1405109431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405109423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 3
+  Descriptions: Reveal a rumor card in a specific sector for insider information.
+  Connected_Sectors: 2
 --- !u!4 &1405335185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8471883146739891095, guid: b06197d487b17684280c210a8cc917e3, type: 3}
@@ -5739,6 +5977,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &1508804464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508804456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Descriptions: Split the value of shares, granting additional shares.
+  Connected_Sectors: 2
 --- !u!4 &1512926853 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e0c4e52498b787b4c9ec4c03c1a9cebc, type: 3}
@@ -5983,6 +6236,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &1521377724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521377716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  Descriptions: Draw 2 additional action cards immediately.
+  Connected_Sectors: 3
 --- !u!4 &1535253606 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7745773677954428063, guid: 11318eb3fe3cac2499159d6a437003b8, type: 3}
@@ -6126,6 +6394,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ce551ff96624a648aa89ca8e64e714d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1647570872}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ce551ff96624a648aa89ca8e64e714d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1647570878}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5ce551ff96624a648aa89ca8e64e714d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1647570875}
@@ -6396,6 +6667,9 @@ PrefabInstance:
       addedObject: {fileID: 1941593862}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35de87fd30836474eaa5277e28ea2a40, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1941593868}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 35de87fd30836474eaa5277e28ea2a40, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1941593865}
   m_SourcePrefab: {fileID: 100100000, guid: 35de87fd30836474eaa5277e28ea2a40, type: 3}
 --- !u!4 &1638433825 stripped
@@ -6452,6 +6726,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &1647570878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647570870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 4
+  Descriptions: Can affect stock prices positively or negatively when revealed.
+  Connected_Sectors: 1
 --- !u!1 &1657978162
 GameObject:
   m_ObjectHideFlags: 0
@@ -6620,6 +6909,9 @@ PrefabInstance:
       addedObject: {fileID: 903153264}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e8c8c523a4a882544be59f31a94d072f, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 903153270}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e8c8c523a4a882544be59f31a94d072f, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 903153267}
   m_SourcePrefab: {fileID: 100100000, guid: e8c8c523a4a882544be59f31a94d072f, type: 3}
 --- !u!4 &1671263926 stripped
@@ -6769,7 +7061,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1778054496}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 113096501}
+        m_TargetAssemblyTypeName: ActionPhase, Assembly-CSharp
+        m_MethodName: OnCardActived
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1778054496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6894,6 +7198,9 @@ PrefabInstance:
       addedObject: {fileID: 1521377718}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d816715d76ff5734d949d54e0283962d, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1521377724}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d816715d76ff5734d949d54e0283962d, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1521377721}
   m_SourcePrefab: {fileID: 100100000, guid: d816715d76ff5734d949d54e0283962d, type: 3}
 --- !u!1 &1797276103 stripped
@@ -6945,6 +7252,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &1797276111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797276103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  Descriptions: Draw 2 additional action cards immediately.
+  Connected_Sectors: 1
 --- !u!4 &1797960227 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7839511259137625206, guid: 45cf00ea6ad434e10aeb4b03f4a94223, type: 3}
@@ -7124,6 +7446,9 @@ PrefabInstance:
       addedObject: {fileID: 2087759404}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9eed8ccdee502984b83006f1560ba436, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 2087759410}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9eed8ccdee502984b83006f1560ba436, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2087759407}
   m_SourcePrefab: {fileID: 100100000, guid: 9eed8ccdee502984b83006f1560ba436, type: 3}
 --- !u!1 &1820055892 stripped
@@ -7175,6 +7500,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &1820055900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1820055892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+  Descriptions: Sell shares before the selling phase, but pay a fee of 1 unit.
+  Connected_Sectors: 0
 --- !u!4 &1827436360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1954894699241896307, guid: 80b7f4a5711d54ec2962815e76b809f6, type: 3}
@@ -7444,6 +7784,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &1858192076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858192068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 0
+  Descriptions: Draw 2 additional action cards immediately.
+  Connected_Sectors: 2
 --- !u!4 &1872776659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8e86cecfd976812448b29ce25fe327c8, type: 3}
@@ -7561,6 +7916,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
+  Konsumen: 0
+  Mining: 0
+  Industrial: 0
+  Keuangan: 0
 --- !u!1 &1897117477
 GameObject:
   m_ObjectHideFlags: 0
@@ -7693,6 +8052,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &1923310516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923310508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 2
+  Descriptions: Split the value of shares, granting additional shares.
+  Connected_Sectors: 0
 --- !u!4 &1930601452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 953785449684389718, guid: b52c4b9c54a5946499f05e297a4fc6f3, type: 3}
@@ -7757,6 +8131,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &1941593868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941593860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 3
+  Descriptions: Reveal a rumor card in a specific sector for insider information.
+  Connected_Sectors: 0
 --- !u!4 &1964675243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 931fa17f0ab17504bbfc8903e54e6a16, type: 3}
@@ -8028,6 +8417,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 01bca5cb6b5865140bf4d87398f90da1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1923310510}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 01bca5cb6b5865140bf4d87398f90da1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1923310516}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 01bca5cb6b5865140bf4d87398f90da1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1923310513}
@@ -8331,6 +8723,21 @@ MonoBehaviour:
   targetScale: {x: 1, y: 1, z: 1}
   animationDuration: 0.4
   cardManager: {fileID: 0}
+--- !u!114 &2087759410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087759402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94cc1602507af3c4fbd8c7409dbdfbd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Type: 1
+  Descriptions: Sell shares before the selling phase, but pay a fee of 1 unit.
+  Connected_Sectors: 2
 --- !u!1 &2092627571
 GameObject:
   m_ObjectHideFlags: 0
