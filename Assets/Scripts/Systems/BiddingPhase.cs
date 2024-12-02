@@ -16,6 +16,7 @@ public class BiddingPhase : MonoBehaviour
     private int currentPlayerIndex = 0;
     private bool isRollingDice = false;
     private bool isWaitingForDiceResult = false;
+    private CameraAnimation Camera;
 
     #region Unity Lifecycle
 
@@ -24,6 +25,14 @@ public class BiddingPhase : MonoBehaviour
         CollectPlayers();
         ShufflePlayerList();
         StartDiceRollForNextPlayer();
+        
+        if (Camera == null){
+            Camera = GameObject.FindObjectOfType<CameraAnimation>();
+            Debug.Log("Camera Telah ditemukan");
+        }
+
+        Camera.BiddingCamera();
+
     }
 
     private void Update()

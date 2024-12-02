@@ -408,10 +408,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
-  Konsumen: 0
+  Consumen: 0
   Mining: 0
   Industrial: 0
-  Keuangan: 0
+  Finance: 0
 --- !u!1 &121142673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,10 +1393,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
-  Konsumen: 0
+  Consumen: 0
   Mining: 0
   Industrial: 0
-  Keuangan: 0
+  Finance: 0
 --- !u!1 &287012793
 GameObject:
   m_ObjectHideFlags: 0
@@ -3661,8 +3661,8 @@ MonoBehaviour:
   cameraTransform: {fileID: 913014169}
   offsetFromCamera1: {x: 0.3, y: 0, z: 1}
   offsetFromCamera2: {x: -0.3, y: 0, z: 1}
-  offsetRotationFromCamera1: {x: 30, y: 0, z: 30}
-  offsetRotationFromCamera2: {x: 30, y: 0, z: 30}
+  offsetRotationFromCamera1: {x: 53, y: 0, z: 0}
+  offsetRotationFromCamera2: {x: 53, y: 0, z: 0}
   moveSpeed: 8
   resetPosition: 1
   isRolling: 0
@@ -3936,8 +3936,8 @@ MonoBehaviour:
   biddingPosition: {x: 0, y: 1.896, z: -1.447}
   biddingRotation: {x: 53, y: 0, z: 0}
   biddingDuration: 1.8
-  actionPosition: {x: 0, y: 4.4, z: -4.4}
-  actionRotation: {x: 60, y: 0, z: 0}
+  actionPosition: {x: -3.85, y: 9.47, z: 0}
+  actionRotation: {x: 70, y: 90, z: 0}
   actionDuration: 2
 --- !u!1 &919405345
 GameObject:
@@ -5322,10 +5322,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
-  Konsumen: 0
+  Consumen: 0
   Mining: 0
   Industrial: 0
-  Keuangan: 0
+  Finance: 0
 --- !u!1 &1234575525 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d44f9507c51ef054bbaaeae6873a3dc5, type: 3}
@@ -5489,10 +5489,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
-  Konsumen: 0
+  Consumen: 0
   Mining: 0
   Industrial: 0
-  Keuangan: 0
+  Finance: 0
 --- !u!4 &1288088517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7745773677954428063, guid: 11318eb3fe3cac2499159d6a437003b8, type: 3}
@@ -7916,10 +7916,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
-  Konsumen: 0
+  Consumen: 0
   Mining: 0
   Industrial: 0
-  Keuangan: 0
+  Finance: 0
 --- !u!1 &1897117477
 GameObject:
   m_ObjectHideFlags: 0

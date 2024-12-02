@@ -11,6 +11,7 @@ public class CameraAnimation : MonoBehaviour
     [Header("Action Phase")]
     public Vector3 actionPosition = Vector3.zero;          
     public Vector3 actionRotation; 
+
     public float actionDuration = 0;
     
     private Vector3 initialPosition;

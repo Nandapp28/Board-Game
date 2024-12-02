@@ -17,11 +17,25 @@ public class ActionPhase : MonoBehaviour
 
     private int currentPlayerIndex = 0; // Indeks pemain saat ini
     private Coroutine currentTimerCoroutine; // Menyimpan coroutine timer saat ini
+    private CameraAnimation Camera;
+
 
     // Memulai fase aksi dengan mengumpulkan pemain dan memulai pengambilan kartu
     public void StartActionPhase()
     {
+        if (Camera == null){
+            Camera = GameObject.FindObjectOfType<CameraAnimation>();
+            Debug.Log("Camera Telah ditemukan");
+        }
+        
         CollectPlayers();
+        Camera.ActionCamera();
+        StartCoroutine(ShowTheCard());
+
+    }
+
+    private IEnumerator ShowTheCard(){
+        yield return new WaitForSeconds(2f);
         cardManager.StartStockCards();
         StartDrawCardForNextPlayer();
     }
@@ -119,12 +133,22 @@ public class ActionPhase : MonoBehaviour
 
             // Melakukan tindakan yang diperlukan pada kartu yang dipilih secara acak
             cardManager.currentActiveCard = randomCard.GetComponent<CardAnimation>(); // Asumsikan Anda memiliki komponen Card
+            yield return StartCoroutine(HandleAnimationComplete(cardManager.currentActiveCard));
             RemoveCurrentCard(); // Menghapus kartu dari daftar
             HideActionButtons(); // Menyembunyikan tombol aksi
             EnableSelectedCardColliders(); // Mengaktifkan collider kartu yang dipilih
         }
 
         MoveToNextPlayer(); // Pindah ke pemain berikutnya
+    }
+
+    private IEnumerator HandleAnimationComplete(CardAnimation Card)
+    {
+        // Hapus kartu dari daftar atau lakukan tindakan lain
+        Card.AnimatedToTarget();
+        UpdatePlayerResources();
+        yield return new WaitForSeconds(2); // Tunggu hingga animasi selesai
+
     }
 
     // Memindahkan giliran ke pemain berikutnya
@@ -152,11 +176,44 @@ public class ActionPhase : MonoBehaviour
     // Panggil fungsi ini ketika pemain memilih untuk menyimpan kartu
     public void OnCardKeep()
     {
-        StopCurrentTimer(); // Hentikan timer saat kartu disimpan
-        RemoveCurrentCard(); // Hapus kartu yang sedang aktif
-        HideActionButtons(); // Sembunyikan tombol aksi
-        EnableSelectedCardColliders(); // Aktifkan collider kartu yang dipilih
-        MoveToNextPlayer(); // Pindah ke pemain berikutnya
+        StopCurrentTimer();
+        RemoveCurrentCard();
+        HideActionButtons();
+        EnableSelectedCardColliders();
+
+        UpdatePlayerResources();
+
+        MoveToNextPlayer();
+    }
+
+    private void UpdatePlayerResources()
+    {
+
+        if (cardManager.currentActiveCard != null)
+        {
+            StockCard card = cardManager.currentActiveCard.GetComponent<StockCard>();
+            Player currentPlayer = playerList[currentPlayerIndex];
+
+            switch (card.Connected_Sectors)
+            {
+                case StockCard.Sector.Infrastukur:
+                    currentPlayer.AddIndustrial(1);
+                    break;
+                case StockCard.Sector.Keuangan:
+                    currentPlayer.AddFinance(1);
+                    break;
+                case StockCard.Sector.Mining:
+                    currentPlayer.AddMining(1);
+                    break;
+                case StockCard.Sector.Consumer:
+                    currentPlayer.AddConsumen(1);
+                    break;
+                default:
+                    // Handle unexpected sector if necessary
+                    break;
+            }
+
+        }
     }
 
     // Menghentikan timer saat ini

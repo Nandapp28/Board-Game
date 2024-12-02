@@ -156,14 +156,25 @@ public void MoveDiceToCamera(GameObject dice, Vector3 offsetFromCamera, Vector3 
     int diceValue = GetSingleDiceValue(dice);
     Quaternion targetRotation;
 
-    if (diceValue >= 2 && diceValue <= 5)
+    // if (diceValue >= 2 && diceValue <= 5)
+    // {
+    //     targetRotation = Quaternion.Euler(0, 0, currentRotation.eulerAngles.z + rotationOffset.z);
+    // }
+    // else // untuk 1 dan 6
+    // {
+    //     targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x - rotationOffset.x, 90, 90);
+    // }
+
+    if (diceValue == 3 || diceValue == 5)
     {
-        targetRotation = Quaternion.Euler(0, 0, currentRotation.eulerAngles.z + rotationOffset.z);
+        targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x - rotationOffset.x, 90, 90);
+
     }
     else // untuk 1 dan 6
     {
-        targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x - rotationOffset.x, 90, 90);
+        targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x - rotationOffset.x, 0, currentRotation.eulerAngles.z);
     }
+
 
     // Hitung durasi animasi
     float distance = Vector3.Distance(dice.transform.position, targetPosition);
