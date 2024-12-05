@@ -18,11 +18,13 @@ public class ActionPhase : MonoBehaviour
     private int currentPlayerIndex = 0; // Indeks pemain saat ini
     private Coroutine currentTimerCoroutine; // Menyimpan coroutine timer saat ini
     private CameraAnimation Camera;
+    private GameManager gameManager;
 
 
     // Memulai fase aksi dengan mengumpulkan pemain dan memulai pengambilan kartu
     public void StartActionPhase()
     {
+        gameManager = FindAnyObjectByType<GameManager>();
         if (Camera == null){
             Camera = GameObject.FindObjectOfType<CameraAnimation>();
             Debug.Log("Camera Telah ditemukan");
@@ -106,6 +108,8 @@ public class ActionPhase : MonoBehaviour
         {
             Debug.Log("Semua kartu telah diambil.");
             Debug.Log("Action Phase Berakhir.");
+            gameManager.currentGameState = GameManager.GameState.Selling;
+            gameManager.StartNextPhase();
         }
     }
 
