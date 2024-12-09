@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     public BiddingPhase biddingPhase; // Fase bidding
     public ActionPhase actionPhase; // Fase bidding
     public SellingPhase sellingPhase; // Fase bidding
+    public RumorPhase rumorPhase; // Fase bidding
     public enum GameState { Bidding, Action, Selling, Rumor, Resolution, End }
     public GameState currentGameState = GameState.Bidding;
 
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
         biddingPhase = FindObjectOfType<BiddingPhase>();
         actionPhase = FindObjectOfType<ActionPhase>();
         sellingPhase = FindObjectOfType<SellingPhase>();
+        rumorPhase = FindObjectOfType<RumorPhase>();
         StartNextPhase();
     }
 
@@ -70,9 +72,7 @@ public class GameManager : MonoBehaviour
     public void HandleRumorPhase() // Diubah menjadi public
     {
         Debug.Log("Rumor Phase");
-        // Logika untuk fase Rumor
-        // Setelah fase rumor selesai, pindah ke fase Resolution
-        currentGameState = GameState.Resolution; // Contoh transisi
+        rumorPhase.StartRumorPhase();
     }
 
     public void HandleResolutionPhase() // Diubah menjadi public

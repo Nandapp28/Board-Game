@@ -1,12 +1,13 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System.Collections; // Pastikan untuk menambahkan namespace ini
+using System.Collections;
 
 public class SellingPhaseUI : MonoBehaviour
 {
     // Parent GameObject yang berisi sektor-sektor
     public GameObject sectorsParent;
+
     [System.Serializable]
     public class CategoryUI
     {
@@ -25,36 +26,32 @@ public class SellingPhaseUI : MonoBehaviour
         public int CurrentPriceSector = 5;
     }
 
-
     public CategoryUI Infrastuktur = new CategoryUI();
     public CategoryUI Mining = new CategoryUI();
     public CategoryUI Consumen = new CategoryUI();
     public CategoryUI Finance = new CategoryUI();
+    public TextMeshProUGUI TotalEarnings;
 
+    #region Unity Methods
     public void StartSellingPhaseUI()
     {
-        // Memastikan sektorParent diaktifkan saat permainan dimulai
         if (sectorsParent != null)
         {
-            sectorsParent.gameObject.SetActive(true);  // Mengaktifkan objek
+            sectorsParent.gameObject.SetActive(true);
         }
 
-        // Memulai coroutine untuk menunggu 1 detik
         StartCoroutine(InitializeUIAfterDelay(1f));
     }
 
     private IEnumerator InitializeUIAfterDelay(float delay)
     {
-        // Menunggu selama delay yang ditentukan
         yield return new WaitForSeconds(delay);
 
-        // Mengumpulkan elemen UI berdasarkan sektor dalam parent
         CollectUIElements("Infrastuktur", ref Infrastuktur);
         CollectUIElements("Mining", ref Mining);
         CollectUIElements("Consumen", ref Consumen);
         CollectUIElements("Finance", ref Finance);
 
-        // Inisialisasi listener tombol
         InitializeCategory(Infrastuktur);
         InitializeCategory(Mining);
         InitializeCategory(Consumen);
@@ -62,16 +59,16 @@ public class SellingPhaseUI : MonoBehaviour
 
         CurrentStock();
     }
+    #endregion
 
+    #region UI Element Collection
     void CollectUIElements(string sectorName, ref CategoryUI category)
     {
-        // Mencari sektor berdasarkan nama dan mencari elemen-elemen di dalamnya
         Transform sectorTransform = sectorsParent.transform.Find(sectorName);
         if (sectorTransform != null)
         {
             category.countText = sectorTransform.Find("Count")?.GetComponent<TextMeshProUGUI>();
             category.CurrentStockText = sectorTransform.Find("CurrentStockText")?.GetComponent<TextMeshProUGUI>();
-            // category.CurrentPriceSectorText = sectorTransform.Find("CurrentPriceSectorText")?.GetComponent<TextMeshProUGUI>();
             category.plusButton = sectorTransform.Find("Plus")?.GetComponent<Button>();
             category.minusButton = sectorTransform.Find("Minus")?.GetComponent<Button>();
         }
@@ -83,11 +80,12 @@ public class SellingPhaseUI : MonoBehaviour
 
     void InitializeCategory(CategoryUI category)
     {
-        // Menambahkan listener pada tombol plus dan minus
         category.plusButton.onClick.AddListener(() => UpdateCount(category, 1));
         category.minusButton.onClick.AddListener(() => UpdateCount(category, -1));
     }
+    #endregion
 
+    #region Stock Management
     void CurrentStock()
     {
         Infrastuktur.CurrentStockText.text = Infrastuktur.CurrentStock.ToString();
@@ -98,14 +96,14 @@ public class SellingPhaseUI : MonoBehaviour
 
     void UpdateCount(CategoryUI category, int change)
     {
-        // Menghitung nilai baru
         int newCount = category.count + change;
 
-        // Memastikan count tidak kurang dari nol dan tidak lebih dari CurrentStock
         if (newCount >= 0 && newCount <= category.CurrentStock)
         {
             category.count = newCount;
             category.countText.text = category.count.ToString();
+
+            CalculateTotalEarnings();
         }
     }
 
@@ -115,17 +113,19 @@ public class SellingPhaseUI : MonoBehaviour
         ResetSectorCount(Mining);
         ResetSectorCount(Finance);
         ResetSectorCount(Consumen);
+        
+        TotalEarnings.text = "$0";
     }
 
     private void ResetSectorCount(CategoryUI sector)
     {
-        sector.count = 0; // Reset the count
-        UpdateCountText(sector); // Update the corresponding text
+        sector.count = 0;
+        UpdateCountText(sector);
     }
 
     private void UpdateCountText(CategoryUI sector)
     {
-        sector.countText.text = sector.count.ToString(); // Update the UI text
+        sector.countText.text = sector.count.ToString();
     }
 
     public void GetStockData(Player Player)
@@ -135,4 +135,21 @@ public class SellingPhaseUI : MonoBehaviour
         Consumen.CurrentStock = Player.Consumen;
         Finance.CurrentStock = Player.Finance;
     }
+    #endregion
+
+    #region Earnings Calculation
+    public int CalculateTotalEarnings()
+    {
+        int total = 0;
+
+        total += Infrastuktur.count * Infrastuktur.CurrentPriceSector;
+        total += Mining.count * Mining.CurrentPriceSector;
+        total += Consumen.count * Consumen.CurrentPriceSector;
+        total += Finance.count * Finance.CurrentPriceSector;
+
+        TotalEarnings.text = "$" + total.ToString();
+
+        return total;
+    }
+    #endregion
 }

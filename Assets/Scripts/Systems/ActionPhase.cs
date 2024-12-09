@@ -20,23 +20,24 @@ public class ActionPhase : MonoBehaviour
     private CameraAnimation Camera;
     private GameManager gameManager;
 
-
+    #region Initialization
     // Memulai fase aksi dengan mengumpulkan pemain dan memulai pengambilan kartu
     public void StartActionPhase()
     {
         gameManager = FindAnyObjectByType<GameManager>();
-        if (Camera == null){
+        if (Camera == null)
+        {
             Camera = GameObject.FindObjectOfType<CameraAnimation>();
             Debug.Log("Camera Telah ditemukan");
         }
-        
+
         CollectPlayers();
         Camera.ActionCamera();
         StartCoroutine(ShowTheCard());
-
     }
 
-    private IEnumerator ShowTheCard(){
+    private IEnumerator ShowTheCard()
+    {
         yield return new WaitForSeconds(2f);
         cardManager.StartStockCards();
         StartDrawCardForNextPlayer();
@@ -83,7 +84,7 @@ public class ActionPhase : MonoBehaviour
         playerList.Sort((a, b) => a.playOrder.CompareTo(b.playOrder));
         Debug.Log("Players sorted by play order.");
     }
-    
+
     // Menampilkan nama pemain di log
     private void DisplayPlayerNames()
     {
@@ -92,7 +93,9 @@ public class ActionPhase : MonoBehaviour
             Debug.Log("Player ditemukan: " + player.Name);
         }
     }
+    #endregion
 
+    #region Card Drawing
     // Memulai pengambilan kartu untuk pemain berikutnya
     void StartDrawCardForNextPlayer()
     {
@@ -128,7 +131,7 @@ public class ActionPhase : MonoBehaviour
 
         // Waktu habis, pilih kartu secara acak
         Debug.Log(currentPlayer.Name + " waktu habis! Memilih kartu secara acak.");
-        
+
         // Memilih kartu secara acak
         if (cardManager.selectedCards.Count > 0)
         {
@@ -152,7 +155,6 @@ public class ActionPhase : MonoBehaviour
         Card.AnimatedToTarget();
         UpdatePlayerResources();
         yield return new WaitForSeconds(2); // Tunggu hingga animasi selesai
-
     }
 
     // Memindahkan giliran ke pemain berikutnya
@@ -160,13 +162,16 @@ public class ActionPhase : MonoBehaviour
     {
         currentPlayerIndex++;
 
-        if (currentPlayerIndex >= playerList.Count ){
+        if (currentPlayerIndex >= playerList.Count)
+        {
             currentPlayerIndex = 0; // Kembali ke pemain pertama jika sudah mencapai akhir daftar
         }
 
         StartDrawCardForNextPlayer(); // Mulai giliran pemain berikutnya
     }
+    #endregion
 
+    #region Card Actions
     // Panggil fungsi ini ketika pemain telah memilih kartu
     public void OnCardActived()
     {
@@ -192,7 +197,6 @@ public class ActionPhase : MonoBehaviour
 
     private void UpdatePlayerResources()
     {
-
         if (cardManager.currentActiveCard != null)
         {
             StockCard card = cardManager.currentActiveCard.GetComponent<StockCard>();
@@ -216,10 +220,11 @@ public class ActionPhase : MonoBehaviour
                     // Handle unexpected sector if necessary
                     break;
             }
-
         }
     }
+    #endregion
 
+    #region Timer and Card Management
     // Menghentikan timer saat ini
     private void StopCurrentTimer()
     {
@@ -256,4 +261,5 @@ public class ActionPhase : MonoBehaviour
             }
         }
     }
+    #endregion
 }

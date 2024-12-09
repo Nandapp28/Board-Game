@@ -4,13 +4,18 @@ using TMPro;
 using System;
 
 public class SellingPhase : MonoBehaviour {
+
+    [Header("UI Elements")]
     public TextMeshProUGUI Timers;
+
     private PlayerManager Players;
     private int currentPlayerIndex = 0;
-    private Coroutine currentTimerCoroutine; // Menyimpan coroutine timer saat ini
-    private SellingPhaseUI sellingPhaseUI; // Referensi UI untuk fase penjualan
+    private Coroutine currentTimerCoroutine; 
+    private SellingPhaseUI sellingPhaseUI;
+    private GameManager gameManager;
 
     public void StartSellingPhase() {
+        gameManager = FindAnyObjectByType<GameManager>();
         Players = FindObjectOfType<PlayerManager>();
         sellingPhaseUI = FindObjectOfType<SellingPhaseUI>();
 
@@ -26,6 +31,7 @@ public class SellingPhase : MonoBehaviour {
             // Lakukan sesuatu dengan currentPlayer
             currentTimerCoroutine = StartCoroutine(SellActionCardsWithTimer());
         }else{
+            sellingPhaseUI.sectorsParent.gameObject.SetActive(false);
             EndPhase();
         }
     }
@@ -38,7 +44,7 @@ public class SellingPhase : MonoBehaviour {
             timer -= Time.deltaTime; // Kurangi waktu berdasarkan waktu yang berlalu
             yield return null; // Tunggu hingga frame berikutnya
         }
-
+        sellingPhaseUI.ResetCounts();
         // Jika waktu habis, lakukan tindakan yang sesuai
         Debug.Log("Waktu habis untuk pemain " + currentPlayerIndex + ". Melanjutkan ke pemain berikutnya.");
         MoveToNextPlayer();
@@ -50,6 +56,12 @@ public class SellingPhase : MonoBehaviour {
             StopCoroutine(currentTimerCoroutine); // Hentikan coroutine timer
             currentTimerCoroutine = null; // Reset coroutine
         }
+        
+        Player currentPlayer = Players.GetPlayer(currentPlayerIndex);
+        int TotalEarnings = sellingPhaseUI.CalculateTotalEarnings();
+
+        currentPlayer.Wealth = TotalEarnings;
+
         sellingPhaseUI.ResetCounts();
         MoveToNextPlayer();
     }
@@ -62,5 +74,7 @@ public class SellingPhase : MonoBehaviour {
 
     private void EndPhase() {
         Debug.Log("Selling Phase Berakhir.");
+        gameManager.currentGameState = GameManager.GameState.Rumor;
+        gameManager.StartNextPhase();
     }
 }
