@@ -22,6 +22,7 @@ public class SellingPhase : MonoBehaviour {
     private void StartSellingPhaseForNexPlayer() {
         if (currentPlayerIndex < Players.PlayerCount) {
             Player currentPlayer = Players.GetPlayer(currentPlayerIndex);
+            sellingPhaseUI.GetStockData(currentPlayer);
             // Lakukan sesuatu dengan currentPlayer
             currentTimerCoroutine = StartCoroutine(SellActionCardsWithTimer());
         }else{
@@ -40,9 +41,7 @@ public class SellingPhase : MonoBehaviour {
 
         // Jika waktu habis, lakukan tindakan yang sesuai
         Debug.Log("Waktu habis untuk pemain " + currentPlayerIndex + ". Melanjutkan ke pemain berikutnya.");
-
         MoveToNextPlayer();
-
     }
 
     public void OnSellButtonClick(){
@@ -51,13 +50,14 @@ public class SellingPhase : MonoBehaviour {
             StopCoroutine(currentTimerCoroutine); // Hentikan coroutine timer
             currentTimerCoroutine = null; // Reset coroutine
         }
+        sellingPhaseUI.ResetCounts();
         MoveToNextPlayer();
     }
 
     private void MoveToNextPlayer()
     {
         currentPlayerIndex++;
-        StartSellingPhase(); // Mulai giliran pemain berikutnya
+        StartSellingPhase();
     }
 
     private void EndPhase() {

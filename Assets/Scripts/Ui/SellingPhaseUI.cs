@@ -10,10 +10,19 @@ public class SellingPhaseUI : MonoBehaviour
     [System.Serializable]
     public class CategoryUI
     {
+        // UI Elements
+        [Header("UI Elements")]
         public TextMeshProUGUI countText;
+        public TextMeshProUGUI CurrentStockText;
+        public TextMeshProUGUI CurrentPriceSectorText;
         public Button plusButton;
         public Button minusButton;
+
+        // Status Variables
+        [Header("Status Variables")]
         public int count = 0;
+        public int CurrentStock;
+        public int CurrentPriceSector = 5;
     }
 
 
@@ -50,6 +59,8 @@ public class SellingPhaseUI : MonoBehaviour
         InitializeCategory(Mining);
         InitializeCategory(Consumen);
         InitializeCategory(Finance);
+
+        CurrentStock();
     }
 
     void CollectUIElements(string sectorName, ref CategoryUI category)
@@ -59,6 +70,8 @@ public class SellingPhaseUI : MonoBehaviour
         if (sectorTransform != null)
         {
             category.countText = sectorTransform.Find("Count")?.GetComponent<TextMeshProUGUI>();
+            category.CurrentStockText = sectorTransform.Find("CurrentStockText")?.GetComponent<TextMeshProUGUI>();
+            // category.CurrentPriceSectorText = sectorTransform.Find("CurrentPriceSectorText")?.GetComponent<TextMeshProUGUI>();
             category.plusButton = sectorTransform.Find("Plus")?.GetComponent<Button>();
             category.minusButton = sectorTransform.Find("Minus")?.GetComponent<Button>();
         }
@@ -75,16 +88,51 @@ public class SellingPhaseUI : MonoBehaviour
         category.minusButton.onClick.AddListener(() => UpdateCount(category, -1));
     }
 
+    void CurrentStock()
+    {
+        Infrastuktur.CurrentStockText.text = Infrastuktur.CurrentStock.ToString();
+        Mining.CurrentStockText.text = Mining.CurrentStock.ToString();
+        Finance.CurrentStockText.text = Finance.CurrentStock.ToString();
+        Consumen.CurrentStockText.text = Consumen.CurrentStock.ToString();
+    }
+
     void UpdateCount(CategoryUI category, int change)
     {
         // Menghitung nilai baru
         int newCount = category.count + change;
 
-        // Memastikan count tidak kurang dari nol
-        if (newCount >= 0)
+        // Memastikan count tidak kurang dari nol dan tidak lebih dari CurrentStock
+        if (newCount >= 0 && newCount <= category.CurrentStock)
         {
             category.count = newCount;
             category.countText.text = category.count.ToString();
         }
+    }
+
+    public void ResetCounts()
+    {
+        ResetSectorCount(Infrastuktur);
+        ResetSectorCount(Mining);
+        ResetSectorCount(Finance);
+        ResetSectorCount(Consumen);
+    }
+
+    private void ResetSectorCount(CategoryUI sector)
+    {
+        sector.count = 0; // Reset the count
+        UpdateCountText(sector); // Update the corresponding text
+    }
+
+    private void UpdateCountText(CategoryUI sector)
+    {
+        sector.countText.text = sector.count.ToString(); // Update the UI text
+    }
+
+    public void GetStockData(Player Player)
+    {
+        Infrastuktur.CurrentStock = Player.Infrastuktur;
+        Mining.CurrentStock = Player.Mining;
+        Consumen.CurrentStock = Player.Consumen;
+        Finance.CurrentStock = Player.Finance;
     }
 }
