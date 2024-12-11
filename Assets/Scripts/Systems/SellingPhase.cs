@@ -65,6 +65,16 @@ public class SellingPhase : MonoBehaviour {
         sellingPhaseUI.ResetCounts();
         MoveToNextPlayer();
     }
+    public void OnSkipButtonClick(){
+        if (currentTimerCoroutine != null)
+        {
+            StopCoroutine(currentTimerCoroutine); // Hentikan coroutine timer
+            currentTimerCoroutine = null; // Reset coroutine
+        }
+
+        sellingPhaseUI.ResetCounts();
+        MoveToNextPlayer();
+    }
 
     private void MoveToNextPlayer()
     {

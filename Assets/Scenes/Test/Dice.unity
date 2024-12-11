@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a866556c72cd08143af6b59e31ebaba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diceRigidbody1: {fileID: 4406528899775883046}
+  diceRigidbody1: {fileID: 0}
   diceRigidbody2: {fileID: 237792148}
   resultText: {fileID: 661427182}
   cameraTransform: {fileID: 1394233312}
@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 237792150}
   - component: {fileID: 237792149}
   - component: {fileID: 237792148}
+  - component: {fileID: 237792153}
   m_Layer: 0
   m_Name: DADU FIX (1)
   m_TagString: Untagged
@@ -471,6 +472,27 @@ Transform:
   - {fileID: 1989178094}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &237792153
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237792147}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &279069775
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,6 +600,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
+  Consumen: 0
+  Mining: 0
+  Infrastuktur: 0
+  Finance: 0
 --- !u!1 &360516571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1214,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
+  Consumen: 0
+  Mining: 0
+  Infrastuktur: 0
+  Finance: 0
 --- !u!1 &816908140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,6 +1520,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &930737388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 930737390}
+  - component: {fileID: 930737389}
+  m_Layer: 0
+  m_Name: Timeline
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!320 &930737389
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930737388}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 4b148589a86215643b79d181249c8bc9, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 2353621454816694029, guid: 4b148589a86215643b79d181249c8bc9, type: 2}
+    value: {fileID: 4406528899775883048}
+  - key: {fileID: 2967870754982048055, guid: 4b148589a86215643b79d181249c8bc9, type: 2}
+    value: {fileID: 237792153}
+  m_ExposedReferences:
+    m_References: []
+--- !u!4 &930737390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930737388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5903376, y: 0.07848153, z: 0.3200491}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1088553245
 GameObject:
   m_ObjectHideFlags: 0
@@ -2281,6 +2364,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
+  Consumen: 0
+  Mining: 0
+  Infrastuktur: 0
+  Finance: 0
 --- !u!1 &1611602477
 GameObject:
   m_ObjectHideFlags: 0
@@ -2533,6 +2620,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
+  Consumen: 0
+  Mining: 0
+  Infrastuktur: 0
+  Finance: 0
 --- !u!1 &1977133303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2802,6 +2893,10 @@ MonoBehaviour:
   TotalScore: 0
   playOrder: 0
   Wealth: 0
+  Consumen: 0
+  Mining: 0
+  Infrastuktur: 0
+  Finance: 0
 --- !u!33 &1928620334789071855
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2822,7 +2917,7 @@ GameObject:
   - component: {fileID: 1928620334789071855}
   - component: {fileID: 4406528899775883045}
   - component: {fileID: 4406528899775883047}
-  - component: {fileID: 4406528899775883046}
+  - component: {fileID: 4406528899775883048}
   m_Layer: 0
   m_Name: DADU FIX
   m_TagString: Untagged
@@ -2894,33 +2989,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &4406528899775883046
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2749411014638159600}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &4406528899775883047
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2942,6 +3010,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.020000007, y: 0.020000005, z: 0.020000007}
   m_Center: {x: -1.474515e-17, y: -1.4690777e-18, z: -4.656613e-10}
+--- !u!95 &4406528899775883048
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2749411014638159600}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2954,3 +3043,4 @@ SceneRoots:
   - {fileID: 237792152}
   - {fileID: 816908144}
   - {fileID: 1667458282}
+  - {fileID: 930737390}

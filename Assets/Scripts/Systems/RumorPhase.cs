@@ -7,43 +7,63 @@ public class TransformCamera {
     public Vector3 Rotation;
 }
 
+[System.Serializable]
+public class RumorCardAnimator {    
+    public Transform cameraTransform; // Transform kamera
+    public Vector3 offsetFromCamera; // Offset dari kamera
+    public Vector3 manualRotation; // Rotasi manual untuk kartu
+    public Vector3 targetScale = Vector3.one; // Skala akhir kartu
+    public float animationDuration = 1f; // Durasi animasi
+}
+
 public class RumorPhase : MonoBehaviour {
+
     [Header("Camera Position And Rotation Settings")]
     [SerializeField] private TransformCamera Infrastuktur = new TransformCamera();
     [SerializeField] private TransformCamera Mining = new TransformCamera();
     [SerializeField] private TransformCamera Consumen = new TransformCamera();
     [SerializeField] private TransformCamera Finance = new TransformCamera();
 
-    [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 2f; // Kecepatan pergerakan kamera
-    [SerializeField] private float waitTime = 10f; // Waktu tunggu antar sektor
-
     private Camera MainCamera;
     private Vector3 initialPosition; // Menyimpan posisi awal
     private Quaternion initialRotation; // Menyimpan rotasi awal
+    private TransformCamera[] sectors;
 
+    [Header("Movement Settings")]
+    [SerializeField] private float moveSpeed = 2f; // Kecepatan pergerakan kamera
+    [SerializeField] private float waitTime = 10f; // Waktu tunggu antar sektor
+    private int CurrentSectorIndex;
+
+    #region Unity Lifecycle
+
+    /// Memulai fase rumor dan menginisialisasi kamera.
     public void StartRumorPhase() {
         MainCamera = Camera.main; // Mengambil kamera utama
         initialPosition = MainCamera.transform.position; // Simpan posisi awal
         initialRotation = MainCamera.transform.rotation; // Simpan rotasi awal
+
+        sectors = new TransformCamera[] { Infrastuktur, Finance, Mining, Consumen };
+        CurrentSectorIndex = 0; // Inisialisasi indeks sektor saat ini
+
         StartCoroutine(MoveCameraThroughSectors());
     }
 
-    private IEnumerator MoveCameraThroughSectors() {
-        // Daftar sektor yang akan dilalui
-        TransformCamera[] sectors = new TransformCamera[] { Infrastuktur, Mining, Consumen, Finance };
+    #endregion
 
-        foreach (var sector in sectors) {
-            // Mengatur posisi dan rotasi kamera dengan interpolasi
-            yield return StartCoroutine(MoveCameraToSector(sector));
-            // Tunggu selama waktu yang ditentukan
-            yield return new WaitForSeconds(waitTime);
+    #region Camera Movement Coroutines
+    /// Menggerakkan kamera melalui semua sektor.
+    private IEnumerator MoveCameraThroughSectors() {
+        while (CurrentSectorIndex < sectors.Length) {
+            yield return StartCoroutine(MoveCameraToSector(sectors[CurrentSectorIndex]));
+            yield return new WaitForSeconds(waitTime); // Tunggu sebelum pindah ke sektor berikutnya
+            CurrentSectorIndex++;
         }
 
-        // Kembali ke posisi dan rotasi awal
+        // Setelah semua sektor, kembali ke posisi awal
         yield return StartCoroutine(MoveCameraToInitialPosition());
     }
-
+    /// Memindahkan kamera ke sektor tertentu.
+    /// <param name="sector">Sektor yang dituju.</param>
     private IEnumerator MoveCameraToSector(TransformCamera sector) {
         Vector3 startPosition = MainCamera.transform.position;
         Quaternion startRotation = MainCamera.transform.rotation;
@@ -64,7 +84,7 @@ public class RumorPhase : MonoBehaviour {
         MainCamera.transform.position = targetPosition;
         MainCamera.transform.rotation = targetRotation;
     }
-
+    /// Mengembalikan kamera ke posisi awal.
     private IEnumerator MoveCameraToInitialPosition() {
         Vector3 startPosition = MainCamera.transform.position;
         Quaternion startRotation = MainCamera.transform.rotation;
@@ -85,4 +105,12 @@ public class RumorPhase : MonoBehaviour {
         MainCamera.transform.position = targetPosition;
         MainCamera.transform.rotation = targetRotation;
     }
+
+    #endregion
+
+    #region Rumor Card Animation
+    
+    
+
+    #endregion
 }
