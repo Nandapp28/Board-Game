@@ -3088,17 +3088,31 @@ MonoBehaviour:
   Infrastuktur:
     Position: {x: 0.24, y: 3.99, z: 3.99}
     Rotation: {x: 65.738, y: 90, z: 0}
-  Mining:
-    Position: {x: -5.5, y: 3.99, z: 3.99}
-    Rotation: {x: 65.738, y: 90, z: 0}
-  Consumen:
-    Position: {x: -5.5, y: 3.99, z: -3.657}
-    Rotation: {x: 65.738, y: 90, z: 0}
+    rumorCards: {fileID: 206709368}
+    Cards: []
   Finance:
     Position: {x: 0.24, y: 3.99, z: -3.96}
     Rotation: {x: 65.738, y: 90, z: 0}
+    rumorCards: {fileID: 29535072}
+    Cards: []
+  Mining:
+    Position: {x: -5.5, y: 3.99, z: 3.99}
+    Rotation: {x: 65.738, y: 90, z: 0}
+    rumorCards: {fileID: 2085428958}
+    Cards: []
+  Consumen:
+    Position: {x: -5.5, y: 3.99, z: -3.657}
+    Rotation: {x: 65.738, y: 90, z: 0}
+    rumorCards: {fileID: 419174491}
+    Cards: []
   moveSpeed: 2
   waitTime: 4
+  cardSettings:
+    cameraTransform: {fileID: 0}
+    offsetFromCamera: {x: 0, y: 0, z: 0}
+    manualRotation: {x: 0, y: 0, z: 0}
+    targetScale: {x: 1, y: 1, z: 1}
+    animationDuration: 1
 --- !u!1 &207513492
 GameObject:
   m_ObjectHideFlags: 0

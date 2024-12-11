@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     public void HandleRumorPhase() // Diubah menjadi public
     {
         Debug.Log("Rumor Phase");
-        rumorPhase.StartRumorPhase();
+        rumorPhase.StartRumorhPase();
     }
 
     public void HandleResolutionPhase() // Diubah menjadi public
