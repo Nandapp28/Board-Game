@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Materials/tempat dadu.fbx.meta
 guid: 92a5dcc49696e604aaaa49cda8190c0b
+========
+guid: a1c4ed0015af41940bbead15b29d8f00
+>>>>>>>> add-environtment:Assets/Models/Card/Kartu Rumor/Expansi Produk.fbx.meta
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Asset/Extra Fee 2.fbx.meta
 guid: 66b461078878639499c8a2681f10ce07
+========
+guid: 676bd37a0c556a948a199d17007bbf6c
+>>>>>>>> add-environtment:Assets/Models/Company Profile/+2.fbx.meta
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
