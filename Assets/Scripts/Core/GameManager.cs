@@ -9,14 +9,14 @@ public class GameManager : MonoBehaviour
     public enum GameState { Bidding, Action, Selling, Rumor, Resolution, End }
     public GameState currentGameState = GameState.Bidding;
 
-    void Start()
-    {
-        biddingPhase = FindObjectOfType<BiddingPhase>();
-        actionPhase = FindObjectOfType<ActionPhase>();
-        sellingPhase = FindObjectOfType<SellingPhase>();
-        rumorPhase = FindObjectOfType<RumorPhase>();
-        StartNextPhase();
-    }
+    // void Start()
+    // {
+    //     biddingPhase = FindObjectOfType<BiddingPhase>();
+    //     actionPhase = FindObjectOfType<ActionPhase>();
+    //     sellingPhase = FindObjectOfType<SellingPhase>();
+    //     rumorPhase = FindObjectOfType<RumorPhase>();
+    //     StartNextPhase();
+    // }
 
     public void StartNextPhase()
     {
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     public void HandleRumorPhase() // Diubah menjadi public
     {
         Debug.Log("Rumor Phase");
-        rumorPhase.StartRumorhPase();
+        // rumorPhase.StartRumorhPase();
     }
 
     public void HandleResolutionPhase() // Diubah menjadi public

@@ -45,7 +45,7 @@ public class RumorPhase : MonoBehaviour {
     #region Unity Lifecycle
 
     /// Memulai fase rumor dan menginisialisasi kamera.
-    public void StartRumorhPase() {
+    public void Start() {
         MainCamera = Camera.main; // Mengambil kamera utama
         cardSettings.cameraTransform = MainCamera.transform;
         initialPosition = MainCamera.transform.position; // Simpan posisi awal
