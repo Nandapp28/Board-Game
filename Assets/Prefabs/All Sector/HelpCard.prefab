@@ -65,15 +65,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2c03f56f78708f40a1ce9c5a9fdf854, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000081460335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2c03f56f78708f40a1ce9c5a9fdf854, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2c03f56f78708f40a1ce9c5a9fdf854, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2c03f56f78708f40a1ce9c5a9fdf854, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -98,13 +98,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c2c03f56f78708f40a1ce9c5a9fdf854, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8522400708432041252}
   m_SourcePrefab: {fileID: 100100000, guid: c2c03f56f78708f40a1ce9c5a9fdf854, type: 3}
 --- !u!4 &241905459255326842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c2c03f56f78708f40a1ce9c5a9fdf854, type: 3}
   m_PrefabInstance: {fileID: 347290397193101201}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &581170060774892224 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c2c03f56f78708f40a1ce9c5a9fdf854, type: 3}
+  m_PrefabInstance: {fileID: 347290397193101201}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8522400708432041252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581170060774892224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1194f5db14eac9e47a9a650826d628e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_Saham: 0
+  Tipe: 3
+  Deskripsi: Terapkan penalti 2 poin untuk setiap saham atau sektor yang dipilih.
 --- !u!1001 &2281137565202224238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -131,15 +154,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efe69a88b031ae04186a74ea655db310, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000081460335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efe69a88b031ae04186a74ea655db310, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efe69a88b031ae04186a74ea655db310, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efe69a88b031ae04186a74ea655db310, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -164,8 +187,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: efe69a88b031ae04186a74ea655db310, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6543989653981576712}
   m_SourcePrefab: {fileID: 100100000, guid: efe69a88b031ae04186a74ea655db310, type: 3}
+--- !u!1 &1398740790081005887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: efe69a88b031ae04186a74ea655db310, type: 3}
+  m_PrefabInstance: {fileID: 2281137565202224238}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6543989653981576712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398740790081005887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1194f5db14eac9e47a9a650826d628e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_Saham: 0
+  Tipe: 7
+  Deskripsi: Akuisisi saham lawan dengan setengah harga.
 --- !u!4 &1739097519894360965 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: efe69a88b031ae04186a74ea655db310, type: 3}
@@ -197,15 +243,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 188c7fb4df3d1734b9dbff17c2678963, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000081460335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 188c7fb4df3d1734b9dbff17c2678963, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 188c7fb4df3d1734b9dbff17c2678963, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 188c7fb4df3d1734b9dbff17c2678963, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -230,13 +276,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 188c7fb4df3d1734b9dbff17c2678963, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 934574786537838633}
   m_SourcePrefab: {fileID: 100100000, guid: 188c7fb4df3d1734b9dbff17c2678963, type: 3}
 --- !u!4 &2847567859301974337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 188c7fb4df3d1734b9dbff17c2678963, type: 3}
   m_PrefabInstance: {fileID: 2309834910619068074}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3228877854375926779 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 188c7fb4df3d1734b9dbff17c2678963, type: 3}
+  m_PrefabInstance: {fileID: 2309834910619068074}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &934574786537838633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3228877854375926779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1194f5db14eac9e47a9a650826d628e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_Saham: 0
+  Tipe: 1
+  Deskripsi: Tukar saham dengan pemain lain.
 --- !u!1001 &3016702885116618114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -263,15 +332,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d694a14a0d415f4492f4979859cadf7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000081460335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d694a14a0d415f4492f4979859cadf7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d694a14a0d415f4492f4979859cadf7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1d694a14a0d415f4492f4979859cadf7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -296,8 +365,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d694a14a0d415f4492f4979859cadf7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4301861934478705540}
   m_SourcePrefab: {fileID: 100100000, guid: 1d694a14a0d415f4492f4979859cadf7, type: 3}
+--- !u!1 &2674032738101139667 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 1d694a14a0d415f4492f4979859cadf7, type: 3}
+  m_PrefabInstance: {fileID: 3016702885116618114}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4301861934478705540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2674032738101139667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1194f5db14eac9e47a9a650826d628e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_Saham: 0
+  Tipe: 4
+  Deskripsi: Harga saham turun 3 poin akibat sanksi OJK.
 --- !u!4 &3339351190381576809 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d694a14a0d415f4492f4979859cadf7, type: 3}
@@ -329,15 +421,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c0ac0fc6724b1e4fa292c755a474a62, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000081460335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c0ac0fc6724b1e4fa292c755a474a62, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c0ac0fc6724b1e4fa292c755a474a62, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5c0ac0fc6724b1e4fa292c755a474a62, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -362,8 +454,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c0ac0fc6724b1e4fa292c755a474a62, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 656129802242090375}
   m_SourcePrefab: {fileID: 100100000, guid: 5c0ac0fc6724b1e4fa292c755a474a62, type: 3}
+--- !u!1 &3663411697622070261 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5c0ac0fc6724b1e4fa292c755a474a62, type: 3}
+  m_PrefabInstance: {fileID: 4473873602026606244}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &656129802242090375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3663411697622070261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1194f5db14eac9e47a9a650826d628e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_Saham: 0
+  Tipe: 5
+  Deskripsi: Harga saham turun 3 poin akibat laporan keuangan negatif.
 --- !u!4 &4151436133759609167 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5c0ac0fc6724b1e4fa292c755a474a62, type: 3}
@@ -395,15 +510,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1e95029d5de0c845973a070b48c05e2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000081460335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1e95029d5de0c845973a070b48c05e2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1e95029d5de0c845973a070b48c05e2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b1e95029d5de0c845973a070b48c05e2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -428,13 +543,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b1e95029d5de0c845973a070b48c05e2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3642415192476846710}
   m_SourcePrefab: {fileID: 100100000, guid: b1e95029d5de0c845973a070b48c05e2, type: 3}
 --- !u!4 &6264350653899558794 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b1e95029d5de0c845973a070b48c05e2, type: 3}
   m_PrefabInstance: {fileID: 5865314849639508065}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6747695258787321136 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b1e95029d5de0c845973a070b48c05e2, type: 3}
+  m_PrefabInstance: {fileID: 5865314849639508065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3642415192476846710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6747695258787321136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1194f5db14eac9e47a9a650826d628e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_Saham: 0
+  Tipe: 6
+  Deskripsi: Investigasi rumor di satu sektor dan temukan kebenarannya.
 --- !u!1001 &6750517839473911738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -461,15 +599,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f8c4e9d00f923c642b7d2f276e103665, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000081460335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f8c4e9d00f923c642b7d2f276e103665, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f8c4e9d00f923c642b7d2f276e103665, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f8c4e9d00f923c642b7d2f276e103665, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -494,8 +632,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f8c4e9d00f923c642b7d2f276e103665, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8959447052150789346}
   m_SourcePrefab: {fileID: 100100000, guid: f8c4e9d00f923c642b7d2f276e103665, type: 3}
+--- !u!1 &5868122026292189931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f8c4e9d00f923c642b7d2f276e103665, type: 3}
+  m_PrefabInstance: {fileID: 6750517839473911738}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8959447052150789346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868122026292189931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1194f5db14eac9e47a9a650826d628e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_Saham: 0
+  Tipe: 0
+  Deskripsi: Ungkap kartu rumor sebelum fase dimulai.
 --- !u!4 &6495335567561769041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f8c4e9d00f923c642b7d2f276e103665, type: 3}
@@ -527,15 +688,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e56a75a18f5da7a4f8c80196ee61f7cc, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.000000081460335
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e56a75a18f5da7a4f8c80196ee61f7cc, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e56a75a18f5da7a4f8c80196ee61f7cc, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e56a75a18f5da7a4f8c80196ee61f7cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -560,10 +721,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e56a75a18f5da7a4f8c80196ee61f7cc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5080412103484959086}
   m_SourcePrefab: {fileID: 100100000, guid: e56a75a18f5da7a4f8c80196ee61f7cc, type: 3}
 --- !u!4 &8290458901363482878 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e56a75a18f5da7a4f8c80196ee61f7cc, type: 3}
   m_PrefabInstance: {fileID: 8396707583779637013}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8666738634559240772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e56a75a18f5da7a4f8c80196ee61f7cc, type: 3}
+  m_PrefabInstance: {fileID: 8396707583779637013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5080412103484959086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8666738634559240772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1194f5db14eac9e47a9a650826d628e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID_Saham: 0
+  Tipe: 2
+  Deskripsi: Stabilkan harga saham saat harga jatuh.

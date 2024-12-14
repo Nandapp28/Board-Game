@@ -169,6 +169,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1497220836142753484, guid: a97b087d6d4c0864eb0c138b7541e621, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7861897
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497220836142753484, guid: a97b087d6d4c0864eb0c138b7541e621, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00735495
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497220836142753484, guid: a97b087d6d4c0864eb0c138b7541e621, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.6178707
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497220836142753484, guid: a97b087d6d4c0864eb0c138b7541e621, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.00935857
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497220836142753484, guid: a97b087d6d4c0864eb0c138b7541e621, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4683612747817037605, guid: a97b087d6d4c0864eb0c138b7541e621, type: 3}
       propertyPath: m_Name
       value: Stock Price

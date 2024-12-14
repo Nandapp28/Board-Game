@@ -45,7 +45,8 @@ public class RumorPhase : MonoBehaviour {
     #region Unity Lifecycle
 
     /// Memulai fase rumor dan menginisialisasi kamera.
-    public void Start() {
+    public void StartRumorhPase() {
+        gameManager = FindAnyObjectByType<GameManager>();
         MainCamera = Camera.main; // Mengambil kamera utama
         cardSettings.cameraTransform = MainCamera.transform;
         initialPosition = MainCamera.transform.position; // Simpan posisi awal
@@ -84,6 +85,7 @@ public class RumorPhase : MonoBehaviour {
 
         // Setelah semua sektor, kembali ke posisi awal
         yield return StartCoroutine(MoveCameraToInitialPosition());
+        EndPhase();
     }
 
     /// Memindahkan kamera ke sektor tertentu.

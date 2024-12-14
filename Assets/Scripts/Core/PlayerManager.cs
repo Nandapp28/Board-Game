@@ -37,6 +37,18 @@ public class PlayerManager : MonoBehaviour {
         Debug.Log("Players sorted by play order.");
     }
 
+    public void ShufflePlayers() {
+        System.Random rng = new System.Random();
+        int n = playerList.Count;
+        while (n > 1) {
+            int k = rng.Next(n--);
+            Player value = playerList[k];
+            playerList[k] = playerList[n];
+            playerList[n] = value;
+        }
+        Debug.Log("Players shuffled.");
+    }
+
     public Player GetPlayer(int index) {
         if (index < 0 || index >= playerList.Count) {
             Debug.LogError("Player index out of range.");

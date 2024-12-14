@@ -3,54 +3,54 @@ using UnityEngine;
 
 public class HelpCard : MonoBehaviour
 {
-    // Enum for the Assistance Card types
+    // Enum untuk jenis Kartu Bantuan
     public enum AssistanceType
     {
-        EarlyRumorReveal,
-        ShareSwap,
-        StockStabilization,
-        TaxAvoidancePenalty,
-        OJKSanction,
-        NegativeEquity,
-        RumorInvestigation,
-        Takeover
+        PengungkapanRumorAwal,
+        PertukaranSaham,
+        StabilisasiSaham,
+        PenaltiPenghindaranPajak,
+        SanksiOJK,
+        EkuitasNegatif,
+        InvestigasiRumor,
+        Pengambilalihan
     }
 
-    public int ID_Stock;  // Unique identifier for the assistance card
-    public AssistanceType Type;  // Dropdown to select the type of assistance card
+    public int ID_Saham;  // Identifikasi unik untuk kartu bantuan
+    public AssistanceType Tipe;  // Dropdown untuk memilih jenis kartu bantuan
 
-    [TextArea(3, 5)]  // Makes the description appear as a multiline text area
-    public string Descriptions;  // Description of the assistance card
+    [TextArea(3, 5)]  // Membuat deskripsi muncul sebagai area teks multiline
+    public string Deskripsi;  // Deskripsi dari kartu bantuan
 
-    // This method runs when values in the Inspector are changed
+    // Metode ini dijalankan ketika nilai di Inspector diubah
     void OnValidate()
     {
-        // Update the Descriptions field based on the selected AssistanceType
-        switch (Type)
+        // Memperbarui field Deskripsi berdasarkan AssistanceType yang dipilih
+        switch (Tipe)
         {
-            case AssistanceType.EarlyRumorReveal:
-                Descriptions = "Reveal rumor cards before the phase begins.";
+            case AssistanceType.PengungkapanRumorAwal:
+                Deskripsi = "Ungkap kartu rumor sebelum fase dimulai.";
                 break;
-            case AssistanceType.ShareSwap:
-                Descriptions = "Swap shares with another player.";
+            case AssistanceType.PertukaranSaham:
+                Deskripsi = "Tukar saham dengan pemain lain.";
                 break;
-            case AssistanceType.StockStabilization:
-                Descriptions = "Stabilize stock prices when they are falling.";
+            case AssistanceType.StabilisasiSaham:
+                Deskripsi = "Stabilkan harga saham saat harga jatuh.";
                 break;
-            case AssistanceType.TaxAvoidancePenalty:
-                Descriptions = "Apply a 2-point penalty for each selected stock or sector.";
+            case AssistanceType.PenaltiPenghindaranPajak:
+                Deskripsi = "Terapkan penalti 2 poin untuk setiap saham atau sektor yang dipilih.";
                 break;
-            case AssistanceType.OJKSanction:
-                Descriptions = "Stock price drops by 3 points due to OJK sanctions.";
+            case AssistanceType.SanksiOJK:
+                Deskripsi = "Harga saham turun 3 poin akibat sanksi OJK.";
                 break;
-            case AssistanceType.NegativeEquity:
-                Descriptions = "Stock price drops by 3 points due to negative financial reports.";
+            case AssistanceType.EkuitasNegatif:
+                Deskripsi = "Harga saham turun 3 poin akibat laporan keuangan negatif.";
                 break;
-            case AssistanceType.RumorInvestigation:
-                Descriptions = "Investigate rumors in one sector and find the truth.";
+            case AssistanceType.InvestigasiRumor:
+                Deskripsi = "Investigasi rumor di satu sektor dan temukan kebenarannya.";
                 break;
-            case AssistanceType.Takeover:
-                Descriptions = "Acquire opponent's shares at half the price.";
+            case AssistanceType.Pengambilalihan:
+                Deskripsi = "Akuisisi saham lawan dengan setengah harga.";
                 break;
         }
     }
