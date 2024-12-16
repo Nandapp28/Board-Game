@@ -4,47 +4,73 @@ using UnityEngine;
 [System.Serializable]
 public class StockPriceConfiguration
 {
-    public float offset;
-    public Vector3 Rotation = new Vector3(0,-76.328f,0);
+    public float offset; // Offset untuk posisi harga saham
+    public Vector3 Rotation = new Vector3(0, -76.328f, 0); // Rotasi default untuk harga saham
 }
 
 [System.Serializable]
 public class AllSector
 {
-    public List<GameObject> Sector1;
-    public List<GameObject> Sector2;
-    public List<GameObject> Sector3;
-    public List<GameObject> Sector4;
+    public Sectors Sector1; // Sektor pertama
+    public Sectors Sector2; // Sektor kedua
+    public Sectors Sector3; // Sektor ketiga
+    public Sectors Sector4; // Sektor keempat
 }
 
-public class StockPriceManager : MonoBehaviour {
-    public GameObject allParentStockPriceContainer;
-    public List<GameObject> parentSectors;
-    public GameObject availablePriceContainer;
-    public List<GameObject> availablePrice;
-    public AllSector allSector;
-    public StockPriceConfiguration StockPriceConfiguration;
+[System.Serializable]
+public class Sectors
+{
+    public List<GameObject> Sector; // Daftar objek harga saham dalam sektor
+    public int CurrenPriceIndex; // Indeks harga saat ini yang aktif
+}
 
-    private void Start() {
+public class StockPriceManager : MonoBehaviour
+{
+    #region Fields
+    public GameObject allParentStockPriceContainer; // Kontainer untuk semua sektor harga saham
+    public List<GameObject> parentSectors; // Daftar sektor yang ada
+    public GameObject availablePriceContainer; // Kontainer untuk harga yang tersedia
+    public List<GameObject> availablePrice; // Daftar harga yang tersedia
+    public AllSector allSector; // Semua sektor yang ada
+    public StockPriceConfiguration StockPriceConfiguration; // Konfigurasi harga saham
+    #endregion
+
+    #region Unity Methods
+    // Metode ini dipanggil saat objek pertama kali diinisialisasi. 
+    // Ini melakukan validasi, mengumpulkan semua sektor, mengumpulkan harga yang tersedia, 
+    // mendistribusikan harga yang tersedia, mengatur indeks harga saat ini ke default, 
+    // dan memperbarui harga saat ini.
+    private void Start()
+    {
         Validate();
         CollectAllSectors();
         CollectavailablePrice();
         DistributeAvailblePrice();
+        SetDefaultCurrentPriceIndex();
+        CurrentPrice();
     }
+    #endregion
 
+    #region Validation
+    // Metode ini memeriksa apakah allParentStockPriceContainer telah diatur. 
+    // Jika tidak, akan mencetak pesan debug.
     private void Validate()
     {
-        if(allParentStockPriceContainer == null)
+        if (allParentStockPriceContainer == null)
         {
             Debug.Log("allParentStockPriceContainer null atau belum di update");
         }
     }
+    #endregion
 
-    private void CollectAllSectors() 
+    #region Collecting Data
+    // Metode ini mengumpulkan semua sektor dari allParentStockPriceContainer 
+    // dan menghapus semua harga saham yang ada di dalamnya.
+    private void CollectAllSectors()
     {
         parentSectors.Clear();
 
-        foreach(Transform child in allParentStockPriceContainer.transform)
+        foreach (Transform child in allParentStockPriceContainer.transform)
         {
             parentSectors.Add(child.gameObject);
             DestroyStockPrice(child);
@@ -53,6 +79,8 @@ public class StockPriceManager : MonoBehaviour {
         Debug.Log("ada " + parentSectors.Count + " sector");
     }
 
+    // Metode ini menghapus semua objek anak dari objek yang diberikan 
+    // untuk membersihkan harga saham yang ada.
     private void DestroyStockPrice(Transform Object)
     {
         foreach (Transform child in Object)
@@ -61,18 +89,24 @@ public class StockPriceManager : MonoBehaviour {
         }
     }
 
+    // Metode ini mengumpulkan semua harga yang tersedia dari availablePriceContainer 
+    // dan menyimpannya dalam daftar availablePrice.
     void CollectavailablePrice()
     {
         availablePrice.Clear();
-        
-        foreach(Transform child in availablePriceContainer.transform)
+
+        foreach (Transform child in availablePriceContainer.transform)
         {
             availablePrice.Add(child.gameObject);
         }
 
         Debug.Log("ada " + availablePrice.Count + " Price");
     }
+    #endregion
 
+    #region Price Distribution
+    // Metode ini mendistribusikan harga yang tersedia ke sektor-sektor yang ada. 
+    // Ini memeriksa apakah daftar harga dan sektor tidak kosong sebelum melanjutkan.
     void DistributeAvailblePrice()
     {
         if (availablePrice.Count == 0)
@@ -86,12 +120,13 @@ public class StockPriceManager : MonoBehaviour {
             return;
         }
 
+        // Daftar sektor dan harga yang akan didistribusikan
         List<List<GameObject>> sectors = new List<List<GameObject>>
         {
-            allSector.Sector1,
-            allSector.Sector2,
-            allSector.Sector3,
-            allSector.Sector4,
+            allSector.Sector1.Sector,
+            allSector.Sector2.Sector,
+            allSector.Sector3.Sector,
+            allSector.Sector4.Sector,
         };
         List<List<int>> allPriceInsectors = new List<List<int>>
         {
@@ -101,6 +136,8 @@ public class StockPriceManager : MonoBehaviour {
             new List<int>{2,4,5,7,9},
         };
 
+        // Mendis ```csharp
+        // Mendistribusikan harga ke setiap sektor berdasarkan indeks harga
         for (int i = 0; i < parentSectors.Count; i++)
         {
             GameObject Parent = parentSectors[i];
@@ -108,32 +145,27 @@ public class StockPriceManager : MonoBehaviour {
             int middleindex = allPriceInsectors[i].Count / 2;
             int middleValue = allPriceInsectors[i][middleindex];
 
-            // Hitung posisi untuk setiap harga berdasarkan index
             for (int z = 0; z < allPriceInsectors[i].Count; z++)
             {
                 int price = allPriceInsectors[i][z];
-                StockPrice priceValue = availablePrice[price-1].GetComponent<StockPrice>();
+                StockPrice priceValue = availablePrice[price - 1].GetComponent<StockPrice>();
 
-                GameObject instantiatedStockPrice = Instantiate(priceValue.gameObject ,Parent.transform);
+                GameObject instantiatedStockPrice = Instantiate(priceValue.gameObject, Parent.transform);
                 instantiatedStockPrice.transform.localRotation = Quaternion.Euler(StockPriceConfiguration.Rotation);
 
-                // Jika harga adalah nilai tengah, posisikan di tengah (Vector3.zero)
                 if (price == middleValue)
                 {
                     instantiatedStockPrice.transform.localPosition = Vector3.zero;
                 }
                 else
                 {
-                    // Hitung offset berdasarkan index
-                    int offsetIndex = Mathf.Abs(middleindex - z); // Selisih antara index tengah dan index saat ini
+                    int offsetIndex = Mathf.Abs(middleindex - z);
                     float offset = offsetIndex * StockPriceConfiguration.offset;
 
-                    // Posisi untuk harga lebih kecil dari nilai tengah (Positif Z)
                     if (price < middleValue)
                     {
                         instantiatedStockPrice.transform.localPosition = new Vector3(0, 0, offset);
                     }
-                    // Posisi untuk harga lebih besar dari nilai tengah (Negatif Z)
                     else
                     {
                         instantiatedStockPrice.transform.localPosition = new Vector3(0, 0, -offset);
@@ -144,5 +176,94 @@ public class StockPriceManager : MonoBehaviour {
             }
         }
     }
+    #endregion
+
+    #region Current Price Management
+    // Metode ini memperbarui harga saat ini untuk semua sektor.
+    void CurrentPrice()
+    {
+        UpdateSector1();
+        UpdateSector2();
+        UpdateSector3();
+        UpdateSector4();
+    }
+
+    // Memperbarui harga untuk sektor pertama.
+    public void UpdateSector1()
+    {
+        CurrenPriceIndexActived(allSector.Sector1);
+    }
+
+    // Memperbarui harga untuk sektor kedua.
+    public void UpdateSector2()
+    {
+        CurrenPriceIndexActived(allSector.Sector2);
+    }
+
+    // Memperbarui harga untuk sektor ketiga.
+    public void UpdateSector3()
+    {
+        CurrenPriceIndexActived(allSector.Sector3);
+    }
+
+    // Memperbarui harga untuk sektor keempat.
+    public void UpdateSector4()
+    {
+        CurrenPriceIndexActived(allSector.Sector4);
+    }
+
+    // Mengaktifkan harga saat ini berdasarkan indeks yang aktif untuk sektor yang diberikan.
+    void CurrenPriceIndexActived(Sectors sectors)
+    {
+        for (int i = 0; i < sectors.Sector.Count; i++)
+        {
+            GameObject obj = sectors.Sector[i];
+            StockPrice price = obj.GetComponent<StockPrice>();
+
+            foreach (Transform child in obj.transform)
+            {
+                child.gameObject.SetActive(i == sectors.CurrenPriceIndex);
+            }
+        }
+    }
+
+    // Meningkatkan indeks harga saat ini untuk sektor yang diberikan.
+    public void IncreaseCurrentPriceIndex(Sectors sectors, int increment)
+    {
+        if (sectors.CurrenPriceIndex + increment < sectors.Sector.Count)
+        {
+            sectors.CurrenPriceIndex += increment;
+            CurrenPriceIndexActived(sectors);
+        }
+    }
+
+    // Mengurangi indeks harga saat ini untuk sektor yang diberikan.
+    public void DecreaseCurrentPriceIndex(Sectors sectors, int decrement)
+    {
+        if (sectors.CurrenPriceIndex - decrement >= 0)
+        {
+            sectors.CurrenPriceIndex -= decrement;
+            CurrenPriceIndexActived(sectors);
+        }
+    }
+
+    // Mengatur indeks harga saat ini ke nilai default untuk semua sektor.
+    private void SetDefaultCurrentPriceIndex()
+    {
+        SetCurrentPriceIndex(allSector.Sector1);
+        SetCurrentPriceIndex(allSector.Sector2);
+        SetCurrentPriceIndex(allSector.Sector3);
+        SetCurrentPriceIndex(allSector.Sector4);
+    }
+
+    // Mengatur indeks harga saat ini ke indeks tengah untuk sektor yang diberikan.
+    private void SetCurrentPriceIndex(Sectors sector)
+    {
+        if (sector.Sector.Count > 0)
+        {
+            sector.CurrenPriceIndex = sector.Sector.Count / 2; // Mengatur ke indeks tengah
+        }
+    }
+    #endregion
 
 }
