@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,18 +8,46 @@ public class GameManager : MonoBehaviour
     public SellingPhase sellingPhase; // Fase bidding
     public RumorPhase rumorPhase; // Fase bidding
     public ResolutionPhase resolutionPhase; // Fase bidding
-    public enum GameState { Bidding, Action, Selling, Rumor, Resolution, End }
+    public SemesterManager Semester; // Fase bidding
+    private PlayerManager playerManager;
+    public enum GameState { Bidding, Action, Selling, Rumor, Resolution, NextSemester ,End }
     public GameState currentGameState = GameState.Bidding;
 
     // void Start()
     // {
-    //     biddingPhase = FindObjectOfType<BiddingPhase>();
-    //     actionPhase = FindObjectOfType<ActionPhase>();
-    //     sellingPhase = FindObjectOfType<SellingPhase>();
-    //     rumorPhase = FindObjectOfType<RumorPhase>();
-    //     resolutionPhase = FindObjectOfType<ResolutionPhase>();
-    //     StartNextPhase();
+    //     InitializeManagers();
+    //     StartCoroutine(StartSemestersCoroutine());
     // }
+
+    private void InitializeManagers()
+    {
+        playerManager = FindAnyObjectByType<PlayerManager>();
+        Semester = FindAnyObjectByType<SemesterManager>();
+        InitializePhases();
+        playerManager.StartPlayerManager();
+    }
+
+    private void InitializePhases()
+    {
+        biddingPhase = FindObjectOfType<BiddingPhase>();
+        actionPhase = FindObjectOfType<ActionPhase>();
+        sellingPhase = FindObjectOfType<SellingPhase>();
+        rumorPhase = FindObjectOfType<RumorPhase>();
+        resolutionPhase = FindObjectOfType<ResolutionPhase>();
+    }
+
+    private IEnumerator StartSemestersCoroutine()
+    {
+        Semester.StartSemesters();
+
+        while (!Semester.IsSemesterAnimateDone)
+        {
+            yield return null; // Tunggu hingga animasi selesai
+        }
+
+        StartNextPhase();
+        Semester.IsSemesterAnimateDone = false;
+    }
 
     public void StartNextPhase()
     {
@@ -38,6 +67,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Resolution:
                 HandleResolutionPhase();
+                break;
+            case GameState.NextSemester:
+                HandleNextSemester();
                 break;
             case GameState.End:
                 HandleEndPhase();
@@ -81,6 +113,12 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Resolution Phase");
         resolutionPhase.StartResolutionPhase();
+    }
+    public void HandleNextSemester() // Diubah menjadi public
+    {
+        Debug.Log("Next Semester");
+        Semester.NextSemester();
+        Semester.AnimateSemesters();
     }
 
     public void HandleEndPhase() // Diubah menjadi public

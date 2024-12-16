@@ -7,7 +7,7 @@ public class PlayerManager : MonoBehaviour {
     private GameObject players; // GameObject yang berisi pemain
     private List<Player> playerList = new List<Player>(); // Daftar pemain
 
-    void Start() {
+    public void StartPlayerManager() {
         if (players == null) {
             Debug.LogError("Players GameObject is not assigned!");
             return;

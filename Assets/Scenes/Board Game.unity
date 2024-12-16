@@ -9860,6 +9860,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3489784861606110685, guid: 07c736aeab7eae34f9eaa7e76376da33, type: 3}
   m_PrefabInstance: {fileID: 6414857276067208665}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &998821495 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7626451258964712069, guid: 7bf2732c174d77c499ba1ebcd6aced69, type: 3}
+  m_PrefabInstance: {fileID: 1249438777711939969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1004392865 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400012, guid: 1508f459923b7df4889f466e17864ab4, type: 3}
@@ -12297,7 +12302,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120, y: -194}
+  m_AnchoredPosition: {x: 120, y: -139.20001}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &1167280870 stripped
@@ -13351,6 +13356,62 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8471883146739891095, guid: b06197d487b17684280c210a8cc917e3, type: 3}
   m_PrefabInstance: {fileID: 9008049994727425358}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1276909698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1276909699}
+  - component: {fileID: 1276909700}
+  m_Layer: 0
+  m_Name: StockPriceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1276909699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276909698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1410188841}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1276909700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276909698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b499fe09229b78e4b9270383ffdd367a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allParentStockPriceContainer: {fileID: 998821495}
+  parentSectors: []
+  availablePriceContainer: {fileID: 4683612747817037605, guid: a97b087d6d4c0864eb0c138b7541e621, type: 3}
+  availablePrice: []
+  allSector:
+    Sector1: []
+    Sector2: []
+    Sector3: []
+    Sector4: []
+  StockPriceConfiguration:
+    offset: 3
+    Rotation: {x: 0, y: -76.328, z: 0}
 --- !u!4 &1279523439 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6174422797892903482, guid: de65e4aad99ff4034b36e2a8d6524cb1, type: 3}
@@ -13755,6 +13816,7 @@ MonoBehaviour:
   sellingPhase: {fileID: 1096851278}
   rumorPhase: {fileID: 0}
   resolutionPhase: {fileID: 0}
+  Semester: {fileID: 0}
   currentGameState: 0
 --- !u!1 &1329387831
 GameObject:
@@ -13887,6 +13949,7 @@ MonoBehaviour:
       PlacementPosition: {x: -0.5, y: 0, z: -0.5}
       PlacementRotation: {x: -90, y: -90, z: 8.283}
       SemesterPrefab: {fileID: 0}
+  IsSemesterAnimateDone: 0
   CurrentSemesterIndex: 0
   NewSectors:
     Sector1: []
@@ -14450,6 +14513,7 @@ Transform:
   - {fileID: 1328666196}
   - {fileID: 566593771}
   - {fileID: 1342784556}
+  - {fileID: 1276909699}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1414297636
@@ -18011,7 +18075,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -120, y: -194}
+  m_AnchoredPosition: {x: -120, y: -139.2}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1778054495

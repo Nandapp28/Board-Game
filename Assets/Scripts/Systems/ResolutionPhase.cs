@@ -29,11 +29,14 @@ public class ResolutionPhase : MonoBehaviour
     public Camera Camera;
     public PlayerManager Players;
     public int currentPlayerIndex = 0;
+
+    private GameManager gameManager;
     #endregion
 
     #region Unity Methods
     public void StartResolutionPhase()
     {
+        gameManager = GameObject.FindObjectOfType<GameManager>();
         Camera = Camera.main;
         Players = FindAnyObjectByType<PlayerManager>();
         Players.ShufflePlayers();
@@ -53,7 +56,7 @@ public class ResolutionPhase : MonoBehaviour
             DuplicateRandomHelpCard();
 
             Debug.Log("Menunggu selama 10 detik sebelum melanjutkan ke pemain berikutnya...");
-            yield return new WaitForSeconds(10f); // Tunggu selama 10 detik
+            yield return new WaitForSeconds(4f); // Tunggu selama 10 detik
 
             DestroyCard();
             MoveNextPlayer();
@@ -61,6 +64,7 @@ public class ResolutionPhase : MonoBehaviour
         else
         {
             Debug.Log("No more players to process.");
+            EndPhase();
         }
     }
 
@@ -147,4 +151,13 @@ public class ResolutionPhase : MonoBehaviour
         cardTransform.DOScale(cardSettings.targetScale, cardSettings.animationDuration).SetEase(Ease.OutBack); // Animasi skala
     }
     #endregion
+
+    #region End Phase
+    private void EndPhase()
+    {
+        gameManager.currentGameState = GameManager.GameState.NextSemester;
+        gameManager.StartNextPhase();
+    }
+    #endregion
+    
 }
