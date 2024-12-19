@@ -19,6 +19,8 @@ public class ActionPhase : MonoBehaviour
     private Coroutine currentTimerCoroutine; // Menyimpan coroutine timer saat ini
     private CameraAnimation Camera;
     private GameManager gameManager;
+    private bool IsFlashBuy = false;
+    private int FlasbuyRemains = 0;
 
     #region Initialization
     // Memulai fase aksi dengan mengumpulkan pemain dan memulai pengambilan kartu
@@ -99,6 +101,11 @@ public class ActionPhase : MonoBehaviour
     // Memulai pengambilan kartu untuk pemain berikutnya
     void StartDrawCardForNextPlayer()
     {
+        if(IsFlashBuy)
+        {
+            return;
+        }
+
         if (cardManager.selectedCards.Count > 0)
         {
             Player currentPlayer = playerList[currentPlayerIndex];
@@ -119,6 +126,11 @@ public class ActionPhase : MonoBehaviour
     // Coroutine untuk memilih kartu dengan timer
     private IEnumerator SelectCardWithTimer(Player currentPlayer)
     {
+        if(IsFlashBuy)
+        {
+            yield break;
+        }
+        
         float timer = selectionTime;
 
         while (timer > 0)
@@ -160,6 +172,11 @@ public class ActionPhase : MonoBehaviour
     // Memindahkan giliran ke pemain berikutnya
     private void MoveToNextPlayer()
     {
+        if(IsFlashBuy)
+        {
+            return;
+        }
+
         currentPlayerIndex++;
 
         if (currentPlayerIndex >= playerList.Count)
@@ -176,23 +193,37 @@ public class ActionPhase : MonoBehaviour
     public void OnCardActived()
     {
         StopCurrentTimer(); // Hentikan timer saat kartu diaktifkan
+        StartCoroutine(ActiveCardEffect());
         RemoveCurrentCard(); // Hapus kartu yang sedang aktif
         HideActionButtons(); // Sembunyikan tombol aksi
         EnableSelectedCardColliders(); // Aktifkan collider kartu yang dipilih
-        MoveToNextPlayer(); // Pindah ke pemain berikutnya
     }
 
     // Panggil fungsi ini ketika pemain memilih untuk menyimpan kartu
     public void OnCardKeep()
     {
-        StopCurrentTimer();
-        RemoveCurrentCard();
-        HideActionButtons();
-        EnableSelectedCardColliders();
+        if(IsFlashBuy)
+        {
+            StopCurrentTimer();
+            RemoveCurrentCard();
+            HideActionButtons();
+            EnableSelectedCardColliders();
 
-        UpdatePlayerResources();
+            UpdatePlayerResources();
+            FlasbuyRemains--;
+            StartCoroutine(Flashbuy());
+        }else{
+            StopCurrentTimer();
+            RemoveCurrentCard();
+            HideActionButtons();
+            EnableSelectedCardColliders();
 
-        MoveToNextPlayer();
+            UpdatePlayerResources();
+
+            MoveToNextPlayer();
+        }
+
+
     }
 
     private void UpdatePlayerResources()
@@ -221,6 +252,79 @@ public class ActionPhase : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public IEnumerator ActiveCardEffect()
+    {
+        if(cardManager.currentActiveCard != null)
+        {
+            StockCard card = cardManager.currentActiveCard.GetComponent<StockCard>();
+
+             switch (card.Type)
+            {
+                case StockCard.StockType.FlashBuy:
+                    Debug.Log("Kartu Flasbuy Di aktifkan");
+                    IsFlashBuy = true;
+                    FlasbuyRemains = 2;
+                    yield return new WaitForSeconds(0.5f);
+                    StartCoroutine(Flashbuy());
+                    break;
+                default:
+                    break;
+
+            }
+        }
+    }
+
+    private IEnumerator Flashbuy()
+    {
+        if(FlasbuyRemains > 0 )
+        {
+            currentTimerCoroutine = StartCoroutine(TimeCountDownForFlashBuy());
+            Debug.Log("Anda Dapat Mengambil " + FlasbuyRemains + " Kartu lagi");
+        }else{
+            IsFlashBuy = false;
+            yield return new WaitForSeconds(0.2f);
+            MoveToNextPlayer();
+        }
+    }
+
+    private IEnumerator TimeCountDownForFlashBuy()
+    {
+        float timer = selectionTime;
+
+        while (timer > 0)
+        {
+            // Update teks timer
+            timerText.text = Mathf.Ceil(timer).ToString(); // Perbarui teks timer
+            timer -= Time.deltaTime; // Kurangi waktu dengan waktu yang berlalu
+            yield return null; // Tunggu hingga frame berikutnya
+        }
+
+        // Waktu habis, pilih kartu secara acak
+        Debug.Log(" waktu habis! Memilih kartu secara acak.");
+
+        // Memilih kartu secara acak
+        if (cardManager.selectedCards.Count > 0)
+        {
+            int randomIndex = Random.Range(0, cardManager.selectedCards.Count);
+            GameObject randomCard = cardManager.selectedCards[randomIndex];
+
+            // Melakukan tindakan yang diperlukan pada kartu yang dipilih secara acak
+            cardManager.currentActiveCard = randomCard.GetComponent<CardAnimation>(); // Asumsikan Anda memiliki komponen Card
+            yield return StartCoroutine(HandleAnimationComplete(cardManager.currentActiveCard));
+            RemoveCurrentCard(); // Menghapus kartu dari daftar
+            HideActionButtons(); // Menyembunyikan tombol aksi
+            EnableSelectedCardColliders(); // Mengaktifkan collider kartu yang dipilih
+        }
+        if(FlasbuyRemains > 0)
+        {
+            FlasbuyRemains--;
+            StartCoroutine(Flashbuy());
+        }else{
+            MoveToNextPlayer();
+        }
+
     }
     #endregion
 
