@@ -21,18 +21,22 @@ public class ActionPhase : MonoBehaviour
     private GameManager gameManager;
     private bool IsFlashBuy = false;
     private int FlasbuyRemains = 0;
+    private StockPriceManager stockPriceManager;
 
     #region Initialization
     // Memulai fase aksi dengan mengumpulkan pemain dan memulai pengambilan kartu
-    public void StartActionPhase()
-    {
+
+    private void Start() {
         gameManager = FindAnyObjectByType<GameManager>();
+        stockPriceManager = FindAnyObjectByType<StockPriceManager>();
         if (Camera == null)
         {
             Camera = GameObject.FindObjectOfType<CameraAnimation>();
             Debug.Log("Camera Telah ditemukan");
         }
-
+    }
+    public void StartActionPhase()
+    {
         CollectPlayers();
         Camera.ActionCamera();
         StartCoroutine(ShowTheCard());
@@ -197,11 +201,17 @@ public class ActionPhase : MonoBehaviour
         RemoveCurrentCard(); // Hapus kartu yang sedang aktif
         HideActionButtons(); // Sembunyikan tombol aksi
         EnableSelectedCardColliders(); // Aktifkan collider kartu yang dipilih
+        if(IsFlashBuy)
+        {
+            MoveToNextPlayer();
+        }
     }
 
     // Panggil fungsi ini ketika pemain memilih untuk menyimpan kartu
     public void OnCardKeep()
     {
+        StockCard card = cardManager.currentActiveCard.GetComponent<StockCard>();
+        Player currentPlayer = playerList[currentPlayerIndex];
         if(IsFlashBuy)
         {
             StopCurrentTimer();
@@ -213,6 +223,11 @@ public class ActionPhase : MonoBehaviour
             FlasbuyRemains--;
             StartCoroutine(Flashbuy());
         }else{
+            if(card.Type == StockCard.StockType.TradeFee)
+            {
+                currentPlayer.RemoveWealth(1);
+                Debug.Log("anda mendapakan 1");
+            }
             StopCurrentTimer();
             RemoveCurrentCard();
             HideActionButtons();
@@ -235,16 +250,16 @@ public class ActionPhase : MonoBehaviour
 
             switch (card.Connected_Sectors)
             {
-                case StockCard.Sector.Infrastukur:
+                case StockCard.Sector.Infrastuctur:
                     currentPlayer.AddIndustrial(1);
                     break;
-                case StockCard.Sector.Keuangan:
+                case StockCard.Sector.Finance:
                     currentPlayer.AddFinance(1);
                     break;
                 case StockCard.Sector.Mining:
                     currentPlayer.AddMining(1);
                     break;
-                case StockCard.Sector.Consumer:
+                case StockCard.Sector.Consumen:
                     currentPlayer.AddConsumen(1);
                     break;
                 default:
@@ -259,6 +274,7 @@ public class ActionPhase : MonoBehaviour
         if(cardManager.currentActiveCard != null)
         {
             StockCard card = cardManager.currentActiveCard.GetComponent<StockCard>();
+            Player currentPlayer = playerList[currentPlayerIndex];
 
              switch (card.Type)
             {
@@ -268,6 +284,41 @@ public class ActionPhase : MonoBehaviour
                     FlasbuyRemains = 2;
                     yield return new WaitForSeconds(0.5f);
                     StartCoroutine(Flashbuy());
+                    break;
+                case StockCard.StockType.TradeFee:
+                    switch (card.Connected_Sectors)
+                    {
+                        case StockCard.Sector.Infrastuctur:
+                            int IndexStockPriceInfrastuctur = stockPriceManager.allSector.Infrastuctur.CurrenPriceIndex;
+                            int priceInfrastuctur = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceInfrastuctur].GetComponent<StockPrice>().value;
+                            priceInfrastuctur--;
+                            currentPlayer.AddWealth(priceInfrastuctur);
+                            Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceInfrastuctur);
+                            break;
+                        case StockCard.Sector.Consumen:
+                            int IndexStockPriceConsumen = stockPriceManager.allSector.Consumen.CurrenPriceIndex;
+                            int priceConsumen = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceConsumen].GetComponent<StockPrice>().value;
+                            priceConsumen--;
+                            currentPlayer.AddWealth(priceConsumen);
+                            Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceConsumen);
+                            break;
+                        case StockCard.Sector.Mining:
+                            int IndexStockPriceMining = stockPriceManager.allSector.Mining.CurrenPriceIndex;
+                            int priceMining = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceMining].GetComponent<StockPrice>().value;
+                            priceMining--;
+                            currentPlayer.AddWealth(priceMining);
+                            Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceMining);
+                            break;
+                        case StockCard.Sector.Finance:
+                            int IndexStockPriceFinance = stockPriceManager.allSector.Finance.CurrenPriceIndex;
+                            int priceFinance = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceFinance].GetComponent<StockPrice>().value;
+                            priceFinance--;
+                            currentPlayer.AddWealth(priceFinance);
+                            Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceFinance);
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;

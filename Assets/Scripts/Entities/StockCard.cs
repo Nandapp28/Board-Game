@@ -15,10 +15,10 @@ public class StockCard : MonoBehaviour
     // Enum untuk sektor yang terhubung dengan kartu saham
     public enum Sector
     {
-        Infrastukur,   // Infrastruktur
-        Keuangan,      // Keuangan
+        Infrastuctur,   // Infrastruktur
+        Finance,      // Keuangan
         Mining,        // Pertambangan
-        Consumer       // Konsumen
+        Consumen       // Konsumen
     }
 
     public StockType Type; // Tipe kartu saham

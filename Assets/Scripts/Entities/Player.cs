@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public int Dice2Value;    // Nilai dadu kedua
     public float TotalScore;    // Total nilai dari kedua dadu
     public int playOrder;    // Urutan main pemain
-    public int Wealth;       // Kekayaan pemain
+    public int Wealth = 5;       // Kekayaan pemain
 
     [Header("Stock")]
     public int Consumen = 0;  // Jumlah konsumen
@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     public int Infrastuctur = 0; // Jumlah sumber daya industri
     public int Finance = 0;   // Jumlah sumber daya keuangan
 
+    private void Start() {
+        Wealth = 5;
+    }
     #region Dice Methods
     // Method untuk melempar dadu dan menghitung total nilai
     public void RollDice(int Dice1, int Dice2)

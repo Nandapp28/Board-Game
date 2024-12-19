@@ -11,10 +11,10 @@ public class StockPriceConfiguration
 [System.Serializable]
 public class AllSector
 {
-    public Sectors Sector1; // Sektor pertama
-    public Sectors Sector2; // Sektor kedua
-    public Sectors Sector3; // Sektor ketiga
-    public Sectors Sector4; // Sektor keempat
+    public Sectors Consumen; // Sektor pertama
+    public Sectors Infrastuctur; // Sektor kedua
+    public Sectors Finance; // Sektor ketiga
+    public Sectors Mining; // Sektor keempat
 }
 
 [System.Serializable]
@@ -123,10 +123,10 @@ public class StockPriceManager : MonoBehaviour
         // Daftar sektor dan harga yang akan didistribusikan
         List<List<GameObject>> sectors = new List<List<GameObject>>
         {
-            allSector.Sector1.Sector,
-            allSector.Sector2.Sector,
-            allSector.Sector3.Sector,
-            allSector.Sector4.Sector,
+            allSector.Consumen.Sector,
+            allSector.Infrastuctur.Sector,
+            allSector.Finance.Sector,
+            allSector.Mining.Sector,
         };
         List<List<int>> allPriceInsectors = new List<List<int>>
         {
@@ -191,25 +191,25 @@ public class StockPriceManager : MonoBehaviour
     // Memperbarui harga untuk sektor pertama.
     public void UpdateSector1()
     {
-        CurrenPriceIndexActived(allSector.Sector1);
+        CurrenPriceIndexActived(allSector.Consumen);
     }
 
     // Memperbarui harga untuk sektor kedua.
     public void UpdateSector2()
     {
-        CurrenPriceIndexActived(allSector.Sector2);
+        CurrenPriceIndexActived(allSector.Infrastuctur);
     }
 
     // Memperbarui harga untuk sektor ketiga.
     public void UpdateSector3()
     {
-        CurrenPriceIndexActived(allSector.Sector3);
+        CurrenPriceIndexActived(allSector.Finance);
     }
 
     // Memperbarui harga untuk sektor keempat.
     public void UpdateSector4()
     {
-        CurrenPriceIndexActived(allSector.Sector4);
+        CurrenPriceIndexActived(allSector.Mining);
     }
 
     // Mengaktifkan harga saat ini berdasarkan indeks yang aktif untuk sektor yang diberikan.
@@ -250,10 +250,10 @@ public class StockPriceManager : MonoBehaviour
     // Mengatur indeks harga saat ini ke nilai default untuk semua sektor.
     private void SetDefaultCurrentPriceIndex()
     {
-        SetCurrentPriceIndex(allSector.Sector1);
-        SetCurrentPriceIndex(allSector.Sector2);
-        SetCurrentPriceIndex(allSector.Sector3);
-        SetCurrentPriceIndex(allSector.Sector4);
+        SetCurrentPriceIndex(allSector.Consumen);
+        SetCurrentPriceIndex(allSector.Infrastuctur);
+        SetCurrentPriceIndex(allSector.Finance);
+        SetCurrentPriceIndex(allSector.Mining);
     }
 
     // Mengatur indeks harga saat ini ke indeks tengah untuk sektor yang diberikan.
