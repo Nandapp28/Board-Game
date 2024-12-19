@@ -11,10 +11,10 @@ public class CompanyPerformanceConfiguration
 [System.Serializable]
 public class AllSectorIn
 {
-    public SectorsIn Sector1; // Sektor pertama
-    public SectorsIn Sector2; // Sektor kedua
-    public SectorsIn Sector3; // Sektor ketiga
-    public SectorsIn Sector4; // Sektor keempat
+    public SectorsIn Consumen; // Sektor pertama
+    public SectorsIn Infrastuctur; // Sektor kedua
+    public SectorsIn Finance; // Sektor ketiga
+    public SectorsIn Mining; // Sektor keempat
 }
 
 [System.Serializable]
@@ -94,10 +94,10 @@ public class CompanyPerformanceManager : MonoBehaviour {
         // Daftar sektor dan harga yang akan didistribusikan
         List<List<GameObject>> sectors = new List<List<GameObject>>
         {
-            allSectorIn.Sector1.Sector,
-            allSectorIn.Sector2.Sector,
-            allSectorIn.Sector3.Sector,
-            allSectorIn.Sector4.Sector
+            allSectorIn.Consumen.Sector,
+            allSectorIn.Infrastuctur.Sector,
+            allSectorIn.Finance.Sector,
+            allSectorIn.Mining.Sector
         };
 
         // Logika untuk mendistribusikan indikator ke sektor
@@ -143,10 +143,10 @@ public class CompanyPerformanceManager : MonoBehaviour {
     {
         int middleindex = AvailableIndikator.Count / 2;
 
-        allSectorIn.Sector1.CurrenIndikatorIndex = middleindex;
-        allSectorIn.Sector2.CurrenIndikatorIndex = middleindex;
-        allSectorIn.Sector3.CurrenIndikatorIndex = middleindex;
-        allSectorIn.Sector4.CurrenIndikatorIndex = middleindex;
+        allSectorIn.Consumen.CurrenIndikatorIndex = middleindex;
+        allSectorIn.Infrastuctur.CurrenIndikatorIndex = middleindex;
+        allSectorIn.Finance.CurrenIndikatorIndex = middleindex;
+        allSectorIn.Mining.CurrenIndikatorIndex = middleindex;
     }
 
     void CurrenPriceIndikatorActived(SectorsIn sectors)

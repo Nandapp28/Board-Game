@@ -5,7 +5,7 @@ public class PlayerManager : MonoBehaviour {
 
     [SerializeField]
     private GameObject players; // GameObject yang berisi pemain
-    private List<Player> playerList = new List<Player>(); // Daftar pemain
+    public List<Player> playerList = new List<Player>(); // Daftar pemain
 
     public void StartPlayerManager() {
         if (players == null) {

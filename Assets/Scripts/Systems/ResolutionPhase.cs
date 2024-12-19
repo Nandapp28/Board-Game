@@ -77,7 +77,8 @@ public class ResolutionPhase : MonoBehaviour
         else
         {
             Debug.Log("No more players to process.");
-            EndPhase();
+            currentPlayerIndex = 0;
+            DividenCheck();
         }
     }
 
@@ -99,10 +100,7 @@ public class ResolutionPhase : MonoBehaviour
 
     #region Token Ramalan
 
-    
-
     #endregion
-
     #region Help Card Management
     private void CollectHelpCards()
     {
@@ -177,15 +175,15 @@ public class ResolutionPhase : MonoBehaviour
         if(semesterManager.CurrentSemester > 0)
         {
             int index = semesterManager.CurrentSemester-1;
-            Semester semesterSectors1 = allSectorsSemester.Sector1[index].GetComponent<Semester>();
-            Semester semesterSectors2 = allSectorsSemester.Sector2[index].GetComponent<Semester>();
-            Semester semesterSectors3 = allSectorsSemester.Sector3[index].GetComponent<Semester>();
-            Semester semesterSectors4 = allSectorsSemester.Sector4[index].GetComponent<Semester>();
+            Semester semesterSectors1 = allSectorsSemester.Consumer[index].GetComponent<Semester>();
+            Semester semesterSectors2 = allSectorsSemester.Infrastuctur[index].GetComponent<Semester>();
+            Semester semesterSectors3 = allSectorsSemester.Finance[index].GetComponent<Semester>();
+            Semester semesterSectors4 = allSectorsSemester.Mining[index].GetComponent<Semester>();
 
-            CompanyProfileUpdate(semesterSectors1,companyPerformanceManager.allSectorIn.Sector1);
-            CompanyProfileUpdate(semesterSectors2,companyPerformanceManager.allSectorIn.Sector2);
-            CompanyProfileUpdate(semesterSectors3,companyPerformanceManager.allSectorIn.Sector3);
-            CompanyProfileUpdate(semesterSectors4,companyPerformanceManager.allSectorIn.Sector4);
+            CompanyProfileUpdate(semesterSectors1,companyPerformanceManager.allSectorIn.Consumen);
+            CompanyProfileUpdate(semesterSectors2,companyPerformanceManager.allSectorIn.Infrastuctur);
+            CompanyProfileUpdate(semesterSectors3,companyPerformanceManager.allSectorIn.Finance);
+            CompanyProfileUpdate(semesterSectors4,companyPerformanceManager.allSectorIn.Mining);
 
         }
     }
@@ -215,7 +213,51 @@ public class ResolutionPhase : MonoBehaviour
 
     public void DividenCheck()
     {
-        
+        int ConsumenCompanyIndex = companyPerformanceManager.allSectorIn.Consumen.CurrenIndikatorIndex;
+        int InfrastucturCompanyIndex = companyPerformanceManager.allSectorIn.Infrastuctur.CurrenIndikatorIndex;
+        int FinanceCompanyIndex = companyPerformanceManager.allSectorIn.Finance.CurrenIndikatorIndex;
+        int MiningCompanyIndex = companyPerformanceManager.allSectorIn.Mining.CurrenIndikatorIndex;
+
+        Debug.Log("Current Player Index: " + currentPlayerIndex);
+        if (currentPlayerIndex < Players.PlayerCount)
+        {
+            Player CurrentPlayer = Players.playerList[currentPlayerIndex];
+
+            if(CurrentPlayer.Consumen > 0)
+            {
+                Company consumen = companyPerformanceManager.allSectorIn.Consumen.Sector[ConsumenCompanyIndex].GetComponent<Company>();
+                CurrentPlayer.AddWealth(consumen.Dividen);
+            }
+            if(CurrentPlayer.Infrastuctur > 0)
+            {
+                Company Infrastuctur = companyPerformanceManager.allSectorIn.Infrastuctur.Sector[InfrastucturCompanyIndex].GetComponent<Company>();
+                CurrentPlayer.AddWealth(Infrastuctur.Dividen);
+            }
+            if(CurrentPlayer.Finance > 0)
+            {
+                Company Finance = companyPerformanceManager.allSectorIn.Finance.Sector[FinanceCompanyIndex].GetComponent<Company>();
+                CurrentPlayer.AddWealth(Finance.Dividen);
+            }
+            if(CurrentPlayer.Mining > 0)
+            {
+                Company Mining = companyPerformanceManager.allSectorIn.Mining.Sector[MiningCompanyIndex].GetComponent<Company>();
+                CurrentPlayer.AddWealth(Mining.Dividen);
+            }
+
+            MoveNextPlayerDividen();
+        }
+        else
+        {
+            Debug.Log("No more players to process.");
+            currentPlayerIndex = 0;
+            EndPhase();
+        }
+    }
+
+    public void MoveNextPlayerDividen()
+    {
+        currentPlayerIndex++;
+        DividenCheck();
     }
 
     #endregion

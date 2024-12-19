@@ -14,10 +14,10 @@ public class SemesterConfiguration
 [System.Serializable]
 public class AllSectors
 {
-    public List<GameObject> Sector1;
-    public List<GameObject> Sector2;
-    public List<GameObject> Sector3;
-    public List<GameObject> Sector4;
+    public List<GameObject> Consumer;
+    public List<GameObject> Infrastuctur;
+    public List<GameObject> Finance;
+    public List<GameObject> Mining;
 }
 
 [System.Serializable]
@@ -130,10 +130,10 @@ public class SemesterManager : MonoBehaviour
 
         List<List<GameObject>> sectors = new List<List<GameObject>>
         {
-            NewSectors.Sector1,
-            NewSectors.Sector2,
-            NewSectors.Sector3,
-            NewSectors.Sector4,
+            NewSectors.Consumer,
+            NewSectors.Infrastuctur,
+            NewSectors.Finance,
+            NewSectors.Mining,
         };
         int index = 0;
         foreach (GameObject sectorParent in sectorParents)
@@ -216,10 +216,10 @@ public class SemesterManager : MonoBehaviour
         };
         List<List<GameObject>> sectors = new List<List<GameObject>>
         {
-            NewSectors.Sector1,
-            NewSectors.Sector2,
-            NewSectors.Sector3,
-            NewSectors.Sector4,
+            NewSectors.Consumer,
+            NewSectors.Infrastuctur,
+            NewSectors.Finance,
+            NewSectors.Mining,
         };
 
         for (int i = 0; i < sectors.Count; i++)

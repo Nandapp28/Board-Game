@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [Header("Stock")]
     public int Consumen = 0;  // Jumlah konsumen
     public int Mining = 0;     // Jumlah sumber daya tambang
-    public int Infrastuktur = 0; // Jumlah sumber daya industri
+    public int Infrastuctur = 0; // Jumlah sumber daya industri
     public int Finance = 0;   // Jumlah sumber daya keuangan
 
     #region Dice Methods
@@ -70,15 +70,15 @@ public class Player : MonoBehaviour
     // Method untuk menambah sumber daya industri
     public void AddIndustrial(int amount)
     {
-        Infrastuktur += amount; // Menambah jumlah sumber daya industri
+        Infrastuctur += amount; // Menambah jumlah sumber daya industri
     }
 
     // Method untuk mengurangi sumber daya industri
     public void RemoveIndustrial(int amount)
     {
-        if (Infrastuktur >= amount)
+        if (Infrastuctur >= amount)
         {
-            Infrastuktur -= amount; // Mengurangi jumlah sumber daya industri
+            Infrastuctur -= amount; // Mengurangi jumlah sumber daya industri
         }
     }
 

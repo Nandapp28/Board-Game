@@ -130,7 +130,7 @@ public class SellingPhaseUI : MonoBehaviour
 
     public void GetStockData(Player Player)
     {
-        Infrastuktur.CurrentStock = Player.Infrastuktur;
+        Infrastuktur.CurrentStock = Player.Infrastuctur;
         Mining.CurrentStock = Player.Mining;
         Consumen.CurrentStock = Player.Consumen;
         Finance.CurrentStock = Player.Finance;
