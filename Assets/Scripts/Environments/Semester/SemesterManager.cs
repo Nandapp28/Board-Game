@@ -36,6 +36,7 @@ public class SemesterManager : MonoBehaviour
     [SerializeField] private GameObject indicatorParentPrefab; // Prefab untuk indikator
     [SerializeField] private SemesterCollection semesterConfigurations; // Konfigurasi semester
     [HideInInspector] public bool IsSemesterAnimateDone = false; // Status animasi semester
+    public int CurrentSemester = 1;
     #endregion
 
     #region Private Variables
@@ -265,5 +266,6 @@ public class SemesterManager : MonoBehaviour
     public void NextSemester()
     {
         CurrentSemesterIndex++;
+        CurrentSemester++;
     }
 }

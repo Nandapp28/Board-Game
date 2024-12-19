@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public class StockPrice : MonoBehaviour {
+public class Semester : MonoBehaviour {
     public int value;
 }

@@ -22,6 +22,7 @@ public class CardSettings
 public class ResolutionPhase : MonoBehaviour
 {
     #region Variabel And Property
+    [Header("Help Card")]
     public HelpCards helpCards;
     public CardSettings cardSettings; // Tambahkan pengaturan kartu
     public HelpCard duplicatedHelpCard;
@@ -31,14 +32,26 @@ public class ResolutionPhase : MonoBehaviour
     public int currentPlayerIndex = 0;
 
     private GameManager gameManager;
+    
+    [Header("Semester")]
+    public SemesterManager semesterManager;
+    public AllSectors allSectorsSemester;
+    public CompanyPerformanceManager companyPerformanceManager;
     #endregion
 
     #region Unity Methods
+
+    private void Start() {
+        gameManager = GameObject.FindObjectOfType<GameManager>();
+        semesterManager = FindAnyObjectByType<SemesterManager>();
+        companyPerformanceManager = FindAnyObjectByType<CompanyPerformanceManager>();
+        Players = FindAnyObjectByType<PlayerManager>();
+        allSectorsSemester = semesterManager.NewSectors;
+        Camera = Camera.main;
+    }
     public void StartResolutionPhase()
     {
-        gameManager = GameObject.FindObjectOfType<GameManager>();
-        Camera = Camera.main;
-        Players = FindAnyObjectByType<PlayerManager>();
+        SemesterCheck();
         Players.ShufflePlayers();
         CollectHelpCards();
         StartCoroutine(StartForNexPlayer());
@@ -83,6 +96,12 @@ public class ResolutionPhase : MonoBehaviour
             duplicatedHelpCard = null;
         }
     }
+
+    #region Token Ramalan
+
+    
+
+    #endregion
 
     #region Help Card Management
     private void CollectHelpCards()
@@ -150,6 +169,55 @@ public class ResolutionPhase : MonoBehaviour
         cardTransform.localScale = Vector3.zero; // Mulai dari skala 0
         cardTransform.DOScale(cardSettings.targetScale, cardSettings.animationDuration).SetEase(Ease.OutBack); // Animasi skala
     }
+    #endregion
+
+    #region Semester
+    public void SemesterCheck()
+    {
+        if(semesterManager.CurrentSemester > 0)
+        {
+            int index = semesterManager.CurrentSemester-1;
+            Semester semesterSectors1 = allSectorsSemester.Sector1[index].GetComponent<Semester>();
+            Semester semesterSectors2 = allSectorsSemester.Sector2[index].GetComponent<Semester>();
+            Semester semesterSectors3 = allSectorsSemester.Sector3[index].GetComponent<Semester>();
+            Semester semesterSectors4 = allSectorsSemester.Sector4[index].GetComponent<Semester>();
+
+            CompanyProfileUpdate(semesterSectors1,companyPerformanceManager.allSectorIn.Sector1);
+            CompanyProfileUpdate(semesterSectors2,companyPerformanceManager.allSectorIn.Sector2);
+            CompanyProfileUpdate(semesterSectors3,companyPerformanceManager.allSectorIn.Sector3);
+            CompanyProfileUpdate(semesterSectors4,companyPerformanceManager.allSectorIn.Sector4);
+
+        }
+    }
+
+    public void CompanyProfileUpdate(Semester semester, SectorsIn companyProfile)
+    {
+        if(semester.value == 1)
+        {
+            companyPerformanceManager.IncreaseCurrentPriceIndex(companyProfile, 1);
+        }
+        if(semester.value == 2)
+        {
+            companyPerformanceManager.IncreaseCurrentPriceIndex(companyProfile, 2);
+        }
+        if(semester.value == -1)
+        {
+            companyPerformanceManager.DecreaseCurrentPriceIndex(companyProfile, 1);
+        }
+        if(semester.value == -2)
+        {
+            companyPerformanceManager.DecreaseCurrentPriceIndex(companyProfile, 2);
+        }
+    }
+    #endregion
+
+    #region Dividen
+
+    public void DividenCheck()
+    {
+        
+    }
+
     #endregion
 
     #region End Phase

@@ -8,23 +8,29 @@ public class GameManager : MonoBehaviour
     public SellingPhase sellingPhase; // Fase bidding
     public RumorPhase rumorPhase; // Fase bidding
     public ResolutionPhase resolutionPhase; // Fase bidding
-    public SemesterManager Semester; // Fase bidding
+    public SemesterManager Semester;
+    public StockPriceManager stockPriceManager;
+    public CompanyPerformanceManager companyPerformanceManager;
     private PlayerManager playerManager;
     public enum GameState { Bidding, Action, Selling, Rumor, Resolution, NextSemester ,End }
     public GameState currentGameState = GameState.Bidding;
 
-    // void Start()
-    // {
-    //     InitializeManagers();
-    //     StartCoroutine(StartSemestersCoroutine());
-    // }
+    void Start()
+    {
+        InitializeManagers();
+        StartCoroutine(StartSemestersCoroutine());
+    }
 
     private void InitializeManagers()
     {
         playerManager = FindAnyObjectByType<PlayerManager>();
         Semester = FindAnyObjectByType<SemesterManager>();
+        stockPriceManager = FindAnyObjectByType<StockPriceManager>();
+        companyPerformanceManager = FindAnyObjectByType<CompanyPerformanceManager>();
         InitializePhases();
         playerManager.StartPlayerManager();
+        stockPriceManager.StartStockManager();
+        companyPerformanceManager.StartCompanyProfile();
     }
 
     private void InitializePhases()

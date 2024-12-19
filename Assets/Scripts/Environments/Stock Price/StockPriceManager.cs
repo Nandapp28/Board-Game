@@ -40,7 +40,7 @@ public class StockPriceManager : MonoBehaviour
     // Ini melakukan validasi, mengumpulkan semua sektor, mengumpulkan harga yang tersedia, 
     // mendistribusikan harga yang tersedia, mengatur indeks harga saat ini ke default, 
     // dan memperbarui harga saat ini.
-    private void Start()
+    public void StartStockManager()
     {
         Validate();
         CollectAllSectors();
