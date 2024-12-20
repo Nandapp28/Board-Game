@@ -3,42 +3,76 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class ActionPhase : MonoBehaviour
 {
+    [Header("Game Objects")]
     [SerializeField] private GameObject players; // GameObject yang berisi semua player
+
+    [Header("Player Management")]
     public List<Player> playerList = new List<Player>(); // List untuk menyimpan komponen Player
     public CardManager cardManager; // Komponen CardManager
+
+    [Header("UI Elements")]
     public Button ActiveButton; // Tombol untuk aksi aktif
     public Button KeepButton; // Tombol untuk menyimpan kartu
-    public const float selectionTime = 20f; // Waktu pemilihan dalam detik
-
     [SerializeField] private TextMeshProUGUI timerText; // Referensi ke komponen TextMeshPro untuk timer
 
+    [Header("Game Settings")]
+    public const float selectionTime = 20f; // Waktu pemilihan dalam detik
+
+    [Header("Game State")]
     private int currentPlayerIndex = 0; // Indeks pemain saat ini
     private Coroutine currentTimerCoroutine; // Menyimpan coroutine timer saat ini
-    private CameraAnimation Camera;
+    private CameraAnimation CameraAnimation;
     private GameManager gameManager;
     private bool IsFlashBuy = false;
     private int FlasbuyRemains = 0;
     private StockPriceManager stockPriceManager;
+    private RumorPhase rumorPhase;
+    public List<Vector3> CameraTransformPosition;
+    public List<Vector3> CameraTransformRotation;
+    private Camera mainCamera;
+    private Vector3 InitializationCameraPosition;
+    private Vector3 InitializationCameraRotation;
+
 
     #region Initialization
     // Memulai fase aksi dengan mengumpulkan pemain dan memulai pengambilan kartu
 
     private void Start() {
+        mainCamera = Camera.main;
+        InitializationCameraPosition = mainCamera.transform.position;
+        InitializationCameraRotation = mainCamera.transform.eulerAngles;
         gameManager = FindAnyObjectByType<GameManager>();
         stockPriceManager = FindAnyObjectByType<StockPriceManager>();
-        if (Camera == null)
+        rumorPhase = FindAnyObjectByType<RumorPhase>();
+        if (CameraAnimation == null)
         {
-            Camera = GameObject.FindObjectOfType<CameraAnimation>();
+            CameraAnimation = GameObject.FindObjectOfType<CameraAnimation>();
             Debug.Log("Camera Telah ditemukan");
         }
+
+        CameraTransformPosition = new List<Vector3>()
+        {
+            rumorPhase.Consumen.Position,
+            rumorPhase.Infrastuktur.Position,
+            rumorPhase.Finance.Position,
+            rumorPhase.Mining.Position,
+        };
+        CameraTransformRotation = new List<Vector3>()
+        {
+            rumorPhase.Consumen.Rotation,
+            rumorPhase.Infrastuktur.Rotation,
+            rumorPhase.Finance.Rotation,
+            rumorPhase.Mining.Rotation,
+        };
     }
     public void StartActionPhase()
     {
         CollectPlayers();
-        Camera.ActionCamera();
+        CameraAnimation.ActionCamera();
         StartCoroutine(ShowTheCard());
     }
 
@@ -221,7 +255,7 @@ public class ActionPhase : MonoBehaviour
 
             UpdatePlayerResources();
             FlasbuyRemains--;
-            StartCoroutine(Flashbuy());
+            StartCoroutine(HandleFlashBuy());
         }else{
             if(card.Type == StockCard.StockType.TradeFee)
             {
@@ -283,42 +317,13 @@ public class ActionPhase : MonoBehaviour
                     IsFlashBuy = true;
                     FlasbuyRemains = 2;
                     yield return new WaitForSeconds(0.5f);
-                    StartCoroutine(Flashbuy());
+                    StartCoroutine(HandleFlashBuy());
                     break;
                 case StockCard.StockType.TradeFee:
-                    switch (card.Connected_Sectors)
-                    {
-                        case StockCard.Sector.Infrastuctur:
-                            int IndexStockPriceInfrastuctur = stockPriceManager.allSector.Infrastuctur.CurrenPriceIndex;
-                            int priceInfrastuctur = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceInfrastuctur].GetComponent<StockPrice>().value;
-                            priceInfrastuctur--;
-                            currentPlayer.AddWealth(priceInfrastuctur);
-                            Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceInfrastuctur);
-                            break;
-                        case StockCard.Sector.Consumen:
-                            int IndexStockPriceConsumen = stockPriceManager.allSector.Consumen.CurrenPriceIndex;
-                            int priceConsumen = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceConsumen].GetComponent<StockPrice>().value;
-                            priceConsumen--;
-                            currentPlayer.AddWealth(priceConsumen);
-                            Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceConsumen);
-                            break;
-                        case StockCard.Sector.Mining:
-                            int IndexStockPriceMining = stockPriceManager.allSector.Mining.CurrenPriceIndex;
-                            int priceMining = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceMining].GetComponent<StockPrice>().value;
-                            priceMining--;
-                            currentPlayer.AddWealth(priceMining);
-                            Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceMining);
-                            break;
-                        case StockCard.Sector.Finance:
-                            int IndexStockPriceFinance = stockPriceManager.allSector.Finance.CurrenPriceIndex;
-                            int priceFinance = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceFinance].GetComponent<StockPrice>().value;
-                            priceFinance--;
-                            currentPlayer.AddWealth(priceFinance);
-                            Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceFinance);
-                            break;
-                        default:
-                            break;
-                    }
+                    HandleTradeFee(card, currentPlayer);
+                    break;
+                case StockCard.StockType.StockSplit:
+                    StartCoroutine(HandleStockSplit(card));
                     break;
                 default:
                     break;
@@ -327,7 +332,92 @@ public class ActionPhase : MonoBehaviour
         }
     }
 
-    private IEnumerator Flashbuy()
+    private IEnumerator HandleStockSplit(StockCard card)
+    {
+        switch(card.Connected_Sectors)
+        {
+            case StockCard.Sector.Infrastuctur:
+                mainCamera.transform.DOMove(CameraTransformPosition[0], 1f);
+                Quaternion targetRotationInfrastuctur = Quaternion.Euler(CameraTransformRotation[1]);
+                mainCamera.transform.DORotateQuaternion(targetRotationInfrastuctur, 1f);
+
+                Sectors sectorsInfrastuctur = stockPriceManager.allSector.Infrastuctur;
+                int IndexStockPriceInfrastuctur = stockPriceManager.allSector.Infrastuctur.CurrenPriceIndex;
+                int SplitPriceInfrastuctur = (int)System.Math.Ceiling((double)IndexStockPriceInfrastuctur / 2);
+                int fixdecreaseInfrastuctur = IndexStockPriceInfrastuctur - SplitPriceInfrastuctur;
+
+                yield return new WaitForSeconds(2f);
+
+                stockPriceManager.DecreaseCurrentPriceIndex(sectorsInfrastuctur, fixdecreaseInfrastuctur);
+                yield return new WaitForSeconds(2f);
+                ResetCameraTransform();
+                break;
+
+            case StockCard.Sector.Mining:
+                mainCamera.transform.DOMove(CameraTransformPosition[3], 1f);
+                Quaternion targetRotationMining = Quaternion.Euler(CameraTransformRotation[3]);
+                mainCamera.transform.DORotateQuaternion(targetRotationMining, 1f);
+                
+                Sectors sectorsMining = stockPriceManager.allSector.Mining;
+                int IndexStockPriceMining = stockPriceManager.allSector.Mining.CurrenPriceIndex;
+                int SplitPriceMining = (int)System.Math.Ceiling((double)IndexStockPriceMining / 2);
+                int fixdecreaseMining = IndexStockPriceMining - SplitPriceMining;
+
+                yield return new WaitForSeconds(2f);
+                
+                stockPriceManager.DecreaseCurrentPriceIndex(sectorsMining, fixdecreaseMining);
+                yield return new WaitForSeconds(2f);
+                ResetCameraTransform();
+                break;
+
+            case StockCard.Sector.Finance:
+                mainCamera.transform.DOMove(CameraTransformPosition[2], 1f);
+                Quaternion targetRotationFinance = Quaternion.Euler(CameraTransformRotation[2]);
+                mainCamera.transform.DORotateQuaternion(targetRotationFinance, 1f);
+
+                Sectors sectorsFinance = stockPriceManager.allSector.Finance;
+                int IndexStockPriceFinance = stockPriceManager.allSector.Finance.CurrenPriceIndex;
+                int SplitPriceFinance = (int)System.Math.Ceiling((double)IndexStockPriceFinance / 2);
+                int fixdecreaseFinance = IndexStockPriceFinance - SplitPriceFinance;
+
+                yield return new WaitForSeconds(2f);
+                
+                stockPriceManager.DecreaseCurrentPriceIndex(sectorsFinance, fixdecreaseFinance);
+                yield return new WaitForSeconds(2f);
+                ResetCameraTransform();
+                break;
+
+            case StockCard.Sector.Consumen:
+                mainCamera.transform.DOMove(CameraTransformPosition[1], 1f);
+                Quaternion targetRotationConsumen = Quaternion.Euler(CameraTransformRotation[0]);
+                mainCamera.transform.DORotateQuaternion(targetRotationConsumen, 1f);
+
+                Sectors sectorsConsumen = stockPriceManager.allSector.Consumen;
+                int IndexStockPriceConsumen = stockPriceManager.allSector.Consumen.CurrenPriceIndex;
+                int SplitPriceConsumen = (int)System.Math.Ceiling((double)IndexStockPriceConsumen / 2);
+                int fixdecreaseConsumen = IndexStockPriceConsumen - SplitPriceConsumen;
+
+                yield return new WaitForSeconds(2f);
+                
+                stockPriceManager.DecreaseCurrentPriceIndex(sectorsConsumen, fixdecreaseConsumen);
+
+                yield return new WaitForSeconds(2f);
+                ResetCameraTransform();
+
+                break;
+        }
+
+        MoveToNextPlayer();
+    }
+
+    private void ResetCameraTransform()
+    {
+        mainCamera.transform.DOMove(InitializationCameraPosition, 1f);
+        Quaternion targetRotation = Quaternion.Euler(InitializationCameraRotation);
+        mainCamera.transform.DORotateQuaternion(targetRotation, 1f);
+    }
+
+    private IEnumerator HandleFlashBuy()
     {
         if(FlasbuyRemains > 0 )
         {
@@ -371,11 +461,49 @@ public class ActionPhase : MonoBehaviour
         if(FlasbuyRemains > 0)
         {
             FlasbuyRemains--;
-            StartCoroutine(Flashbuy());
+            StartCoroutine(HandleFlashBuy());
         }else{
             MoveToNextPlayer();
         }
 
+    }
+
+    private void HandleTradeFee(StockCard card, Player currentPlayer)
+    {
+        switch (card.Connected_Sectors)
+        {
+            case StockCard.Sector.Infrastuctur:
+                int IndexStockPriceInfrastuctur = stockPriceManager.allSector.Infrastuctur.CurrenPriceIndex;
+                int priceInfrastuctur = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceInfrastuctur].GetComponent<StockPrice>().value;
+                priceInfrastuctur--;
+                currentPlayer.AddWealth(priceInfrastuctur);
+                Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceInfrastuctur);
+                break;
+            case StockCard.Sector.Consumen:
+                int IndexStockPriceConsumen = stockPriceManager.allSector.Consumen.CurrenPriceIndex;
+                int priceConsumen = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceConsumen].GetComponent<StockPrice>().value;
+                priceConsumen--;
+                currentPlayer.AddWealth(priceConsumen);
+                Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceConsumen);
+                break;
+            case StockCard.Sector.Mining:
+                int IndexStockPriceMining = stockPriceManager.allSector.Mining.CurrenPriceIndex;
+                int priceMining = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceMining].GetComponent<StockPrice>().value;
+                priceMining--;
+                currentPlayer.AddWealth(priceMining);
+                Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceMining);
+                break;
+            case StockCard.Sector.Finance:
+                int IndexStockPriceFinance = stockPriceManager.allSector.Finance.CurrenPriceIndex;
+                int priceFinance = stockPriceManager.allSector.Infrastuctur.Sector[IndexStockPriceFinance].GetComponent<StockPrice>().value;
+                priceFinance--;
+                currentPlayer.AddWealth(priceFinance);
+                Debug.Log("anda berhasil menjual saham dan mendapatkan : " + priceFinance);
+                break;
+            default:
+                break;
+        }
+        MoveToNextPlayer();
     }
     #endregion
 

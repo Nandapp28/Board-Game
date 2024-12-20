@@ -9,8 +9,8 @@ public class CameraAnimation : MonoBehaviour
     public float biddingDuration = 0;
 
     [Header("Action Phase")]
-    public Vector3 actionPosition = Vector3.zero;          
-    public Vector3 actionRotation; 
+    public Vector3 actionPosition;
+    public Vector3 actionRotation;
 
     public float actionDuration = 0;
     
@@ -22,6 +22,8 @@ public class CameraAnimation : MonoBehaviour
     {
         initialPosition = this.transform.position;
         initialRotation = this.transform.rotation;
+        actionPosition = this.transform.position;
+        actionRotation = this.transform.eulerAngles;
     }
 
     //Bidding Phase 

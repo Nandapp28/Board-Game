@@ -7,15 +7,26 @@ using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
 {
+    [Header("Game Objects")]
     public GameObject StockCards;
     public List<GameObject> AllCards = new List<GameObject>();
+
+    [Header("Camera Settings")]
     public Camera Camera;
+    public Vector3 offsetFromCamera = new Vector3(0, 0, 5);
+    
+    [Header("Card Spacing")]
     public float horizontalSpacing = 2.0f;
     public float verticalSpacing = 1.0f;
+
+    [Header("Card Rotation")]
     public Vector3 manualRotation = new Vector3(0, 90, 0);
+
+    [Header("Game Settings")]
     public int numberOfPlayers = 3; // Jumlah pemain
     public float animationDuration = 1.0f;
 
+    [Header("Card Animation")]
     public CardAnimation currentActiveCard = null;
     public List<GameObject> selectedCards = new List<GameObject>();
 
@@ -78,10 +89,10 @@ public class CardManager : MonoBehaviour
             int column = columns - 1 - (i % columns);
             int row = i / columns;
 
-            Vector3 offsetFromCamera = new Vector3(column * horizontalSpacing - offsetX, -row * verticalSpacing + offsetY, 5);
-            Vector3 targetPosition = Camera.transform.position + Camera.transform.forward * offsetFromCamera.z +
-                                    Camera.transform.right * offsetFromCamera.x +
-                                    Camera.transform.up * offsetFromCamera.y;
+            Vector3 localoffsetFromCamera = new Vector3(column * horizontalSpacing - offsetX + offsetFromCamera.x, -row * verticalSpacing + offsetY +offsetFromCamera.y, offsetFromCamera.z);
+            Vector3 targetPosition = Camera.transform.position + Camera.transform.forward * localoffsetFromCamera.z +
+                                    Camera.transform.right * localoffsetFromCamera.x +
+                                    Camera.transform.up * localoffsetFromCamera.y;
 
             Quaternion targetRotation = Quaternion.Euler(manualRotation);
 

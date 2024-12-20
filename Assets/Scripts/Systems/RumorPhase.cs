@@ -23,10 +23,10 @@ public class RumorCardAnimator {
 public class RumorPhase : MonoBehaviour {
 
     [Header("Camera Position And Rotation Settings")]
-    [SerializeField] private TransformCamera Infrastuktur = new TransformCamera();
-    [SerializeField] private TransformCamera Consumen = new TransformCamera();
-    [SerializeField] private TransformCamera Finance = new TransformCamera();
-    [SerializeField] private TransformCamera Mining = new TransformCamera();
+    [SerializeField] public TransformCamera Infrastuktur = new TransformCamera();
+    [SerializeField] public TransformCamera Consumen = new TransformCamera();
+    [SerializeField] public TransformCamera Finance = new TransformCamera();
+    [SerializeField] public TransformCamera Mining = new TransformCamera();
 
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 2f; // Kecepatan pergerakan kamera
@@ -45,7 +45,7 @@ public class RumorPhase : MonoBehaviour {
     #region Unity Lifecycle
 
     /// Memulai fase rumor dan menginisialisasi kamera.
-    public void StartRumorhPase() {
+    private void Start() {
         gameManager = FindAnyObjectByType<GameManager>();
         MainCamera = Camera.main; // Mengambil kamera utama
         cardSettings.cameraTransform = MainCamera.transform;
@@ -54,9 +54,9 @@ public class RumorPhase : MonoBehaviour {
 
         sectors = new TransformCamera[] { Infrastuktur,Consumen, Finance, Mining  };
         CurrentSectorIndex = 0; // Inisialisasi indeks sektor saat ini
-
+    }
+    public void StartRumorhPase() {
         CollectCards();
-
         StartCoroutine(MoveCameraThroughSectors());
     }
 

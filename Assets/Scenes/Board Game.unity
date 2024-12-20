@@ -799,7 +799,7 @@ Transform:
   m_GameObject: {fileID: 73857053}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38376072, y: 0.5939088, z: -0.3837608, w: 0.59390885}
-  m_LocalPosition: {x: -5.74, y: 0, z: 7.95}
+  m_LocalPosition: {x: -4.54, y: 0, z: 7.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1212,6 +1212,8 @@ MonoBehaviour:
   ActiveButton: {fileID: 1778054495}
   KeepButton: {fileID: 1162076737}
   timerText: {fileID: 969733941}
+  CameraTransformPosition: []
+  CameraTransformRotation: []
 --- !u!1 &113700056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,7 +1345,7 @@ MonoBehaviour:
   Wealth: 0
   Consumen: 0
   Mining: 0
-  Infrastuktur: 0
+  Infrastuctur: 0
   Finance: 0
 --- !u!1 &121142673
 GameObject:
@@ -1599,7 +1601,7 @@ GameObject:
   m_Component:
   - component: {fileID: 144606373}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: Mining
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2325,13 +2327,13 @@ MonoBehaviour:
     Cards: []
     CurrentCard: {fileID: 0}
   Finance:
-    Position: {x: -5.5, y: 3.99, z: 3.99}
+    Position: {x: -4.3, y: 3.99, z: 3.99}
     Rotation: {x: 65.738, y: 90, z: 0}
     rumorCards: {fileID: 1560703333}
     Cards: []
     CurrentCard: {fileID: 0}
   Mining:
-    Position: {x: -5.5, y: 3.99, z: -3.99}
+    Position: {x: -4.3, y: 3.99, z: -3.99}
     Rotation: {x: 65.738, y: 90, z: 0}
     rumorCards: {fileID: 250151173}
     Cards: []
@@ -3747,7 +3749,7 @@ MonoBehaviour:
   Wealth: 0
   Consumen: 0
   Mining: 0
-  Infrastuktur: 0
+  Infrastuctur: 0
   Finance: 0
 --- !u!1 &285783734
 GameObject:
@@ -4707,6 +4709,13 @@ MonoBehaviour:
   Camera: {fileID: 0}
   Players: {fileID: 0}
   currentPlayerIndex: 0
+  semesterManager: {fileID: 0}
+  allSectorsSemester:
+    Consumer: []
+    Infrastuctur: []
+    Finance: []
+    Mining: []
+  companyPerformanceManager: {fileID: 0}
 --- !u!1 &391388639
 GameObject:
   m_ObjectHideFlags: 0
@@ -5978,6 +5987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players: {fileID: 1624431904}
+  playerList: []
 --- !u!4 &572058219 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1593300303407019094, guid: 34022bcfac40ad346bb28a79eb0633a6, type: 3}
@@ -7364,7 +7374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 708527904}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Infrastuctur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13384,7 +13394,7 @@ MonoBehaviour:
   Wealth: 0
   Consumen: 0
   Mining: 0
-  Infrastuktur: 0
+  Infrastuctur: 0
   Finance: 0
 --- !u!114 &1234929503
 MonoBehaviour:
@@ -13455,16 +13465,16 @@ MonoBehaviour:
   AvailableIndikatorContainer: {fileID: 6260707194007083759, guid: b6eec3291ae19584a9ff58d0e5e78729, type: 3}
   AvailableIndikator: []
   allSectorIn:
-    Sector1:
+    Consumen:
       Sector: []
       CurrenIndikatorIndex: 0
-    Sector2:
+    Infrastuctur:
       Sector: []
       CurrenIndikatorIndex: 0
-    Sector3:
+    Finance:
       Sector: []
       CurrenIndikatorIndex: 0
-    Sector4:
+    Mining:
       Sector: []
       CurrenIndikatorIndex: 0
   companyPerformanceConfiguration:
@@ -13534,18 +13544,18 @@ MonoBehaviour:
   availablePriceContainer: {fileID: 4683612747817037605, guid: a97b087d6d4c0864eb0c138b7541e621, type: 3}
   availablePrice: []
   allSector:
-    Sector1:
+    Consumen:
       Sector: []
-      CurrenPriceIndex: 5
-    Sector2:
+      CurrenPriceIndex: 0
+    Infrastuctur:
       Sector: []
-      CurrenPriceIndex: 5
-    Sector3:
+      CurrenPriceIndex: 0
+    Finance:
       Sector: []
-      CurrenPriceIndex: 5
-    Sector4:
+      CurrenPriceIndex: 0
+    Mining:
       Sector: []
-      CurrenPriceIndex: 5
+      CurrenPriceIndex: 0
   StockPriceConfiguration:
     offset: 3
     Rotation: {x: 0, y: -76.328, z: 0}
@@ -13610,7 +13620,7 @@ MonoBehaviour:
   Wealth: 0
   Consumen: 0
   Mining: 0
-  Infrastuktur: 0
+  Infrastuctur: 0
   Finance: 0
 --- !u!4 &1288088517 stripped
 Transform:
@@ -13954,6 +13964,8 @@ MonoBehaviour:
   rumorPhase: {fileID: 0}
   resolutionPhase: {fileID: 0}
   Semester: {fileID: 0}
+  stockPriceManager: {fileID: 0}
+  companyPerformanceManager: {fileID: 0}
   currentGameState: 0
 --- !u!1 &1329387831
 GameObject:
@@ -14087,12 +14099,13 @@ MonoBehaviour:
       PlacementRotation: {x: -90, y: -90, z: 8.283}
       SemesterPrefab: {fileID: 0}
   IsSemesterAnimateDone: 0
+  CurrentSemester: 1
   CurrentSemesterIndex: 0
   NewSectors:
-    Sector1: []
-    Sector2: []
-    Sector3: []
-    Sector4: []
+    Consumer: []
+    Infrastuctur: []
+    Finance: []
+    Mining: []
 --- !u!4 &1345614499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9041824356590446155, guid: a8cf860427b3f2e49a7c593a86cd268f, type: 3}
@@ -14894,7 +14907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1459379545}
   m_Layer: 0
-  m_Name: GameObject (3)
+  m_Name: Consumen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15032,7 +15045,7 @@ Transform:
   m_GameObject: {fileID: 1484945109}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38376072, y: 0.5939088, z: -0.3837608, w: 0.59390885}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.54, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19481,7 +19494,7 @@ MonoBehaviour:
   Wealth: 0
   Consumen: 0
   Mining: 0
-  Infrastuktur: 0
+  Infrastuctur: 0
   Finance: 0
 --- !u!1 &1897117477
 GameObject:
@@ -21999,7 +22012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2118128287}
   m_Layer: 0
-  m_Name: GameObject (4)
+  m_Name: Finance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25115,6 +25128,10 @@ PrefabInstance:
     - target: {fileID: 4156352793027334551, guid: c3398519117a72149969acc4c49f99d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6047757979060085104, guid: c3398519117a72149969acc4c49f99d7, type: 3}
+      propertyPath: m_Icon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6047757979060085104, guid: c3398519117a72149969acc4c49f99d7, type: 3}
       propertyPath: m_Name
@@ -47053,6 +47070,30 @@ PrefabInstance:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 913014168}
+    - target: {fileID: 4643754754448332502, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643754754448332502, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetyCamera
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643754754448332502, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetzCamera
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643754754448332502, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: numberOfPlayers
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643754754448332502, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643754754448332502, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5423251088678105009, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
