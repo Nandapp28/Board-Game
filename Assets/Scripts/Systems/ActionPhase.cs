@@ -325,6 +325,9 @@ public class ActionPhase : MonoBehaviour
                 case StockCard.StockType.StockSplit:
                     StartCoroutine(HandleStockSplit(card));
                     break;
+                case StockCard.StockType.InsiderTrade:
+                    StartCoroutine(HandleInsiderTrade(card));
+                    break;
                 default:
                     break;
 
@@ -332,14 +335,72 @@ public class ActionPhase : MonoBehaviour
         }
     }
 
+    private IEnumerator HandleInsiderTrade(StockCard card)
+    {
+        switch(card.Connected_Sectors)
+        {
+            case StockCard.Sector.Infrastuctur:
+                moveToSector(CameraTransformPosition[0],CameraTransformRotation[0]);
+                yield return new WaitForSeconds(2f);
+                AnimateCurrentCard(1);
+                yield return new WaitForSeconds(5f);
+                rumorPhase.MoveCardToinitInsiderTrade(1,1);
+                ResetCameraTransform();
+                break;
+            case StockCard.Sector.Mining:
+                moveToSector(CameraTransformPosition[3],CameraTransformRotation[3]);
+                yield return new WaitForSeconds(2f);
+                AnimateCurrentCard(3);
+                yield return new WaitForSeconds(5f);
+                rumorPhase.MoveCardToinitInsiderTrade(3,1);
+                ResetCameraTransform();
+                break;
+            case StockCard.Sector.Finance:
+                moveToSector(CameraTransformPosition[2],CameraTransformRotation[2]);
+                yield return new WaitForSeconds(2f);
+                AnimateCurrentCard(2);
+                yield return new WaitForSeconds(5f);
+                rumorPhase.MoveCardToinitInsiderTrade(2,1);
+                ResetCameraTransform();
+                break;
+            case StockCard.Sector.Consumen:
+                moveToSector(CameraTransformPosition[1],CameraTransformRotation[1]);
+                yield return new WaitForSeconds(2f);
+                AnimateCurrentCard(0);
+                yield return new WaitForSeconds(5f);
+                rumorPhase.MoveCardToinitInsiderTrade(0,1);
+                ResetCameraTransform();
+                break;
+        }
+
+        MoveToNextPlayer();
+    }
+
+    private void AnimateCurrentCard(int indexSector)
+    {
+        if(rumorPhase.sectors[indexSector].CurrentCard == null)
+        {
+            rumorPhase.SelectRandomCardInsideTrade(indexSector);
+        }
+        if(rumorPhase.sectors[indexSector].CurrentCard != null)
+        {
+            rumorPhase.MoveCardToCameraInsiderTrade(indexSector,1);
+        }
+    }
+
+    private void moveToSector(Vector3 Position, Vector3 Rotation)
+    {
+        mainCamera.transform.DOMove(Position, 1f);
+        Quaternion targetRotation = Quaternion.Euler(Rotation);
+        mainCamera.transform.DORotateQuaternion(targetRotation, 1f);
+    }
+
     private IEnumerator HandleStockSplit(StockCard card)
     {
         switch(card.Connected_Sectors)
         {
             case StockCard.Sector.Infrastuctur:
-                mainCamera.transform.DOMove(CameraTransformPosition[0], 1f);
-                Quaternion targetRotationInfrastuctur = Quaternion.Euler(CameraTransformRotation[1]);
-                mainCamera.transform.DORotateQuaternion(targetRotationInfrastuctur, 1f);
+                moveToSector(CameraTransformPosition[0],CameraTransformRotation[0]);
 
                 Sectors sectorsInfrastuctur = stockPriceManager.allSector.Infrastuctur;
                 int IndexStockPriceInfrastuctur = stockPriceManager.allSector.Infrastuctur.CurrenPriceIndex;
@@ -354,9 +415,7 @@ public class ActionPhase : MonoBehaviour
                 break;
 
             case StockCard.Sector.Mining:
-                mainCamera.transform.DOMove(CameraTransformPosition[3], 1f);
-                Quaternion targetRotationMining = Quaternion.Euler(CameraTransformRotation[3]);
-                mainCamera.transform.DORotateQuaternion(targetRotationMining, 1f);
+                moveToSector(CameraTransformPosition[3],CameraTransformRotation[3]);
                 
                 Sectors sectorsMining = stockPriceManager.allSector.Mining;
                 int IndexStockPriceMining = stockPriceManager.allSector.Mining.CurrenPriceIndex;
@@ -371,9 +430,7 @@ public class ActionPhase : MonoBehaviour
                 break;
 
             case StockCard.Sector.Finance:
-                mainCamera.transform.DOMove(CameraTransformPosition[2], 1f);
-                Quaternion targetRotationFinance = Quaternion.Euler(CameraTransformRotation[2]);
-                mainCamera.transform.DORotateQuaternion(targetRotationFinance, 1f);
+                moveToSector(CameraTransformPosition[2],CameraTransformRotation[2]);
 
                 Sectors sectorsFinance = stockPriceManager.allSector.Finance;
                 int IndexStockPriceFinance = stockPriceManager.allSector.Finance.CurrenPriceIndex;
@@ -388,9 +445,7 @@ public class ActionPhase : MonoBehaviour
                 break;
 
             case StockCard.Sector.Consumen:
-                mainCamera.transform.DOMove(CameraTransformPosition[1], 1f);
-                Quaternion targetRotationConsumen = Quaternion.Euler(CameraTransformRotation[0]);
-                mainCamera.transform.DORotateQuaternion(targetRotationConsumen, 1f);
+                moveToSector(CameraTransformPosition[1],CameraTransformRotation[1]);
 
                 Sectors sectorsConsumen = stockPriceManager.allSector.Consumen;
                 int IndexStockPriceConsumen = stockPriceManager.allSector.Consumen.CurrenPriceIndex;

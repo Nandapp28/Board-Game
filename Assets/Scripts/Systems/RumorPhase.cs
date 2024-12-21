@@ -10,6 +10,8 @@ public class TransformCamera {
     public GameObject rumorCards;
     public List<GameObject> Cards = new List<GameObject>(); // Inisialisasi list Cards
     public GameObject CurrentCard;
+    public Vector3 initPosition;
+    public Quaternion initRotation;
 }
 
 [System.Serializable]
@@ -38,8 +40,8 @@ public class RumorPhase : MonoBehaviour {
     private Camera MainCamera;
     private Vector3 initialPosition; // Menyimpan posisi awal
     private Quaternion initialRotation; // Menyimpan rotasi awal
-    private TransformCamera[] sectors;
-    private int CurrentSectorIndex;
+    public TransformCamera[] sectors;
+    public int CurrentSectorIndex;
     private GameManager gameManager;
 
     #region Unity Lifecycle
@@ -54,6 +56,7 @@ public class RumorPhase : MonoBehaviour {
 
         sectors = new TransformCamera[] { Infrastuktur,Consumen, Finance, Mining  };
         CurrentSectorIndex = 0; // Inisialisasi indeks sektor saat ini
+        CollectCards();
     }
     public void StartRumorhPase() {
         CollectCards();
@@ -139,7 +142,10 @@ public class RumorPhase : MonoBehaviour {
     public void AnimateCurrentCard()
     {
         // Pilih kartu secara acak dari sektor saat ini
-        SelectRandomCard();
+        if(sectors[CurrentSectorIndex].CurrentCard == null)
+        {
+            SelectRandomCard();
+        }
 
         // Pastikan ada kartu yang dipilih
         if (sectors[CurrentSectorIndex].CurrentCard != null)
@@ -153,7 +159,7 @@ public class RumorPhase : MonoBehaviour {
         }
     }
     
-    public void SelectRandomCard()
+    private void SelectRandomCard()
     {
         if (sectors[CurrentSectorIndex].Cards.Count > 0) // Pastikan ada kartu di list sektor saat ini
         {
@@ -196,6 +202,7 @@ public class RumorPhase : MonoBehaviour {
     {
         Destroy(sectors[CurrentSectorIndex].CurrentCard, 2);
         Debug.Log("Kartu Rumor " + sectors[CurrentSectorIndex].CurrentCard.name + " Berhasil Di hapus");
+        sectors[CurrentSectorIndex].CurrentCard = null;
     }
     #endregion
 
@@ -207,4 +214,64 @@ public class RumorPhase : MonoBehaviour {
         gameManager.StartNextPhase();
     }
     #endregion
+
+    public void MoveCardToCameraInsiderTrade(int index , float duration)
+    {
+        if (sectors[index].CurrentCard == null)
+        {
+            Debug.LogError("CurrentCard is null for sector index: " + index);
+            return; // Keluar dari metode jika tidak ada kartu
+        }
+
+        // Hitung posisi target agar selalu di depan kamera
+        Vector3 targetPosition = cardSettings.cameraTransform.position + cardSettings.cameraTransform.forward * cardSettings.offsetFromCamera.z +
+                                cardSettings.cameraTransform.right * cardSettings.offsetFromCamera.x +
+                                cardSettings.cameraTransform.up * cardSettings.offsetFromCamera.y;
+
+        // Gunakan rotasi manual yang telah diatur
+        Quaternion targetRotation = Quaternion.Euler(cardSettings.manualRotation);
+
+        // Animasi ke target menggunakan DoTween
+        sectors[index].CurrentCard.transform.DOMove(targetPosition, duration)
+            .SetEase(Ease.InOutQuad)
+            .OnComplete(() => {
+                
+            });
+        sectors[index].CurrentCard.transform.DORotateQuaternion(targetRotation, duration).SetEase(Ease.InOutQuad);
+    }
+
+    public void MoveCardToinitInsiderTrade(int index, float duration)
+    {
+        if (sectors[index].CurrentCard == null)
+        {
+            Debug.LogError("CurrentCard is null for sector index: " + index);
+            return; // Keluar dari metode jika tidak ada kartu
+        }
+
+        Vector3 initPosition = sectors[index].initPosition;
+        Quaternion initRotation = sectors[index].initRotation; // Simpan rotasi awal sebagai Quaternion
+
+        sectors[index].CurrentCard.transform.DOMove(initPosition, duration)
+            .SetEase(Ease.InOutQuad);
+        
+        // Menggunakan rotasi awal yang disimpan
+        sectors[index].CurrentCard.transform.DORotateQuaternion(initRotation, duration)
+            .SetEase(Ease.InOutQuad);
+    }
+    public void SelectRandomCardInsideTrade(int index)
+    {
+        if (sectors[index].Cards.Count > 0) // Pastikan ada kartu di list sektor saat ini
+        {
+            int randomIndex = Random.Range(0, sectors[index].Cards.Count); // Pilih indeks acak
+            sectors[index].CurrentCard = sectors[index].Cards[randomIndex]; // Ambil kartu yang dipilih dan simpan di CurrentCard
+            Debug.Log($"Kartu terpilih: {sectors[index].CurrentCard.name}"); // Tampilkan nama kartu yang dipilih
+            sectors[index].initPosition = sectors[index].CurrentCard.transform.position; // Simpan posisi awal kartu
+            sectors[index].initRotation = sectors[index].CurrentCard.transform.rotation; // Simpan rotasi
+            sectors[index].Cards.RemoveAt(randomIndex);
+        }
+        else
+        {
+            Debug.Log("Tidak ada kartu untuk dipilih.");
+        }
+    }
 }
