@@ -29,10 +29,10 @@ public class RumorCard : MonoBehaviour
     // Enum for connected sectors
     public enum Sector
     {
-        Economy,
-        Industry,
+        Finance,
+        Infrastuctur,
         Mining,
-        Consumer
+        Consumen
     }
 
     public int ID_Stock;  // Unique identifier for the rumor card

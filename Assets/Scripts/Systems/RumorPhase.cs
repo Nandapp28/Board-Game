@@ -43,12 +43,15 @@ public class RumorPhase : MonoBehaviour {
     public TransformCamera[] sectors;
     public int CurrentSectorIndex;
     private GameManager gameManager;
+    private StockPriceManager stockPriceManager;
 
     #region Unity Lifecycle
 
     /// Memulai fase rumor dan menginisialisasi kamera.
     private void Start() {
+
         gameManager = FindAnyObjectByType<GameManager>();
+        stockPriceManager = FindAnyObjectByType<StockPriceManager>();
         MainCamera = Camera.main; // Mengambil kamera utama
         cardSettings.cameraTransform = MainCamera.transform;
         initialPosition = MainCamera.transform.position; // Simpan posisi awal
@@ -82,6 +85,7 @@ public class RumorPhase : MonoBehaviour {
         while (CurrentSectorIndex < sectors.Length) {
             yield return StartCoroutine(MoveCameraToSector(sectors[CurrentSectorIndex]));
             AnimateCurrentCard();
+            ApplyRumorCardEffect(CurrentSectorIndex);
             yield return new WaitForSeconds(waitTime); // Tunggu sebelum pindah ke sektor berikutnya
             CurrentSectorIndex++;
         }
@@ -215,6 +219,7 @@ public class RumorPhase : MonoBehaviour {
     }
     #endregion
 
+    #region Action Phase For Active Card Insider Trade
     public void MoveCardToCameraInsiderTrade(int index , float duration)
     {
         if (sectors[index].CurrentCard == null)
@@ -274,4 +279,123 @@ public class RumorPhase : MonoBehaviour {
             Debug.Log("Tidak ada kartu untuk dipilih.");
         }
     }
+
+    #endregion
+
+    #region Rumor Card Effect
+
+    private void ApplyRumorCardEffect(int index)
+    {
+        RumorCard rumorCard = sectors[index].CurrentCard.GetComponent<RumorCard>();
+
+        switch (rumorCard.Type)
+        {
+            case RumorCard.RumorType.ExtraFee:
+                break;
+            case RumorCard.RumorType.Merger:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                IncreaseSector(rumorCard,3);
+                break;
+            case RumorCard.RumorType.CompetitiveTender:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                IncreaseSector(rumorCard,1);
+                break;
+            case RumorCard.RumorType.AssetRevaluation:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                IncreaseSector(rumorCard,1);
+                break;
+            case RumorCard.RumorType.Expansion:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                IncreaseSector(rumorCard,2);
+                break;
+            case RumorCard.RumorType.WageIncrease:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                IncreaseSector(rumorCard,2);
+                break;
+            case RumorCard.RumorType.StockBuyback:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                IncreaseSector(rumorCard,1);
+                break;
+            case RumorCard.RumorType.TaxReduction:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                IncreaseSector(rumorCard,2);
+                break;
+            case RumorCard.RumorType.EconomicStimulus:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                IncreaseSector(rumorCard,2);
+                break;
+            case RumorCard.RumorType.RupiahDepreciation:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                DecreaseSector(rumorCard,2);
+                break;
+            case RumorCard.RumorType.StockIssuance:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                DecreaseSector(rumorCard,1);
+                break;
+            case RumorCard.RumorType.AuditBribery:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                DecreaseSector(rumorCard,2);
+                break;
+            case RumorCard.RumorType.ForensicAudit:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                DecreaseSector(rumorCard,2);
+                break;
+            case RumorCard.RumorType.FinancialCrisis:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                DecreaseSector(rumorCard,2);
+                break;
+            case RumorCard.RumorType.FinancialDeficit:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                DecreaseSector(rumorCard,3);
+                break;
+            case RumorCard.RumorType.EconomicRecession:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                DecreaseSector(rumorCard,1);
+                break;
+            case RumorCard.RumorType.EconomicReform:
+                Debug.Log("kartu Rumor Effect " + rumorCard.Type + " Diaktifkan");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void IncreaseSector(RumorCard rumorCard, int Increase)
+    {
+        switch (rumorCard.Connected_Sectors)
+        {
+            case RumorCard.Sector.Consumen:
+                stockPriceManager.IncreaseCurrentPriceIndex(stockPriceManager.allSector.Consumen ,Increase);
+                break;
+            case RumorCard.Sector.Infrastuctur:
+                stockPriceManager.IncreaseCurrentPriceIndex(stockPriceManager.allSector.Infrastuctur ,Increase);
+                break;
+            case RumorCard.Sector.Finance:
+                stockPriceManager.IncreaseCurrentPriceIndex(stockPriceManager.allSector.Finance ,Increase);
+                break;
+            case RumorCard.Sector.Mining:
+                stockPriceManager.IncreaseCurrentPriceIndex(stockPriceManager.allSector.Mining ,Increase);
+                break;
+        }
+    }
+    private void DecreaseSector(RumorCard rumorCard, int Decrease)
+    {
+        switch (rumorCard.Connected_Sectors)
+        {
+            case RumorCard.Sector.Consumen:
+                stockPriceManager.DecreaseCurrentPriceIndex(stockPriceManager.allSector.Consumen ,Decrease);
+                break;
+            case RumorCard.Sector.Infrastuctur:
+                stockPriceManager.DecreaseCurrentPriceIndex(stockPriceManager.allSector.Infrastuctur ,Decrease);
+                break;
+            case RumorCard.Sector.Finance:
+                stockPriceManager.DecreaseCurrentPriceIndex(stockPriceManager.allSector.Finance ,Decrease);
+                break;
+            case RumorCard.Sector.Mining:
+                stockPriceManager.DecreaseCurrentPriceIndex(stockPriceManager.allSector.Mining ,Decrease);
+                break;
+        }
+    }
+
+    #endregion
 }
