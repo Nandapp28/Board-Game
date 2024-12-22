@@ -10,8 +10,7 @@ public class BiddingPhase : MonoBehaviour
     public GameManager gameManager;
     [Header("UI Settings")]
     public RollDice Dice;
-    public GameObject Player;
-    public List<GameObject> PlayerList;
+    private PlayerManager playerManager;
 
     private int currentPlayerIndex = 0;
     private bool isRollingDice = false;
@@ -20,17 +19,18 @@ public class BiddingPhase : MonoBehaviour
 
     #region Unity Lifecycle
 
-    public void StartBiddingPhase() 
-    {
-        CollectPlayers();
-        ShufflePlayerList();
-        StartDiceRollForNextPlayer();
-        
+    private void Start() {
+        playerManager = GameObject.FindObjectOfType<PlayerManager>();
         if (Camera == null){
             Camera = GameObject.FindObjectOfType<CameraAnimation>();
             Debug.Log("Camera Telah ditemukan");
         }
+    }
 
+    public void StartBiddingPhase() 
+    {
+        playerManager.ShufflePlayers();
+        StartDiceRollForNextPlayer();
         Camera.BiddingCamera();
 
     }
@@ -70,46 +70,11 @@ public class BiddingPhase : MonoBehaviour
     }
     #endregion
 
-    private void CollectPlayers()
-    {
-        if (PlayerList.Count == 0 && Player != null)
-        {
-            PlayerList.Clear();
-            foreach (Transform child in Player.transform)
-            {
-                Player playerComponent = child.GetComponent<Player>();
-                if (playerComponent != null)
-                {
-                    PlayerList.Add(playerComponent.gameObject);
-                }
-                else
-                {
-                    Debug.LogWarning("Tidak ditemukan komponen Player di: " + child.gameObject.name);
-                }
-            }
-            Debug.Log("PlayerList berhasil diisi dengan " + PlayerList.Count + " pemain.");
-        }
-        else if (Player == null)
-        {
-            Debug.LogError("GameObject 'Player' belum ditetapkan.");
-        }
-    }
-
-    private void ShufflePlayerList()
-    {
-        for (int i = PlayerList.Count - 1; i > 0; i--)
-        {
-            int randomIndex = Random.Range(0, i + 1);
-            (PlayerList[i], PlayerList[randomIndex]) = (PlayerList[randomIndex], PlayerList[i]);
-        }
-        Debug.Log("PlayerList telah diacak.");
-    }
-
     private void StartDiceRollForNextPlayer()
     {
-        if (currentPlayerIndex < PlayerList.Count)
+        if (currentPlayerIndex < playerManager.PlayerCount)
         {
-            Player currentPlayer = PlayerList[currentPlayerIndex].GetComponent<Player>();
+            Player currentPlayer = playerManager.playerList[currentPlayerIndex].GetComponent<Player>();
             Debug.Log("Sekarang giliran " + currentPlayer.Name + " untuk melempar dadu.");
             isRollingDice = true;
             isWaitingForDiceResult = false;
@@ -126,7 +91,7 @@ public class BiddingPhase : MonoBehaviour
     {
         if (!isWaitingForDiceResult)
         {
-            Player currentPlayer = PlayerList[currentPlayerIndex].GetComponent<Player>();
+            Player currentPlayer = playerManager.playerList[currentPlayerIndex].GetComponent<Player>();
             Debug.Log(currentPlayer.Name + " sedang melempar dadu...");
             Dice.RollTheDice();
             isRollingDice = false;
@@ -188,7 +153,7 @@ public class BiddingPhase : MonoBehaviour
 
     private void HandleDiceProcessResult()
     {
-        Player currentPlayer = PlayerList[currentPlayerIndex].GetComponent<Player>();
+        Player currentPlayer = playerManager.playerList[currentPlayerIndex].GetComponent<Player>();
         currentPlayer.RollDice(Dice.Dice1, Dice.Dice2);
         Debug.Log(currentPlayer.Name + " mendapat nilai dadu: " + Dice.Dice1 + " dan " + Dice.Dice2);
         Debug.Log("Total nilai: " + currentPlayer.TotalScore);
@@ -200,22 +165,38 @@ public class BiddingPhase : MonoBehaviour
 
     private void HandleDuplicateDiceResults()
     {
-        var groupedResults = PlayerList.GroupBy(p => p.GetComponent<Player>().TotalScore).Where(g => g.Count() > 1).ToList();
+        // Group players by their dice result (TotalScore), where there are duplicate results.
+        var groupedResults = playerManager.playerList
+            .GroupBy(p => p.GetComponent<Player>().TotalScore) // Group by TotalScore
+            .Where(g => g.Count() > 1) // Filter only groups with more than one player (duplicate scores)
+            .ToList();
 
         if (groupedResults.Count > 0)
         {
             Debug.Log("Ada pemain dengan nilai dadu yang sama. Menentukan prioritas berdasarkan urutan pemain asli.");
+
+            // For each group with the same dice result, sort by their original position in playerManager.playerList
             foreach (var group in groupedResults)
             {
-                List<GameObject> playersWithSameResult = group.ToList();
-                playersWithSameResult = playersWithSameResult.OrderBy(p => PlayerList.IndexOf(p)).ToList();
-                AssignPriorityToPlayers(playersWithSameResult);
+                List<Player> playersWithSameResult = group.Select(g => g.GetComponent<Player>()).ToList();
+                
+                // Sort players by their original index in the playerManager.playerList to maintain the original order
+                playersWithSameResult.Sort((player1, player2) => playerManager.playerList.IndexOf(player1).CompareTo(playerManager.playerList.IndexOf(player2)));
+
+                AssignPriorityToPlayers(playersWithSameResult); // Give priority or handle further sorting
             }
         }
+        else
+        {
+            Debug.Log("Tidak ada nilai dadu yang sama atau semua telah diselesaikan.");
+        }
 
-        Debug.Log("Tidak ada nilai dadu yang sama atau semua telah diselesaikan. Mengurutkan pemain berdasarkan nilai dadu.");
+        // Sort players by their final TotalScore in descending order
         SortPlayersByDiceResult();
     }
+
+    
+
 
     private void AssignPriorityToPlayers(List<GameObject> playersWithSameResult)
     {
@@ -228,6 +209,24 @@ public class BiddingPhase : MonoBehaviour
         }
     }
 
+    private void AssignPriorityToPlayers(List<Player> playersWithSameResult)
+{
+    // Use a temporary priority system to avoid modifying TotalScore directly
+    float priorityOffset = 0.01f;
+
+    for (int i = 0; i < playersWithSameResult.Count; i++)
+    {
+        Player player = playersWithSameResult[i];
+        
+        // Optionally, store the priority in a new field or handle tie-breaking via another method
+        player.SetPriority(priorityOffset);
+        priorityOffset += 0.01f; // Increment priority offset for each player with the same score
+
+        Debug.Log($"{player.Name} diberi prioritas dengan nilai baru: {player.TotalScore + priorityOffset}");
+    }
+}
+
+
     private void SortPlayersByDiceResult()
     {
         StartCoroutine(SortPlayersByDiceResultCoroutine());
@@ -235,11 +234,11 @@ public class BiddingPhase : MonoBehaviour
 
     private IEnumerator SortPlayersByDiceResultCoroutine()
     {
-        PlayerList = PlayerList.OrderByDescending(p => p.GetComponent<Player>().TotalScore).ToList();
-        for (int i = 0; i < PlayerList.Count; i++)
+        playerManager.playerList = playerManager.playerList.OrderByDescending(p => p.GetComponent<Player>().TotalScore).ToList();
+        for (int i = 0; i < playerManager.PlayerCount; i++)
         {
-            PlayerList[i].GetComponent<Player>().SetPlayOrder(i + 1);
-            Debug.Log(PlayerList[i].GetComponent<Player>().Name + " berada di urutan ke-" + (i + 1) + " dengan total nilai: " + PlayerList[i].GetComponent<Player>().TotalScore);
+            playerManager.playerList[i].GetComponent<Player>().SetPlayOrder(i + 1);
+            Debug.Log(playerManager.playerList[i].GetComponent<Player>().Name + " berada di urutan ke-" + (i + 1) + " dengan total nilai: " + playerManager.playerList[i].GetComponent<Player>().TotalScore);
         }
 
         gameManager.currentGameState = GameManager.GameState.Action;

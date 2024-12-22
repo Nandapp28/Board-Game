@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public int Infrastuctur = 0; // Jumlah sumber daya industri
     public int Finance = 0;   // Jumlah sumber daya keuangan
 
+    private float priority;
     private void Start() {
         Wealth = 5;
     }
@@ -166,4 +167,12 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+
+
+
+    public void SetPriority(float newPriority)
+    {
+        this.priority = newPriority;
+        // Optionally, you can use the priority for sorting or comparison elsewhere.
+    }
 }
