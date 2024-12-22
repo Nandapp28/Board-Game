@@ -98,9 +98,6 @@ public class ResolutionPhase : MonoBehaviour
         }
     }
 
-    #region Token Ramalan
-
-    #endregion
     #region Help Card Management
     private void CollectHelpCards()
     {

@@ -14,11 +14,13 @@ public class SellingPhase : MonoBehaviour {
     private SellingPhaseUI sellingPhaseUI;
     private GameManager gameManager;
 
-    public void StartSellingPhase() {
+    private void Start() {
         gameManager = FindAnyObjectByType<GameManager>();
         Players = FindObjectOfType<PlayerManager>();
         sellingPhaseUI = FindObjectOfType<SellingPhaseUI>();
+    }
 
+    public void StartSellingPhase() {
         Players.SortPlayersByPlayOrder();
         sellingPhaseUI.StartSellingPhaseUI();
         StartSellingPhaseForNexPlayer();

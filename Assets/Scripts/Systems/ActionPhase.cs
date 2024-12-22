@@ -8,10 +8,8 @@ using DG.Tweening;
 public class ActionPhase : MonoBehaviour
 {
     [Header("Game Objects")]
-    [SerializeField] private GameObject players; // GameObject yang berisi semua player
 
     [Header("Player Management")]
-    public List<Player> playerList = new List<Player>(); // List untuk menyimpan komponen Player
     public CardManager cardManager; // Komponen CardManager
 
     [Header("UI Elements")]
@@ -36,12 +34,14 @@ public class ActionPhase : MonoBehaviour
     private Camera mainCamera;
     private Vector3 InitializationCameraPosition;
     private Vector3 InitializationCameraRotation;
+    private PlayerManager playerManager;
 
 
     #region Initialization
     // Memulai fase aksi dengan mengumpulkan pemain dan memulai pengambilan kartu
 
     private void Start() {
+        playerManager = GameObject.FindObjectOfType<PlayerManager>();
         mainCamera = Camera.main;
         InitializationCameraPosition = mainCamera.transform.position;
         InitializationCameraRotation = mainCamera.transform.eulerAngles;
@@ -71,7 +71,7 @@ public class ActionPhase : MonoBehaviour
     }
     public void StartActionPhase()
     {
-        CollectPlayers();
+
         CameraAnimation.ActionCamera();
         StartCoroutine(ShowTheCard());
     }
@@ -83,56 +83,6 @@ public class ActionPhase : MonoBehaviour
         StartDrawCardForNextPlayer();
     }
 
-    // Mengumpulkan semua pemain dari GameObject yang ditetapkan
-    void CollectPlayers()
-    {
-        if (players == null)
-        {
-            Debug.LogError("GameObject players tidak ditetapkan!");
-            return;
-        }
-
-        playerList.Clear();
-
-        if (players.transform.childCount == 0)
-        {
-            Debug.LogWarning("Tidak ada player ditemukan di dalam GameObject players!");
-            return;
-        }
-
-        foreach (Transform child in players.transform)
-        {
-            Player playerComponent = child.GetComponent<Player>();
-            if (playerComponent != null)
-            {
-                playerList.Add(playerComponent); // Tambahkan komponen Player ke daftar
-            }
-            else
-            {
-                Debug.LogWarning("Child " + child.name + " tidak memiliki komponen Player.");
-            }
-        }
-
-        Debug.Log("Jumlah player yang dikumpulkan: " + playerList.Count);
-        SortPlayersByPlayOrder(); // Urutkan pemain berdasarkan urutan bermain
-        DisplayPlayerNames(); // Tampilkan nama pemain
-    }
-
-    // Mengurutkan pemain berdasarkan urutan bermain
-    private void SortPlayersByPlayOrder()
-    {
-        playerList.Sort((a, b) => a.playOrder.CompareTo(b.playOrder));
-        Debug.Log("Players sorted by play order.");
-    }
-
-    // Menampilkan nama pemain di log
-    private void DisplayPlayerNames()
-    {
-        foreach (var player in playerList)
-        {
-            Debug.Log("Player ditemukan: " + player.Name);
-        }
-    }
     #endregion
 
     #region Card Drawing
@@ -146,7 +96,7 @@ public class ActionPhase : MonoBehaviour
 
         if (cardManager.selectedCards.Count > 0)
         {
-            Player currentPlayer = playerList[currentPlayerIndex];
+            Player currentPlayer = playerManager.playerList[currentPlayerIndex];
             Debug.Log("Sekarang giliran " + currentPlayer.Name + " untuk Mengambil Kartu.");
 
             // Mulai timer untuk pemilihan kartu
@@ -217,7 +167,7 @@ public class ActionPhase : MonoBehaviour
 
         currentPlayerIndex++;
 
-        if (currentPlayerIndex >= playerList.Count)
+        if (currentPlayerIndex >= playerManager.PlayerCount)
         {
             currentPlayerIndex = 0; // Kembali ke pemain pertama jika sudah mencapai akhir daftar
         }
@@ -245,7 +195,7 @@ public class ActionPhase : MonoBehaviour
     public void OnCardKeep()
     {
         StockCard card = cardManager.currentActiveCard.GetComponent<StockCard>();
-        Player currentPlayer = playerList[currentPlayerIndex];
+        Player currentPlayer = playerManager.playerList[currentPlayerIndex];
         if(IsFlashBuy)
         {
             StopCurrentTimer();
@@ -280,7 +230,7 @@ public class ActionPhase : MonoBehaviour
         if (cardManager.currentActiveCard != null)
         {
             StockCard card = cardManager.currentActiveCard.GetComponent<StockCard>();
-            Player currentPlayer = playerList[currentPlayerIndex];
+            Player currentPlayer = playerManager.playerList[currentPlayerIndex];
 
             switch (card.Connected_Sectors)
             {
@@ -308,7 +258,7 @@ public class ActionPhase : MonoBehaviour
         if(cardManager.currentActiveCard != null)
         {
             StockCard card = cardManager.currentActiveCard.GetComponent<StockCard>();
-            Player currentPlayer = playerList[currentPlayerIndex];
+            Player currentPlayer = playerManager.playerList[currentPlayerIndex];
 
              switch (card.Type)
             {
