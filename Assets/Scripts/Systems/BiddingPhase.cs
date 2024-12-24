@@ -195,19 +195,6 @@ public class BiddingPhase : MonoBehaviour
         SortPlayersByDiceResult();
     }
 
-    
-
-
-    private void AssignPriorityToPlayers(List<GameObject> playersWithSameResult)
-    {
-        float increment = 0.01f;
-        for (int i = 0; i < playersWithSameResult.Count; i++)
-        {
-            playersWithSameResult[i].GetComponent<Player>().TotalScore += increment;
-            increment += 0.01f;
-            Debug.Log($"{playersWithSameResult[i].GetComponent<Player>().Name} diberi prioritas dengan nilai baru: {playersWithSameResult[i].GetComponent<Player>().TotalScore}");
-        }
-    }
 
     private void AssignPriorityToPlayers(List<Player> playersWithSameResult)
 {

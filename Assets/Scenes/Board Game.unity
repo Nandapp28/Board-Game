@@ -34805,62 +34805,294 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 40675697081320782, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 40675697081320782, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 40675697081320782, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 164156144226181199, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 164156144226181199, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 164156144226181199, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 321883813077019368, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 321883813077019368, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 321883813077019368, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 679498005686907164, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 679498005686907164, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 679498005686907164, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 714433783449094784, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 714433783449094784, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 714433783449094784, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 802866136630787122, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 802866136630787122, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 802866136630787122, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1270154427866418613, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 1270154427866418613, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1270154427866418613, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 1952785582706700772, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 1952785582706700772, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1952785582706700772, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 2221282481284698451, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 2221282481284698451, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2221282481284698451, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318257863302579676, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 2318257863302579676, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2318257863302579676, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 2409146659606970736, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 2409146659606970736, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2409146659606970736, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 2593284034111969971, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 2593284034111969971, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593284034111969971, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 2716623767296333320, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 2716623767296333320, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2716623767296333320, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 3097872216295958051, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 3097872216295958051, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3097872216295958051, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348408239429224701, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 3348408239429224701, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3348408239429224701, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 3438278023517327397, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 3438278023517327397, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3438278023517327397, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544495071057398694, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 3544495071057398694, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3544495071057398694, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 3658227169357014380, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 3658227169357014380, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658227169357014380, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 3752041266762236517, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 3752041266762236517, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752041266762236517, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 3881936492612482801, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 3881936492612482801, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3881936492612482801, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 4002121810555247505, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 4002121810555247505, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002121810555247505, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 4060049934845578927, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 4060049934845578927, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4060049934845578927, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 4568384499182743498, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 4568384499182743498, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4568384499182743498, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 4606672397252611512, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 4606672397252611512, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4606672397252611512, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 4643754754448332502, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: Camera
       value: 
@@ -34889,22 +35121,150 @@ PrefabInstance:
       propertyPath: offsetFromCamera.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4804750223301137423, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 4804750223301137423, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4804750223301137423, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 4977440133677345925, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 4977440133677345925, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4977440133677345925, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5205065514068152070, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 5205065514068152070, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5205065514068152070, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 5423251088678105009, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 5423251088678105009, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423251088678105009, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539405570797588550, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 5539405570797588550, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539405570797588550, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5593239827813405299, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 5593239827813405299, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5593239827813405299, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5674769071501870470, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 5674769071501870470, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5674769071501870470, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 6121125766121609646, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 6121125766121609646, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6121125766121609646, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153754626026809625, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 6153754626026809625, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6153754626026809625, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 7062829422318687476, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 7062829422318687476, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7062829422318687476, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7255994419750801834, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 7255994419750801834, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7255994419750801834, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 7391523112334236312, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 7391523112334236312, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391523112334236312, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 7558473366524638354, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.32
@@ -34949,14 +35309,54 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stock Card
       objectReference: {fileID: 0}
+    - target: {fileID: 7847178274460002144, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 7847178274460002144, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847178274460002144, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 8215385952580748351, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 8215385952580748351, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215385952580748351, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521749327463774039, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 913014169}
+    - target: {fileID: 8521749327463774039, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521749327463774039, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     - target: {fileID: 8547873900310834077, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 913014169}
+    - target: {fileID: 8547873900310834077, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8547873900310834077, guid: 26bf14b1b45fb9041b6b52eba78f1fbf, type: 3}
+      propertyPath: offsetFromCamera.z
+      value: 2.65
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

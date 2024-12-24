@@ -75,10 +75,10 @@ public class GameManager : MonoBehaviour
                 HandleResolutionPhase();
                 break;
             case GameState.NextSemester:
-                HandleNextSemester();
+                StartCoroutine(HandleNextSemester());
                 break;
             case GameState.End:
-                HandleEndPhase();
+                HandleEndGame();
                 break;
             default:
                 Debug.Log("Unknown Phase");
@@ -120,14 +120,29 @@ public class GameManager : MonoBehaviour
         Debug.Log("Resolution Phase");
         resolutionPhase.StartResolutionPhase();
     }
-    public void HandleNextSemester() // Diubah menjadi public
+    public IEnumerator HandleNextSemester() // Diubah menjadi public
     {
-        Debug.Log("Next Semester");
-        Semester.NextSemester();
-        Semester.AnimateSemesters();
+        if(Semester.CurrentSemester <= 4)
+        {
+            Debug.Log("Next Semester");
+            Semester.NextSemester();
+            Semester.AnimateSemesters();
+            currentGameState = GameState.Bidding;
+
+            while (!Semester.IsSemesterAnimateDone)
+            {
+                yield return null; // Tunggu hingga animasi selesai
+            }
+
+            StartNextPhase();
+            Semester.IsSemesterAnimateDone = false;
+        }else{
+            Debug.Log("Semester Selesai");
+            HandleEndGame();
+        }
     }
 
-    public void HandleEndPhase() // Diubah menjadi public
+    public void HandleEndGame() // Diubah menjadi public
     {
         Debug.Log("End Phase");
         // Logika untuk fase End

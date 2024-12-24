@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class RollDice : MonoBehaviour
 {
+    #region Pengaturan Dadu
     [Header("Pengaturan Dadu")]
     public Rigidbody diceRigidbody1; // Rigidbody untuk dadu pertama
     public Rigidbody diceRigidbody2; // Rigidbody untuk dadu kedua
+    #endregion
 
+    #region Pengaturan UI
     [Header("Pengaturan UI")]
     public TextMeshProUGUI resultText; // UI Text untuk menampilkan hasil
+    #endregion
 
+    #region Pengaturan Animasi
     [Header("Pengaturan Animasi")]
     public Transform cameraTransform; // Referensi kamera
     public Vector3 offsetFromCamera1 = new Vector3(0, 0, 2);
@@ -19,7 +24,9 @@ public class RollDice : MonoBehaviour
     public Vector3 offsetRotationFromCamera2 = new Vector3(0, 0, 2);
     public float moveSpeed = 5f; // Kecepatan gerak dadu
     public float resetPosition = 2f; // Jarak offset dari kamera
-    
+    #endregion
+
+    #region Status Dadu
     [HideInInspector] public bool isRolling = false; // Status apakah dadu sedang bergulir
     [HideInInspector] public bool isMovingToCamera = false; // Status apakah dadu sedang bergerak ke kamera
     [HideInInspector] public bool isKinematic = false; // Status kinematic untuk kontrol manual
@@ -36,7 +43,9 @@ public class RollDice : MonoBehaviour
 
     [HideInInspector] public int Dice1 = 0;
     [HideInInspector] public int Dice2 = 0;
+    #endregion
 
+    #region Metode Unity
     public void Start()
     {
         // Kosongkan teks di awal
@@ -48,7 +57,9 @@ public class RollDice : MonoBehaviour
         initialRotation1 = diceRigidbody1.transform.rotation.eulerAngles;
         initialRotation2 = diceRigidbody2.transform.rotation.eulerAngles;
     }
+    #endregion
 
+    #region Metode Lempar Dadu
     /// Memulai lemparan untuk kedua dadu.
     public void RollTheDice()
     {
@@ -95,7 +106,9 @@ public class RollDice : MonoBehaviour
             Random.Range(-10f, 10f)  // Rotasi sumbu Z
         ), ForceMode.Impulse);
     }
+    #endregion
 
+    #region Metode Menghitung Nilai Dadu
     /// Menghitung nilai dari kedua dadu dan menampilkan hasilnya.
     public void CalculateDiceValues()
     {
@@ -126,7 +139,9 @@ public class RollDice : MonoBehaviour
         Dice1 = 0;
         Dice2 = 0;
     }
+    #endregion
 
+    #region Metode Deteksi Dadu
     /// Mendapatkan nilai dadu berdasarkan deteksi raycast.
     public int GetSingleDiceValue(GameObject dice)
     {
@@ -141,49 +156,39 @@ public class RollDice : MonoBehaviour
         }
         return -1; // Nilai invalid jika tidak ada deteksi
     }
+    #endregion
 
+    #region Metode Animasi Dadu
     /// Menggerakkan dadu ke depan kamera dengan sisi atas menghadap kamera.
-/// Menggerakkan dadu ke depan kamera dengan sisi atas menghadap kamera.
-public void MoveDiceToCamera(GameObject dice, Vector3 offsetFromCamera, Vector3 rotationOffset, Quaternion currentRotation)
-{
-    // Hitung posisi target di depan kamera
-    Vector3 targetPosition = Camera.main.transform.position + 
-                             Camera.main.transform.forward * offsetFromCamera.z +
-                             Camera.main.transform.right * offsetFromCamera.x +
-                             Camera.main.transform.up * offsetFromCamera.y;
-
-    // Tentukan rotasi target berdasarkan nilai dadu
-    int diceValue = GetSingleDiceValue(dice);
-    Quaternion targetRotation;
-
-    // if (diceValue >= 2 && diceValue <= 5)
-    // {
-    //     targetRotation = Quaternion.Euler(0, 0, currentRotation.eulerAngles.z + rotationOffset.z);
-    // }
-    // else // untuk 1 dan 6
-    // {
-    //     targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x - rotationOffset.x, 90, 90);
-    // }
-
-    if (diceValue == 3 || diceValue == 5)
+    public void MoveDiceToCamera(GameObject dice, Vector3 offsetFromCamera, Vector3 rotationOffset, Quaternion currentRotation)
     {
-        targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x - rotationOffset.x, 90, 90);
+        // Hitung posisi target di depan kamera
+        Vector3 targetPosition = Camera.main.transform.position + 
+                                 Camera.main.transform.forward * offsetFromCamera.z +
+                                 Camera.main.transform.right * offsetFromCamera.x +
+                                 Camera.main.transform.up * offsetFromCamera.y;
 
+        // Tentukan rotasi target berdasarkan nilai dadu
+        int diceValue = GetSingleDiceValue(dice);
+        Quaternion targetRotation;
+
+        if (diceValue == 3 || diceValue == 5)
+        {
+            targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x - rotationOffset.x, 90, 90);
+        }
+        else // untuk 1 dan 6
+        {
+            targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x - rotationOffset.x, 0, currentRotation.eulerAngles.z);
+        }
+
+        // Hitung durasi animasi
+        float distance = Vector3.Distance(dice.transform.position, targetPosition);
+        float duration = distance / moveSpeed;
+
+        // Animasi menggunakan DOTween
+        dice.transform.DOMove(targetPosition, duration).SetEase(Ease.Linear);
+        dice.transform.DORotateQuaternion(targetRotation, duration).SetEase(Ease.Linear);
     }
-    else // untuk 1 dan 6
-    {
-        targetRotation = Quaternion.Euler(currentRotation.eulerAngles.x - rotationOffset.x, 0, currentRotation.eulerAngles.z);
-    }
-
-
-    // Hitung durasi animasi
-    float distance = Vector3.Distance(dice.transform.position, targetPosition);
-    float duration = distance / moveSpeed;
-
-    // Animasi menggunakan DOTween
-    dice.transform.DOMove(targetPosition, duration).SetEase(Ease.Linear);
-    dice.transform.DORotateQuaternion(targetRotation, duration).SetEase(Ease.Linear);
-}
 
     public bool CheckIfDiceReachedCamera(GameObject Dice, Vector3 offset)
     {
@@ -204,4 +209,5 @@ public void MoveDiceToCamera(GameObject dice, Vector3 offsetFromCamera, Vector3 
         // Reset flag saat melakukan reset posisi atau status lainnya
         hasRotationsCaptured = false;
     }
+    #endregion
 }

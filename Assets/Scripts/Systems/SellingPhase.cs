@@ -84,7 +84,13 @@ public class SellingPhase : MonoBehaviour {
         StartSellingPhase();
     }
 
+    private void ResetCurentPlayer()
+    {
+        currentPlayerIndex = 0;
+    }
+
     private void EndPhase() {
+        ResetCurentPlayer();
         Debug.Log("Selling Phase Berakhir.");
         gameManager.currentGameState = GameManager.GameState.Rumor;
         gameManager.StartNextPhase();
