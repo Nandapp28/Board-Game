@@ -16,10 +16,12 @@ public class BiddingPhase : MonoBehaviour
     private bool isRollingDice = false;
     private bool isWaitingForDiceResult = false;
     private CameraAnimation Camera;
+    private BiddingPhaseUI biddingPhaseUI;
 
     #region Unity Lifecycle
 
     private void Start() {
+        biddingPhaseUI = FindAnyObjectByType<BiddingPhaseUI>();
         playerManager = GameObject.FindObjectOfType<PlayerManager>();
         if (Camera == null){
             Camera = GameObject.FindObjectOfType<CameraAnimation>();
@@ -103,6 +105,7 @@ public class BiddingPhase : MonoBehaviour
     {
         Dice.isRolling = false;
         SetDiceKinematic(true);
+        biddingPhaseUI.AnimateActive();
         Dice.CalculateDiceValues();
         HandleDiceProcessResult();
         CaptureDiceRotation();
@@ -149,6 +152,7 @@ public class BiddingPhase : MonoBehaviour
     {
         Dice.ResetDicePosition(Dice.diceRigidbody1.gameObject, Dice.initialPosition1, Dice.initialRotation1, Dice.resetPosition);
         Dice.ResetDicePosition(Dice.diceRigidbody2.gameObject, Dice.initialPosition2, Dice.initialRotation2, Dice.resetPosition);
+        biddingPhaseUI.AnimateDeactive();
     }
 
     private void HandleDiceProcessResult()

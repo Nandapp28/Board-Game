@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening; // Pastikan Anda menggunakan DoTween
+using DG.Tweening;
+using System.Runtime.Remoting.Messaging; // Pastikan Anda menggunakan DoTween
 
 [System.Serializable]
 public class HelpCards
@@ -37,6 +38,12 @@ public class ResolutionPhase : MonoBehaviour
     public SemesterManager semesterManager;
     public AllSectors allSectorsSemester;
     public CompanyPerformanceManager companyPerformanceManager;
+
+    [Header("Camera")]
+    public Vector3 Position;
+    public Vector3 Rotation;
+    private Vector3 initialCameraPosition;
+    private Vector3 initialCameraRotation;
     #endregion
 
     #region Unity Methods
@@ -48,15 +55,36 @@ public class ResolutionPhase : MonoBehaviour
         Players = FindAnyObjectByType<PlayerManager>();
         allSectorsSemester = semesterManager.NewSectors;
         Camera = Camera.main;
+        initialCameraPosition = Camera.transform.position;
+        initialCameraRotation = Camera.transform.eulerAngles;
     }
-    public void StartResolutionPhase()
+    public IEnumerator StartResolutionPhase()
     {
+        MainCameraTargetPosition();
+        yield return new WaitForSeconds(1.5f);
         SemesterCheck();
         Players.ShufflePlayers();
         CollectHelpCards();
+        yield return new WaitForSeconds(2f);
+        DividenCheck();
+        yield return new WaitForSeconds(2f);
+        MainCameraResetPostion();
+        yield return new WaitForSeconds(1.5f);
         StartCoroutine(StartForNexPlayer());
     }
     #endregion
+
+    private void MainCameraTargetPosition()
+    {
+        Camera.transform.DOMove(Position,0.7f);
+        Camera.transform.DORotate(Rotation,0.7f);
+    }
+
+    private void MainCameraResetPostion()
+    {
+        Camera.transform.DOMove(initialCameraPosition,0.7f);
+        Camera.transform.DORotate(initialCameraRotation,0.7f);
+    }
 
     public IEnumerator StartForNexPlayer()
     {
@@ -78,7 +106,7 @@ public class ResolutionPhase : MonoBehaviour
         {
             Debug.Log("No more players to process.");
             currentPlayerIndex = 0;
-            DividenCheck();
+            EndPhase();
         }
     }
 
@@ -247,7 +275,7 @@ public class ResolutionPhase : MonoBehaviour
         {
             Debug.Log("No more players to process.");
             currentPlayerIndex = 0;
-            EndPhase();
+
         }
     }
 

@@ -10,11 +10,6 @@ public class RollDice : MonoBehaviour
     public Rigidbody diceRigidbody2; // Rigidbody untuk dadu kedua
     #endregion
 
-    #region Pengaturan UI
-    [Header("Pengaturan UI")]
-    public TextMeshProUGUI resultText; // UI Text untuk menampilkan hasil
-    #endregion
-
     #region Pengaturan Animasi
     [Header("Pengaturan Animasi")]
     public Transform cameraTransform; // Referensi kamera
@@ -43,14 +38,14 @@ public class RollDice : MonoBehaviour
 
     [HideInInspector] public int Dice1 = 0;
     [HideInInspector] public int Dice2 = 0;
+
+    private BiddingPhaseUI biddingPhaseUI;
     #endregion
 
     #region Metode Unity
     public void Start()
     {
-        // Kosongkan teks di awal
-        resultText.text = "";
-
+        biddingPhaseUI = FindAnyObjectByType<BiddingPhaseUI>();
         // Simpan posisi awal dari kedua dadu
         initialPosition1 = diceRigidbody1.transform.position;
         initialPosition2 = diceRigidbody2.transform.position;
@@ -79,9 +74,6 @@ public class RollDice : MonoBehaviour
 
         // Terapkan gaya acak untuk dadu kedua
         ApplyRandomForceAndTorque(diceRigidbody2);
-
-        // Perbarui UI untuk menunjukkan proses rolling
-        resultText.text = "...";
     }
 
     /// Mengatur ulang kecepatan dan rotasi Rigidbody.
@@ -123,13 +115,13 @@ public class RollDice : MonoBehaviour
             int total = dice1Value + dice2Value;
 
             // Tampilkan hasil di UI
-            resultText.text = $"{total}";
+            biddingPhaseUI.resultText(total);
             Debug.Log($"Dadu 1: {dice1Value}, Dadu 2: {dice2Value}, Total: {total}");
         }
         else
         {
             // Tampilkan pesan jika salah satu nilai tidak valid
-            resultText.text = "Lemparan Tidak Valid";
+            biddingPhaseUI.resultText(0);
             Debug.LogWarning("Nilai salah satu dadu tidak valid.");
         }
     }
@@ -210,4 +202,6 @@ public class RollDice : MonoBehaviour
         hasRotationsCaptured = false;
     }
     #endregion
+
+
 }

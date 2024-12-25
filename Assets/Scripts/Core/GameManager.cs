@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
     public void HandleResolutionPhase() // Diubah menjadi public
     {
         Debug.Log("Resolution Phase");
-        resolutionPhase.StartResolutionPhase();
+        StartCoroutine(resolutionPhase.StartResolutionPhase());
     }
     public IEnumerator HandleNextSemester() // Diubah menjadi public
     {
