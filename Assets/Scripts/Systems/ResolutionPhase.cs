@@ -33,6 +33,7 @@ public class ResolutionPhase : MonoBehaviour
     public int currentPlayerIndex = 0;
 
     private GameManager gameManager;
+    private ResolutionPhaseUI resolutionPhaseUI;
     
     [Header("Semester")]
     public SemesterManager semesterManager;
@@ -51,6 +52,7 @@ public class ResolutionPhase : MonoBehaviour
     private void Start() {
         gameManager = GameObject.FindObjectOfType<GameManager>();
         semesterManager = FindAnyObjectByType<SemesterManager>();
+        resolutionPhaseUI = FindAnyObjectByType<ResolutionPhaseUI>();
         companyPerformanceManager = FindAnyObjectByType<CompanyPerformanceManager>();
         Players = FindAnyObjectByType<PlayerManager>();
         allSectorsSemester = semesterManager.NewSectors;
@@ -60,16 +62,25 @@ public class ResolutionPhase : MonoBehaviour
     }
     public IEnumerator StartResolutionPhase()
     {
+        resolutionPhaseUI.HandleToken(true);
+        yield return new WaitForSeconds(3f);
+        resolutionPhaseUI.HandleToken(false);
+        yield return new WaitForSeconds(1f);
         MainCameraTargetPosition();
         yield return new WaitForSeconds(1.5f);
         SemesterCheck();
         Players.ShufflePlayers();
         CollectHelpCards();
         yield return new WaitForSeconds(2f);
+        resolutionPhaseUI.HandleDividen(true);
+        yield return new WaitForSeconds(3f);
+        resolutionPhaseUI.HandleDividen(false);
+        yield return new WaitForSeconds(1f);
         DividenCheck();
         yield return new WaitForSeconds(2f);
         MainCameraResetPostion();
         yield return new WaitForSeconds(1.5f);
+        resolutionPhaseUI.HandleHelpCard(true);
         StartCoroutine(StartForNexPlayer());
     }
     #endregion
@@ -93,21 +104,34 @@ public class ResolutionPhase : MonoBehaviour
         Debug.Log("Player Count: " + Players.PlayerCount);
         if (currentPlayerIndex < Players.PlayerCount)
         {
-            Debug.Log("Duplicating card for player: " + currentPlayerIndex);
-            DuplicateRandomHelpCard();
 
-            Debug.Log("Menunggu selama 10 detik sebelum melanjutkan ke pemain berikutnya...");
-            yield return new WaitForSeconds(4f); // Tunggu selama 10 detik
-
-            DestroyCard();
-            MoveNextPlayer();
         }
         else
         {
             Debug.Log("No more players to process.");
             currentPlayerIndex = 0;
+            resolutionPhaseUI.HandleHelpCard(false);
             EndPhase();
         }
+    }
+
+    public void BuyButton()
+    {
+        StartCoroutine(DuplicateCard());
+    }
+
+    public void SkipButton()
+    {
+        MoveNextPlayer();
+    }
+
+    private IEnumerator DuplicateCard()
+    {
+        DuplicateRandomHelpCard();
+        Debug.Log("Menunggu selama 10 detik sebelum melanjutkan ke pemain berikutnya...");
+        yield return new WaitForSeconds(3f);
+        DestroyCard();
+        MoveNextPlayer();
     }
 
     private void MoveNextPlayer()
