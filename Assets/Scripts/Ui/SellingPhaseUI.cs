@@ -33,6 +33,7 @@ public class SellingPhaseUI : MonoBehaviour
     public TextMeshProUGUI TotalEarnings;
 
     #region Unity Methods
+
     public void StartSellingPhaseUI()
     {
         if (sectorsParent != null)
@@ -58,6 +59,7 @@ public class SellingPhaseUI : MonoBehaviour
         InitializeCategory(Finance);
 
         CurrentStock();
+        CurrentMarket();
     }
     #endregion
 
@@ -69,6 +71,7 @@ public class SellingPhaseUI : MonoBehaviour
         {
             category.countText = sectorTransform.Find("Count")?.GetComponent<TextMeshProUGUI>();
             category.CurrentStockText = sectorTransform.Find("CurrentStockText")?.GetComponent<TextMeshProUGUI>();
+            category.CurrentPriceSectorText = sectorTransform.Find("CurrentMarket")?.GetComponent<TextMeshProUGUI>();
             category.plusButton = sectorTransform.Find("Plus")?.GetComponent<Button>();
             category.minusButton = sectorTransform.Find("Minus")?.GetComponent<Button>();
         }
@@ -92,6 +95,14 @@ public class SellingPhaseUI : MonoBehaviour
         Mining.CurrentStockText.text = Mining.CurrentStock.ToString();
         Finance.CurrentStockText.text = Finance.CurrentStock.ToString();
         Consumen.CurrentStockText.text = Consumen.CurrentStock.ToString();
+    }
+
+    void CurrentMarket()
+    {
+        Infrastuktur.CurrentPriceSectorText.text = Infrastuktur.CurrentPriceSector.ToString();
+        Mining.CurrentPriceSectorText.text = Mining.CurrentPriceSector.ToString();
+        Finance.CurrentPriceSectorText.text = Finance.CurrentPriceSector.ToString();
+        Consumen.CurrentPriceSectorText.text = Consumen.CurrentPriceSector.ToString();
     }
 
     void UpdateCount(CategoryUI category, int change)
