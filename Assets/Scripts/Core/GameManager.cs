@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public StockPriceManager stockPriceManager;
     public CompanyPerformanceManager companyPerformanceManager;
     private PlayerManager playerManager;
+    private PhaseUI phaseUI;
     public enum GameState { Bidding, Action, Selling, Rumor, Resolution, NextSemester ,End }
     public GameState currentGameState = GameState.Bidding;
 
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
         Semester = FindAnyObjectByType<SemesterManager>();
         stockPriceManager = FindAnyObjectByType<StockPriceManager>();
         companyPerformanceManager = FindAnyObjectByType<CompanyPerformanceManager>();
+        phaseUI = FindAnyObjectByType<PhaseUI>();
         InitializePhases();
         playerManager.StartPlayerManager();
         stockPriceManager.StartStockManager();
@@ -60,19 +62,19 @@ public class GameManager : MonoBehaviour
         switch (currentGameState)
         {
             case GameState.Bidding:
-                HandleBiddingPhase();
+                StartCoroutine(HandleBiddingPhase());
                 break;
             case GameState.Action:
-                HandleActionPhase();
+                StartCoroutine(HandleActionPhase());
                 break;
             case GameState.Selling:
-                HandleSellingPhase();
+                StartCoroutine(HandleSellingPhase());
                 break;
             case GameState.Rumor:
-                HandleRumorPhase();
+                StartCoroutine(HandleRumorPhase());
                 break;
             case GameState.Resolution:
-                HandleResolutionPhase();
+                StartCoroutine(HandleResolutionPhase());
                 break;
             case GameState.NextSemester:
                 StartCoroutine(HandleNextSemester());
@@ -86,38 +88,55 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void HandleBiddingPhase() // Diubah menjadi public
+    public IEnumerator HandleBiddingPhase() // Diubah menjadi public
     {
+        phaseUI.HandleBiddingPhase(true);
+        yield return new WaitForSeconds(5f);
+        phaseUI.HandleBiddingPhase(false);
+        yield return new WaitForSeconds(1f);
         Debug.Log("Bidding Phase");
         biddingPhase.StartBiddingPhase();
     }
 
-    public void HandleActionPhase() // Diubah menjadi public
+    public IEnumerator HandleActionPhase() // Diubah menjadi public
     {
         Debug.Log("Action Phase");
+        phaseUI.HandleActionPhase(true);
+        yield return new WaitForSeconds(5f);
+        phaseUI.HandleActionPhase(false);
+        yield return new WaitForSeconds(1f);
 
         actionPhase.StartActionPhase();
-        // Logika untuk fase Action
-        // Setelah fase action selesai, pindah ke fase Selling
     }
 
-    public void HandleSellingPhase() // Diubah menjadi public
+    public IEnumerator HandleSellingPhase() // Diubah menjadi public
     {
         Debug.Log("Selling Phase");
+        phaseUI.HandleSellingPhase(true);
+        yield return new WaitForSeconds(5f);
+        phaseUI.HandleSellingPhase(false);
+        yield return new WaitForSeconds(1f);
         sellingPhase.StartSellingPhase();
-        // Logika untuk fase Selling
-        // Setelah fase selling selesai, pindah ke fase Rumor
+
     }
 
-    public void HandleRumorPhase() // Diubah menjadi public
+    public IEnumerator HandleRumorPhase() // Diubah menjadi public
     {
         Debug.Log("Rumor Phase");
+        phaseUI.HandleRumorPhase(true);
+        yield return new WaitForSeconds(5f);
+        phaseUI.HandleRumorPhase(false);
+        yield return new WaitForSeconds(1f);
         rumorPhase.StartRumorhPase();
     }
 
-    public void HandleResolutionPhase() // Diubah menjadi public
+    public IEnumerator HandleResolutionPhase() // Diubah menjadi public
     {
         Debug.Log("Resolution Phase");
+        phaseUI.HandleResolutionPhase(true);
+        yield return new WaitForSeconds(5f);
+        phaseUI.HandleResolutionPhase(false);
+        yield return new WaitForSeconds(1f);
         StartCoroutine(resolutionPhase.StartResolutionPhase());
     }
     public IEnumerator HandleNextSemester() // Diubah menjadi public
