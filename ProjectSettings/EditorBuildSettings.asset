@@ -8,13 +8,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Menu/SplashScreen.unity
     guid: 9a02817b39cd04c44a9fc7ce9f6534eb
+  - enabled: 0
+    path: Assets/Scenes/Game Menu/Startgame.unity
+    guid: fd5f8d3349f68134896903dd022af547
+  - enabled: 0
+    path: Assets/Scenes/Game Menu/MainMenu.unity
+    guid: 0044997f4e37657438d0a2e9c26bb287
   - enabled: 1
     path: Assets/Scenes/Board Game.unity
     guid: 1d39afdd1cbcb6641a18d60103b02c8b
   - enabled: 1
-    path: Assets/Scenes/Game Menu/Startgame.unity
-    guid: fd5f8d3349f68134896903dd022af547
+    path: Assets/Scenes/Game Menu/StartingGame.unity
+    guid: 241ae77e3a660274990a17d683601889
   - enabled: 1
-    path: Assets/Scenes/Game Menu/MainMenu.unity
-    guid: 0044997f4e37657438d0a2e9c26bb287
+    path: Assets/Scenes/Game Menu/Main Menu.unity
+    guid: fcfbd667f8d48734b8d704e47baa66e9
   m_configObjects: {}

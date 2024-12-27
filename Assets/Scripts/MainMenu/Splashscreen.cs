@@ -1,6 +1,7 @@
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;  // Untuk mengakses Image UI
 
 public class SplashScreen : MonoBehaviour
@@ -98,5 +99,6 @@ public class SplashScreen : MonoBehaviour
         Debug.Log("Loading Complete!");
         // Aksi setelah loading selesai, seperti pindah ke scene berikutnya
         // SceneManager.LoadScene("NextScene"); // Contoh penggunaan
+        SceneManager.LoadScene(3);
     }
 }
