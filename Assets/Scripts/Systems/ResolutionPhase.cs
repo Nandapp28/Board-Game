@@ -104,19 +104,20 @@ public class ResolutionPhase : MonoBehaviour
         Debug.Log("Player Count: " + Players.PlayerCount);
         if (currentPlayerIndex < Players.PlayerCount)
         {
-
+            resolutionPhaseUI.HandleHelpCard(true);
         }
         else
         {
             Debug.Log("No more players to process.");
             currentPlayerIndex = 0;
-            resolutionPhaseUI.HandleHelpCard(false);
+            resolutionPhaseUI.HelpCard.SetActive(false);
             EndPhase();
         }
     }
 
     public void BuyButton()
     {
+        resolutionPhaseUI.HandleHelpCard(false);
         StartCoroutine(DuplicateCard());
     }
 
