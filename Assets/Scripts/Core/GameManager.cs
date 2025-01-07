@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public SellingPhase sellingPhase; // Fase bidding
     public RumorPhase rumorPhase; // Fase bidding
     public ResolutionPhase resolutionPhase; // Fase bidding
+    public EndGame endGame;
     public SemesterManager Semester;
     public StockPriceManager stockPriceManager;
     public CompanyPerformanceManager companyPerformanceManager;
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         sellingPhase = FindObjectOfType<SellingPhase>();
         rumorPhase = FindObjectOfType<RumorPhase>();
         resolutionPhase = FindObjectOfType<ResolutionPhase>();
+        endGame = FindAnyObjectByType<EndGame>();
     }
 
     private IEnumerator StartSemestersCoroutine()
@@ -80,7 +82,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(HandleNextSemester());
                 break;
             case GameState.End:
-                HandleEndGame();
+                StartCoroutine(HandleEndGame());
                 break;
             default:
                 Debug.Log("Unknown Phase");
@@ -157,14 +159,15 @@ public class GameManager : MonoBehaviour
             Semester.IsSemesterAnimateDone = false;
         }else{
             Debug.Log("Semester Selesai");
-            HandleEndGame();
+            StartCoroutine(HandleEndGame());
         }
     }
 
-    public void HandleEndGame() // Diubah menjadi public
+    public IEnumerator HandleEndGame()
     {
         Debug.Log("End Phase");
-        // Logika untuk fase End
-        // Setelah fase end, game bisa direset atau ditutup
+        endGame.StartEndGame();
+        yield return new WaitForSeconds(5f);
+        Application.Quit();
     }
 }
