@@ -143,10 +143,10 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator HandleNextSemester() // Diubah menjadi public
     {
+        Semester.NextSemester();
         if(Semester.CurrentSemester <= 4)
         {
             Debug.Log("Next Semester");
-            Semester.NextSemester();
             Semester.AnimateSemesters();
             currentGameState = GameState.Bidding;
 

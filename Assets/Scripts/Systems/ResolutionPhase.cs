@@ -62,6 +62,7 @@ public class ResolutionPhase : MonoBehaviour
     }
     public IEnumerator StartResolutionPhase()
     {
+        currentPlayerIndex = 0;
         resolutionPhaseUI.HandleToken(true);
         yield return new WaitForSeconds(3f);
         resolutionPhaseUI.HandleToken(false);
@@ -136,8 +137,18 @@ public class ResolutionPhase : MonoBehaviour
     private void MoveNextPlayer()
     {
         currentPlayerIndex++;
-        StartCoroutine(StartForNexPlayer());
+        if (currentPlayerIndex < Players.PlayerCount)
+        {
+            StartCoroutine(StartForNexPlayer());
+        }
+        else
+        {
+            resolutionPhaseUI.HandleHelpCard(0); // Sembunyikan HelpCard jika selesai
+            Debug.Log("All players have been processed.");
+            EndPhase();
+        }
     }
+
 
     private void DestroyCard()
     {
@@ -313,10 +324,10 @@ public class ResolutionPhase : MonoBehaviour
     #region End Phase
     private void EndPhase()
     {
-        gameManager.currentGameState = GameManager.GameState.NextSemester;
         resolutionPhaseUI.HandleHelpCard(0);
         resolutionPhaseUI.HelpCard.SetActive(false);
-        currentPlayerIndex = 0;
+        gameManager.currentGameState = GameManager.GameState.NextSemester;
+
         gameManager.StartNextPhase();
     }
     #endregion
