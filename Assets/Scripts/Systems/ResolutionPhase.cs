@@ -80,7 +80,7 @@ public class ResolutionPhase : MonoBehaviour
         yield return new WaitForSeconds(2f);
         MainCameraResetPostion();
         yield return new WaitForSeconds(1.5f);
-        resolutionPhaseUI.HandleHelpCard(true);
+        resolutionPhaseUI.HandleHelpCard(1);
         StartCoroutine(StartForNexPlayer());
     }
     #endregion
@@ -104,20 +104,18 @@ public class ResolutionPhase : MonoBehaviour
         Debug.Log("Player Count: " + Players.PlayerCount);
         if (currentPlayerIndex < Players.PlayerCount)
         {
-            resolutionPhaseUI.HandleHelpCard(true);
+            resolutionPhaseUI.HandleHelpCard(1);
         }
         else
         {
             Debug.Log("No more players to process.");
-            currentPlayerIndex = 0;
-            resolutionPhaseUI.HelpCard.SetActive(false);
             EndPhase();
         }
     }
 
     public void BuyButton()
     {
-        resolutionPhaseUI.HandleHelpCard(false);
+        resolutionPhaseUI.HandleHelpCard(0);
         StartCoroutine(DuplicateCard());
     }
 
@@ -316,6 +314,9 @@ public class ResolutionPhase : MonoBehaviour
     private void EndPhase()
     {
         gameManager.currentGameState = GameManager.GameState.NextSemester;
+        resolutionPhaseUI.HandleHelpCard(0);
+        resolutionPhaseUI.HelpCard.SetActive(false);
+        currentPlayerIndex = 0;
         gameManager.StartNextPhase();
     }
     #endregion

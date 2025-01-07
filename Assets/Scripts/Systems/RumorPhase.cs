@@ -41,7 +41,7 @@ public class RumorPhase : MonoBehaviour {
     private Vector3 initialPosition; // Menyimpan posisi awal
     private Quaternion initialRotation; // Menyimpan rotasi awal
     public TransformCamera[] sectors;
-    public int CurrentSectorIndex;
+    public int CurrentSectorIndex = 0;
     private GameManager gameManager;
     private StockPriceManager stockPriceManager;
 
@@ -213,6 +213,7 @@ public class RumorPhase : MonoBehaviour {
     #region End Phase
     private void EndPhase()
     {
+        CurrentSectorIndex = 0;
         Debug.Log("Rumor Phase Berakhir.");
         gameManager.currentGameState = GameManager.GameState.Resolution;
         gameManager.StartNextPhase();

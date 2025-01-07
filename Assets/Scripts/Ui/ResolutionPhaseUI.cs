@@ -83,9 +83,9 @@ public class ResolutionPhaseUI : MonoBehaviour {
             ResetAnimateObj(ParentDividen);
         }
     }
-    public void HandleHelpCard(bool IsScale)
+    public void HandleHelpCard(int index)
     {
-        if(IsScale)
+        if(index == 1)
         {
             HelpCard.SetActive(true);
             AnimateObj(HelpCard);
