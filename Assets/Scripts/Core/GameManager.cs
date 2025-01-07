@@ -147,12 +147,14 @@ public class GameManager : MonoBehaviour
         if(Semester.CurrentSemester <= 4)
         {
             Debug.Log("Next Semester");
+
             Semester.AnimateSemesters();
+
             currentGameState = GameState.Bidding;
 
             while (!Semester.IsSemesterAnimateDone)
             {
-                yield return null; // Tunggu hingga animasi selesai
+                yield return null;
             }
 
             StartNextPhase();

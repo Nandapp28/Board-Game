@@ -100,18 +100,23 @@ public class ResolutionPhase : MonoBehaviour
 
     public IEnumerator StartForNexPlayer()
     {
-        yield return new WaitForSeconds(0.2f);
-        Debug.Log("Current Player Index: " + currentPlayerIndex);
-        Debug.Log("Player Count: " + Players.PlayerCount);
-        if (currentPlayerIndex < Players.PlayerCount)
+        if(semesterManager.CurrentSemester < 4)
         {
-            resolutionPhaseUI.HandleHelpCard(1);
-        }
-        else
-        {
-            Debug.Log("No more players to process.");
+            yield return new WaitForSeconds(0.2f);
+            Debug.Log("Current Player Index: " + currentPlayerIndex);
+            Debug.Log("Player Count: " + Players.PlayerCount);
+            if (currentPlayerIndex < Players.PlayerCount)
+            {
+                resolutionPhaseUI.HandleHelpCard(1);
+            }
+            else
+            {
+                Debug.Log("No more players to process.");
+            }
+        }else{
             EndPhase();
         }
+
     }
 
     public void BuyButton()
