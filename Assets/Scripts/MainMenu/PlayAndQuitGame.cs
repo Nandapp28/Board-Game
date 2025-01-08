@@ -1,24 +1,43 @@
-using System.Drawing;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayAndQuitGame : MonoBehaviour {
-    public Button Play;
-    public Button Quit;
+    [Header("UI Buttons")]
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button quitButton;
+
+    private const float ButtonClickDelay = 0.5f;
 
     private void Start() {
-        Play.onClick.AddListener(PlayHandler);
-        Quit.onClick.AddListener(QuitHandler);
+        // Assign listeners for buttons
+        playButton.onClick.AddListener(OnPlayButtonClicked);
+        quitButton.onClick.AddListener(OnQuitButtonClicked);
     }
 
-    private void PlayHandler()
-    {
+    private void OnPlayButtonClicked() {
+        PlayButtonSound();
+        StartCoroutine(LoadSceneAfterDelay());
+    }
+
+    private IEnumerator LoadSceneAfterDelay() {
+        yield return new WaitForSeconds(ButtonClickDelay);
         SceneManager.LoadScene(3);
     }
-    private void QuitHandler()
-    {
+
+    private void OnQuitButtonClicked() {
+        PlayButtonSound();
+        StartCoroutine(QuitGameAfterDelay());
+    }
+
+    private IEnumerator QuitGameAfterDelay() {
+        yield return new WaitForSeconds(ButtonClickDelay);
         Application.Quit();
         Debug.Log("Game Quit");
+    }
+
+    private void PlayButtonSound() {
+        AudioController.PlaySoundEffect(0);
     }
 }

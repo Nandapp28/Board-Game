@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -73,6 +74,7 @@ public class MainMenu : MonoBehaviour
 
     public void SinglePlayerButton()
     {
+        buttonsound();
         AnimationTransform(modeMenu.modeParentContainer, modeMenu.transformAnimation.StartPosition, modeMenu.transformAnimation.StartRotation, modeMenu.transformAnimation.StartScale, modeMenu.modeMenuContainerDuration);
         SelectPlayerAppear();
         indexBack++;
@@ -131,7 +133,8 @@ public class MainMenu : MonoBehaviour
 
     public void PlayButton()
     {
-        SceneManager.LoadScene(2);
+        buttonsound();
+        StartCoroutine(LoadSceneAfterDelay(2));
     }
     #endregion
 
@@ -142,15 +145,40 @@ public class MainMenu : MonoBehaviour
         obj.transform.DOScale(scale, duration);
     }
 
+    #region BackButton
     public void BackButton()
     {
-        if(indexBack > 0)
+        buttonsound();
+        // Check if we are not at the initial index
+        if (indexBack > 0)
         {
+            // Decrease the index and animate the transition back to the previous menu state
             indexBack--;
-            AnimationTransform(SelectPlayerMode,Vector3.zero,0,modeMenu.transformAnimation.StartScale,modeMenu.modeMenuContainerDuration);
-            AnimationTransform(modeMenu.modeParentContainer, modeMenu.transformAnimation.EndPosition, modeMenu.transformAnimation.EndRotation, modeMenu.transformAnimation.EndScale, modeMenu.modeMenuContainerDuration);
-        }else{
-            SceneManager.LoadScene(4);
+            AnimateBackToPreviousMenu();
+        }
+        else
+        {
+            // If at the initial state, load the previous scene (likely the main menu)
+            StartCoroutine(LoadSceneAfterDelay(4));
         }
     }
+
+    private void AnimateBackToPreviousMenu()
+    {
+        // Animate SelectPlayerMode to its starting scale and modeParentContainer back to its original position and scale
+        AnimationTransform(SelectPlayerMode, Vector3.zero, 0, modeMenu.transformAnimation.StartScale, modeMenu.modeMenuContainerDuration);
+        AnimationTransform(modeMenu.modeParentContainer, modeMenu.transformAnimation.EndPosition, modeMenu.transformAnimation.EndRotation, modeMenu.transformAnimation.EndScale, modeMenu.modeMenuContainerDuration);
+    }
+
+    private IEnumerator LoadSceneAfterDelay(int index) {
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(index);
+    }
+    #endregion
+
+    private void buttonsound()
+    {
+        AudioController.PlaySoundEffect(0);
+    }
+
 }
