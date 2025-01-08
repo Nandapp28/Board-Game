@@ -99,6 +99,6 @@ public class SplashScreen : MonoBehaviour
         Debug.Log("Loading Complete!");
         // Aksi setelah loading selesai, seperti pindah ke scene berikutnya
         // SceneManager.LoadScene("NextScene"); // Contoh penggunaan
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 }

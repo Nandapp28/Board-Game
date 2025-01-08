@@ -43,10 +43,12 @@ public class MainMenu : MonoBehaviour
     public Button playButton;
     public ModeMenu modeMenu;
     public Button backButton;
+    private int indexBack = 0;
 
     private void Start()
     {
         modeMenu.singlePlayer.onClick.AddListener(SinglePlayerButton);
+        backButton.onClick.AddListener(BackButton);
         ModeMenuAnimation();
         CollectSelectPlayers();
         InitiliazeSelectPlayer();
@@ -73,6 +75,7 @@ public class MainMenu : MonoBehaviour
     {
         AnimationTransform(modeMenu.modeParentContainer, modeMenu.transformAnimation.StartPosition, modeMenu.transformAnimation.StartRotation, modeMenu.transformAnimation.StartScale, modeMenu.modeMenuContainerDuration);
         SelectPlayerAppear();
+        indexBack++;
     }
 
     #endregion
@@ -87,7 +90,7 @@ public class MainMenu : MonoBehaviour
 
     private void SelectPlayerAppear()
     {
-        AnimationTransform(SelectPlayerMode,Vector3.zero,0,Vector3.one,0.7f);
+        AnimationTransform(SelectPlayerMode,Vector3.zero,0,modeMenu.transformAnimation.EndScale,0.7f);
     }
     private void CollectSelectPlayers()
     {
@@ -141,5 +144,13 @@ public class MainMenu : MonoBehaviour
 
     public void BackButton()
     {
+        if(indexBack > 0)
+        {
+            indexBack--;
+            AnimationTransform(SelectPlayerMode,Vector3.zero,0,modeMenu.transformAnimation.StartScale,modeMenu.modeMenuContainerDuration);
+            AnimationTransform(modeMenu.modeParentContainer, modeMenu.transformAnimation.EndPosition, modeMenu.transformAnimation.EndRotation, modeMenu.transformAnimation.EndScale, modeMenu.modeMenuContainerDuration);
+        }else{
+            SceneManager.LoadScene(4);
+        }
     }
 }

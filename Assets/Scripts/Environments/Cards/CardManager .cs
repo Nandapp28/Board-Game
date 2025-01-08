@@ -30,6 +30,8 @@ public class CardManager : MonoBehaviour
     public CardAnimation currentActiveCard = null;
     public List<GameObject> selectedCards = new List<GameObject>();
 
+    public GameObject canvas;
+
     private ActionPhase ActionPhase;
 
     void Start()
@@ -41,6 +43,7 @@ public class CardManager : MonoBehaviour
     public void StartStockCards()
     {
         CollectingCards();
+        ShadowBackground(Camera.main,canvas);
         StartCoroutine(ShowRandomCards());
     }
 
@@ -182,4 +185,23 @@ public class CardManager : MonoBehaviour
                 button.gameObject.SetActive(false); // Nonaktifkan button setelah animasi selesai
             });
     }
+
+    private void ShadowBackground(Camera camera, GameObject background, float offset = 0.5f)
+    {
+        background.SetActive(true);
+        var ofst = offsetFromCamera.z + offset;
+        // Tentukan posisi latar belakang di depan kamera
+        Vector3 backgroundPosition = camera.transform.position + camera.transform.forward * ofst;
+
+        // Rotasi latar belakang mengikuti rotasi kamera
+        Quaternion backgroundRotation = camera.transform.rotation;
+
+        // Terapkan posisi dan rotasi ke latar belakang
+        background.transform.position = backgroundPosition;
+        background.transform.rotation = backgroundRotation;
+
+        // Pastikan latar belakang aktif
+        background.SetActive(true);
+    }
+
 }

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public CompanyPerformanceManager companyPerformanceManager;
     private PlayerManager playerManager;
     private PhaseUI phaseUI;
+    private ShadowBackground shadowBackground;
     public enum GameState { Bidding, Action, Selling, Rumor, Resolution, NextSemester ,End }
     public GameState currentGameState = GameState.Bidding;
 
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
         playerManager = FindAnyObjectByType<PlayerManager>();
         Semester = FindAnyObjectByType<SemesterManager>();
         stockPriceManager = FindAnyObjectByType<StockPriceManager>();
+        shadowBackground = FindAnyObjectByType<ShadowBackground>();
         companyPerformanceManager = FindAnyObjectByType<CompanyPerformanceManager>();
         phaseUI = FindAnyObjectByType<PhaseUI>();
         InitializePhases();
@@ -144,7 +146,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator HandleNextSemester() // Diubah menjadi public
     {
         Semester.NextSemester();
-        if(Semester.CurrentSemester <= 4)
+        if(Semester.CurrentSemester <= 1)
         {
             Debug.Log("Next Semester");
 
@@ -168,6 +170,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator HandleEndGame()
     {
         Debug.Log("End Phase");
+        shadowBackground.HandleShadowBackground(true);
+        yield return new WaitForSeconds(1.5f);
         endGame.StartEndGame();
         yield return new WaitForSeconds(5f);
         Application.Quit();

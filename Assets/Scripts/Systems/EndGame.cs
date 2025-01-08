@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EndGame : MonoBehaviour
 {
@@ -23,6 +26,8 @@ public class EndGame : MonoBehaviour
     }
 
     public GameObject EndGameParent;
+    public Button HomeButton;
+    public Button PlayAgainButton;
     public List<PlayerChip> PlayerChips = new();
     public List<Player> PlayersByWealth = new();
 
@@ -33,6 +38,10 @@ public class EndGame : MonoBehaviour
         _playerManager = FindAnyObjectByType<PlayerManager>();
         EndGameParent.SetActive(false);
         InitializePlayerChips();
+
+        EndGameParent.transform.localScale = Vector3.zero;
+        HomeButton.onClick.AddListener(HomeButtonHandler);
+        PlayAgainButton.onClick.AddListener(PlayAgainHandler);
     }
 
 
@@ -41,6 +50,7 @@ public class EndGame : MonoBehaviour
         EndGameParent.SetActive(true);
         SortPlayersByWealth();
         UpdatePlayerChips();
+        ShowUpAnimations();
     }
 
     private void InitializePlayerChips()
@@ -96,5 +106,20 @@ public class EndGame : MonoBehaviour
             chip.Crown.SetActive(isWinner);
             chip.WinnerBg.SetActive(isWinner);
         }
+    }
+
+    private void ShowUpAnimations()
+    {
+        EndGameParent.transform.DOScale(0.5898893f, 0.7f);
+    }
+
+    private void HomeButtonHandler()
+    {
+        SceneManager.LoadScene(3);
+    }
+
+    private void PlayAgainHandler()
+    {
+        SceneManager.LoadScene(1);
     }
 }

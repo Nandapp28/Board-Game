@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game Menu/Main Menu.unity
     guid: fcfbd667f8d48734b8d704e47baa66e9
+  - enabled: 1
+    path: Assets/Scenes/Game Menu/Play And Quit Game.unity
+    guid: f2f8a18583aa63c4dbc47668235b55fd
   m_configObjects: {}
