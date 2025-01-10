@@ -70,7 +70,6 @@ public class ResolutionPhase : MonoBehaviour
         MainCameraTargetPosition();
         yield return new WaitForSeconds(1.5f);
         SemesterCheck();
-        Players.ShufflePlayers();
         CollectHelpCards();
         yield return new WaitForSeconds(2f);
         resolutionPhaseUI.HandleDividen(true);
@@ -100,13 +99,14 @@ public class ResolutionPhase : MonoBehaviour
 
     public IEnumerator StartForNexPlayer()
     {
-        if(semesterManager.CurrentSemester < 4)
+        if(semesterManager.CurrentSemester < semesterManager.TotalSemester)
         {
             yield return new WaitForSeconds(0.2f);
             Debug.Log("Current Player Index: " + currentPlayerIndex);
             Debug.Log("Player Count: " + Players.PlayerCount);
             if (currentPlayerIndex < Players.PlayerCount)
             {
+                Players.HighightPlayerTurn(currentPlayerIndex);
                 resolutionPhaseUI.HandleHelpCard(1);
             }
             else
@@ -334,6 +334,7 @@ public class ResolutionPhase : MonoBehaviour
         gameManager.currentGameState = GameManager.GameState.NextSemester;
 
         gameManager.StartNextPhase();
+        Players.ResetHighightPlayerTurn();
     }
     #endregion
     

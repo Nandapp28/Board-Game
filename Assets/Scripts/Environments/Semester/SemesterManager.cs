@@ -37,6 +37,7 @@ public class SemesterManager : MonoBehaviour
     [SerializeField] private SemesterCollection semesterConfigurations; // Konfigurasi semester
     [HideInInspector] public bool IsSemesterAnimateDone = false; // Status animasi semester
     public int CurrentSemester = 1;
+    public int TotalSemester = 4;
     #endregion
 
     #region Private Variables
@@ -44,6 +45,7 @@ public class SemesterManager : MonoBehaviour
     private List<GameObject> availableIndicators = new List<GameObject>(); // Daftar indikator yang tersedia
     public int CurrentSemesterIndex = 0; // Indeks semester saat ini
     public AllSectors NewSectors; // Semua sektor
+
     #endregion
 
     #region Unity Methods

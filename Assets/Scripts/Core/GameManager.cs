@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator HandleNextSemester() // Diubah menjadi public
     {
         Semester.NextSemester();
-        if(Semester.CurrentSemester <= 1)
+        if(Semester.CurrentSemester <= Semester.TotalSemester)
         {
             Debug.Log("Next Semester");
 

@@ -30,7 +30,7 @@ public class CardManager : MonoBehaviour
     public CardAnimation currentActiveCard = null;
     public List<GameObject> selectedCards = new List<GameObject>();
 
-    public GameObject canvas;
+    public GameObject Shadowbackground;
 
     private ActionPhase ActionPhase;
 
@@ -43,7 +43,7 @@ public class CardManager : MonoBehaviour
     public void StartStockCards()
     {
         CollectingCards();
-        ShadowBackground(Camera.main,canvas);
+        ShadowBackground(Camera.main,Shadowbackground);
         StartCoroutine(ShowRandomCards());
     }
 
@@ -202,6 +202,11 @@ public class CardManager : MonoBehaviour
 
         // Pastikan latar belakang aktif
         background.SetActive(true);
+    }
+
+    public void HideShadowBackground()
+    {
+        Shadowbackground.SetActive(false);
     }
 
 }

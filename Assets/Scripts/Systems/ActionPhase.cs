@@ -96,6 +96,7 @@ public class ActionPhase : MonoBehaviour
 
         if (cardManager.selectedCards.Count > 0)
         {
+            playerManager.HighightPlayerTurn(currentPlayerIndex);
             Player currentPlayer = playerManager.playerList[currentPlayerIndex];
             Debug.Log("Sekarang giliran " + currentPlayer.Name + " untuk Mengambil Kartu.");
 
@@ -108,6 +109,8 @@ public class ActionPhase : MonoBehaviour
             Debug.Log("Action Phase Berakhir.");
             gameManager.currentGameState = GameManager.GameState.Selling;
             gameManager.StartNextPhase();
+            cardManager.HideShadowBackground();
+            playerManager.ResetHighightPlayerTurn();
         }
     }
 

@@ -115,7 +115,7 @@ public class EndGame : MonoBehaviour
 
     private void HomeButtonHandler()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(4);
     }
 
     private void PlayAgainHandler()

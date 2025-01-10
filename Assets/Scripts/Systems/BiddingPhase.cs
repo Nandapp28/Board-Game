@@ -14,6 +14,7 @@ public class BiddingPhase : MonoBehaviour
 
     private int currentPlayerIndex = 0;
     private bool isRollingDice = false;
+    private bool isBiddingDone = false;
     private bool isWaitingForDiceResult = false;
     private CameraAnimation Camera;
     private BiddingPhaseUI biddingPhaseUI;
@@ -76,6 +77,7 @@ public class BiddingPhase : MonoBehaviour
     {
         if (currentPlayerIndex < playerManager.PlayerCount)
         {
+            playerManager.HighightPlayerTurn(currentPlayerIndex);
             Player currentPlayer = playerManager.playerList[currentPlayerIndex].GetComponent<Player>();
             Debug.Log("Sekarang giliran " + currentPlayer.Name + " untuk melempar dadu.");
             isRollingDice = true;
@@ -153,6 +155,7 @@ public class BiddingPhase : MonoBehaviour
         Dice.ResetDicePosition(Dice.diceRigidbody1.gameObject, Dice.initialPosition1, Dice.initialRotation1, Dice.resetPosition);
         Dice.ResetDicePosition(Dice.diceRigidbody2.gameObject, Dice.initialPosition2, Dice.initialRotation2, Dice.resetPosition);
         biddingPhaseUI.AnimateDeactive();
+        StartDiceRollForNextPlayer();
     }
 
     private void HandleDiceProcessResult()
@@ -164,7 +167,6 @@ public class BiddingPhase : MonoBehaviour
         Dice.ResetDiceResult();
         currentPlayerIndex++;
         isWaitingForDiceResult = false;
-        StartDiceRollForNextPlayer();
     }
 
     private void HandleDuplicateDiceResults()
@@ -235,5 +237,6 @@ public class BiddingPhase : MonoBehaviour
         gameManager.currentGameState = GameManager.GameState.Action;
         yield return new WaitForSeconds(2);
         gameManager.StartNextPhase();
+        playerManager.ResetHighightPlayerTurn();
     }
 }

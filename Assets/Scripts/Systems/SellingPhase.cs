@@ -28,6 +28,7 @@ public class SellingPhase : MonoBehaviour {
 
     private void StartSellingPhaseForNexPlayer() {
         if (currentPlayerIndex < Players.PlayerCount) {
+            Players.HighightPlayerTurn(currentPlayerIndex);
             Player currentPlayer = Players.GetPlayer(currentPlayerIndex);
             sellingPhaseUI.GetStockData(currentPlayer);
             // Lakukan sesuatu dengan currentPlayer
@@ -35,6 +36,7 @@ public class SellingPhase : MonoBehaviour {
         }else{
             sellingPhaseUI.sectorsParent.gameObject.SetActive(false);
             EndPhase();
+            Players.ResetHighightPlayerTurn();
         }
     }
 

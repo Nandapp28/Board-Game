@@ -4,8 +4,8 @@ using System.Collections.Generic;
 public class PlayerManager : MonoBehaviour {
 
     [SerializeField]
-    private GameObject players; // GameObject yang berisi pemain
-    public List<Player> playerList = new List<Player>(); // Daftar pemain
+    private GameObject players;
+    public List<Player> playerList = new List<Player>();
 
     public void StartPlayerManager() {
         if (players == null) {
@@ -59,5 +59,35 @@ public class PlayerManager : MonoBehaviour {
 
     public int PlayerCount {
         get { return playerList.Count; }
+    }
+
+    public void HighightPlayerTurn(int index) {
+
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            Player currentPlayer = playerList[i];
+            Transform overlayTransform = currentPlayer.transform.Find("Overlay");
+            GameObject overlay = overlayTransform.gameObject;
+
+            if(i == index)
+            {
+                overlay.SetActive(false);
+            }else{
+                overlay.SetActive(true);
+            }
+        }
+
+    }
+
+    public void ResetHighightPlayerTurn()
+    {
+        for (int i = 0; i < playerList.Count; i++)
+        {
+            Player currentPlayer = playerList[i];
+            Transform overlayTransform = currentPlayer.transform.Find("Overlay");
+            GameObject overlay = overlayTransform.gameObject;
+
+            overlay.SetActive(false);
+        }
     }
 }
