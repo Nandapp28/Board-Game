@@ -13,16 +13,25 @@ public class SellingPhase : MonoBehaviour {
     private Coroutine currentTimerCoroutine; 
     private SellingPhaseUI sellingPhaseUI;
     private GameManager gameManager;
+    private ShadowBackground shadowBackground;
 
     private void Start() {
         gameManager = FindAnyObjectByType<GameManager>();
         Players = FindObjectOfType<PlayerManager>();
         sellingPhaseUI = FindObjectOfType<SellingPhaseUI>();
+        shadowBackground = FindObjectOfType<ShadowBackground>();
     }
 
     public void StartSellingPhase() {
         Players.SortPlayersByPlayOrder();
         sellingPhaseUI.StartSellingPhaseUI();
+        StartCoroutine(StartSellingPhaseForNexPlayerhandler());
+    }
+
+    private IEnumerator StartSellingPhaseForNexPlayerhandler()
+    {
+        shadowBackground.HandleShadowBackground(true);
+        yield return new WaitForSeconds(1f);
         StartSellingPhaseForNexPlayer();
     }
 
@@ -35,8 +44,9 @@ public class SellingPhase : MonoBehaviour {
             currentTimerCoroutine = StartCoroutine(SellActionCardsWithTimer());
         }else{
             sellingPhaseUI.sectorsParent.gameObject.SetActive(false);
-            EndPhase();
             Players.ResetHighightPlayerTurn();
+            shadowBackground.HandleShadowBackground(false);
+            EndPhase();
         }
     }
 
@@ -55,6 +65,7 @@ public class SellingPhase : MonoBehaviour {
     }
 
     public void OnSellButtonClick(){
+        buttonSoundEffect();
         if (currentTimerCoroutine != null)
         {
             StopCoroutine(currentTimerCoroutine); // Hentikan coroutine timer
@@ -70,6 +81,7 @@ public class SellingPhase : MonoBehaviour {
         MoveToNextPlayer();
     }
     public void OnSkipButtonClick(){
+        buttonSoundEffect();
         if (currentTimerCoroutine != null)
         {
             StopCoroutine(currentTimerCoroutine); // Hentikan coroutine timer
@@ -96,5 +108,10 @@ public class SellingPhase : MonoBehaviour {
         Debug.Log("Selling Phase Berakhir.");
         gameManager.currentGameState = GameManager.GameState.Rumor;
         gameManager.StartNextPhase();
+    }
+
+    private void buttonSoundEffect()
+    {
+        AudioController.PlaySoundEffect(0);
     }
 }

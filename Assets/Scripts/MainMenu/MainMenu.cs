@@ -124,6 +124,7 @@ public class MainMenu : MonoBehaviour
 
     public void SelectPlayerButton(Button pressedButton)
     {
+        buttonsound();
         foreach (var player in selectPlayers)
         {
             // Set bgSelect active only for the button pressed

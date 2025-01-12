@@ -121,12 +121,14 @@ public class ResolutionPhase : MonoBehaviour
 
     public void BuyButton()
     {
+        buttonSoundEffect();
         resolutionPhaseUI.HandleHelpCard(0);
         StartCoroutine(DuplicateCard());
     }
 
     public void SkipButton()
     {
+        buttonSoundEffect();
         MoveNextPlayer();
     }
 
@@ -337,5 +339,10 @@ public class ResolutionPhase : MonoBehaviour
         Players.ResetHighightPlayerTurn();
     }
     #endregion
+
+    private void buttonSoundEffect()
+    {
+        AudioController.PlaySoundEffect(0);
+    }
     
 }

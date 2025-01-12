@@ -183,6 +183,7 @@ public class ActionPhase : MonoBehaviour
     // Panggil fungsi ini ketika pemain telah memilih kartu
     public void OnCardActived()
     {
+        buttonSoundEffect();
         StopCurrentTimer(); // Hentikan timer saat kartu diaktifkan
         StartCoroutine(ActiveCardEffect());
         RemoveCurrentCard(); // Hapus kartu yang sedang aktif
@@ -197,6 +198,7 @@ public class ActionPhase : MonoBehaviour
     // Panggil fungsi ini ketika pemain memilih untuk menyimpan kartu
     public void OnCardKeep()
     {
+        buttonSoundEffect();
         StockCard card = cardManager.currentActiveCard.GetComponent<StockCard>();
         Player currentPlayer = playerManager.playerList[currentPlayerIndex];
         if(IsFlashBuy)
@@ -553,4 +555,10 @@ public class ActionPhase : MonoBehaviour
         }
     }
     #endregion
+
+    private void buttonSoundEffect()
+    {
+        AudioController.PlaySoundEffect(0);
+    }
+
 }

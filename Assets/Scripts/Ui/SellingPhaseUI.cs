@@ -34,6 +34,7 @@ public class SellingPhaseUI : MonoBehaviour
 
     #region Unity Methods
 
+
     public void StartSellingPhaseUI()
     {
         if (sectorsParent != null)
@@ -41,7 +42,8 @@ public class SellingPhaseUI : MonoBehaviour
             sectorsParent.gameObject.SetActive(true);
         }
 
-        StartCoroutine(InitializeUIAfterDelay(1f));
+        StartCoroutine(InitializeUIAfterDelay(0.3f));
+
     }
 
     private IEnumerator InitializeUIAfterDelay(float delay)
@@ -107,6 +109,7 @@ public class SellingPhaseUI : MonoBehaviour
 
     void UpdateCount(CategoryUI category, int change)
     {
+        buttonSoundEffect();
         int newCount = category.count + change;
 
         if (newCount >= 0 && newCount <= category.CurrentStock)
@@ -163,4 +166,9 @@ public class SellingPhaseUI : MonoBehaviour
         return total;
     }
     #endregion
+
+    private void buttonSoundEffect()
+    {
+        AudioController.PlaySoundEffect(0);
+    }
 }

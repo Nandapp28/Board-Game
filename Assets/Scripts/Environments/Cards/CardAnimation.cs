@@ -29,6 +29,7 @@ public class CardAnimation : MonoBehaviour {
         // Hanya izinkan klik jika CardManager tersedia
         if (cardManager != null)
         {
+            buttonSoundEffect();
             cardManager.HandleCardClick(this);
         }
     }
@@ -93,4 +94,10 @@ public class CardAnimation : MonoBehaviour {
         // Kembalikan ke skala awal
         transform.localScale = originalScale;
     }
+
+        private void buttonSoundEffect()
+    {
+        AudioController.PlaySoundEffect(0);
+    }
+
 }
