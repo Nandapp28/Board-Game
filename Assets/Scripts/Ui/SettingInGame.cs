@@ -52,12 +52,13 @@ public class SettingInGame : MonoBehaviour {
 
     private IEnumerator LoadSceneHandler(int index)
     {
+        AudioManagers.instance.StopMusic();
         yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(index);
     }
 
     private void buttonSoundEffect()
     {
-        AudioController.PlaySoundEffect(0);
+        AudioManagers.instance.PlaySoundEffect(0);
     }
 }

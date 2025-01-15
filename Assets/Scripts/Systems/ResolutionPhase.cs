@@ -342,7 +342,7 @@ public class ResolutionPhase : MonoBehaviour
 
     private void buttonSoundEffect()
     {
-        AudioController.PlaySoundEffect(0);
+        AudioManagers.instance.PlaySoundEffect(0);
     }
     
 }

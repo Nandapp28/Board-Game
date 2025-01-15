@@ -142,11 +142,13 @@ public class PhaseUI : MonoBehaviour
     #region Fade Methods
     public void FadeIn(CanvasGroup canvasGroup)
     {
+        AudioManagers.instance.PlaySoundEffect(2,2);
         StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 1));
     }
 
     public void FadeOut(CanvasGroup canvasGroup)
     {
+         AudioManagers.instance.PlaySoundEffect(2,2);
         StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 0));
     }
 

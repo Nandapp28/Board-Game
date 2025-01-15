@@ -14,6 +14,11 @@ public class PlayAndQuitGame : MonoBehaviour {
         // Assign listeners for buttons
         playButton.onClick.AddListener(OnPlayButtonClicked);
         quitButton.onClick.AddListener(OnQuitButtonClicked);
+        if(AudioManagers.instance.isMusicPlaying == false)
+        {
+            AudioManagers.instance.PlayMusic(0);
+        }
+        AudioManagers.instance.SetMusicVolume(1);
     }
 
     private void OnPlayButtonClicked() {
@@ -38,6 +43,6 @@ public class PlayAndQuitGame : MonoBehaviour {
     }
 
     private void PlayButtonSound() {
-        AudioController.PlaySoundEffect(0);
+        AudioManagers.instance.PlaySoundEffect(0);
     }
 }

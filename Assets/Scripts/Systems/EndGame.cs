@@ -115,11 +115,14 @@ public class EndGame : MonoBehaviour
 
     private void HomeButtonHandler()
     {
+        AudioManagers.instance.StopMusic();
         SceneManager.LoadScene(4);
     }
 
     private void PlayAgainHandler()
     {
+        AudioManagers.instance.StopMusic();
+        AudioManagers.instance.PlayMusic(1);
         SceneManager.LoadScene(1);
     }
 }

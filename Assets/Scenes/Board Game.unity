@@ -7721,9 +7721,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd90d67b17949e4b88e5e739bcc71dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackSound: {fileID: 0}
+  BackSoundMainMenu: {fileID: 0}
+  BackSoundInGame: {fileID: 8300000, guid: e4932ae0f8a52f44a9f802069c401eec, type: 3}
   ButtonSound: {fileID: 8300000, guid: dbd7dded096c5304696cd80c916715d2, type: 3}
-  DiceSound: {fileID: 0}
+  DiceSound: {fileID: 8300000, guid: 2aeaa6512129c13468b9a689415f8a75, type: 3}
+  TransitionPhase: {fileID: 0}
+  audioClips: []
+  soundEffect: []
+  isMusicPlaying: 0
 --- !u!4 &843140833 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7745773677954428063, guid: 11318eb3fe3cac2499159d6a437003b8, type: 3}

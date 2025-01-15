@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
         rumorPhase = FindObjectOfType<RumorPhase>();
         resolutionPhase = FindObjectOfType<ResolutionPhase>();
         endGame = FindAnyObjectByType<EndGame>();
+        AudioManagers.instance.PlayMusic(1);
+        AudioManagers.instance.SetMusicVolume(0.3f);
     }
 
     private IEnumerator StartSemestersCoroutine()

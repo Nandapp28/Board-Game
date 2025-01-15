@@ -136,6 +136,7 @@ public class MainMenu : MonoBehaviour
     {
         buttonsound();
         StartCoroutine(LoadSceneAfterDelay(2));
+        AudioManagers.instance.StopMusic();
     }
     #endregion
 
@@ -179,7 +180,6 @@ public class MainMenu : MonoBehaviour
 
     private void buttonsound()
     {
-        AudioController.PlaySoundEffect(0);
+        AudioManagers.instance.PlaySoundEffect(0);
     }
-
 }

@@ -939,9 +939,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd90d67b17949e4b88e5e739bcc71dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BackSound: {fileID: 0}
+  BackSoundMainMenu: {fileID: 8300000, guid: f3bf39b376ca5094ba1de83a4c5ab203, type: 3}
+  BackSoundInGame: {fileID: 8300000, guid: e4932ae0f8a52f44a9f802069c401eec, type: 3}
   ButtonSound: {fileID: 8300000, guid: dbd7dded096c5304696cd80c916715d2, type: 3}
-  DiceSound: {fileID: 0}
+  DiceSound: {fileID: 8300000, guid: 2aeaa6512129c13468b9a689415f8a75, type: 3}
+  TransitionPhase: {fileID: 8300000, guid: c66cc9d95043d814e914e940aa929e5b, type: 3}
+  audioClips: []
+  soundEffect: []
+  isMusicPlaying: 0
 --- !u!4 &1982943049
 Transform:
   m_ObjectHideFlags: 0
@@ -951,7 +956,7 @@ Transform:
   m_GameObject: {fileID: 1982943046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 143.47247, y: 126.45604, z: 0.8164233}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

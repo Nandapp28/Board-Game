@@ -53,6 +53,7 @@ public class BiddingPhase : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !Dice.isRolling && !Dice.isMovingToCamera && isRollingDice && !isWaitingForDiceResult)
         {
             RollDiceForCurrentPlayer();
+            AudioManagers.instance.PlaySoundEffect(1);
         }
     }
 
