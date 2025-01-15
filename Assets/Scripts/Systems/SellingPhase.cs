@@ -51,15 +51,14 @@ public class SellingPhase : MonoBehaviour {
     }
 
     private IEnumerator SellActionCardsWithTimer() {
-        float timer = 30f; // Waktu 30 detik untuk keputusan
+        float timer = 30f; 
 
         while (timer > 0) {
             Timers.text = Mathf.Ceil(timer).ToString();
-            timer -= Time.deltaTime; // Kurangi waktu berdasarkan waktu yang berlalu
-            yield return null; // Tunggu hingga frame berikutnya
+            timer -= Time.deltaTime;
+            yield return null; 
         }
         sellingPhaseUI.ResetCounts();
-        // Jika waktu habis, lakukan tindakan yang sesuai
         Debug.Log("Waktu habis untuk pemain " + currentPlayerIndex + ". Melanjutkan ke pemain berikutnya.");
         MoveToNextPlayer();
     }
@@ -68,8 +67,8 @@ public class SellingPhase : MonoBehaviour {
         buttonSoundEffect();
         if (currentTimerCoroutine != null)
         {
-            StopCoroutine(currentTimerCoroutine); // Hentikan coroutine timer
-            currentTimerCoroutine = null; // Reset coroutine
+            StopCoroutine(currentTimerCoroutine);
+            currentTimerCoroutine = null;
         }
         
         Player currentPlayer = Players.GetPlayer(currentPlayerIndex);
@@ -84,8 +83,8 @@ public class SellingPhase : MonoBehaviour {
         buttonSoundEffect();
         if (currentTimerCoroutine != null)
         {
-            StopCoroutine(currentTimerCoroutine); // Hentikan coroutine timer
-            currentTimerCoroutine = null; // Reset coroutine
+            StopCoroutine(currentTimerCoroutine);
+            currentTimerCoroutine = null;
         }
 
         sellingPhaseUI.ResetCounts();
@@ -95,7 +94,7 @@ public class SellingPhase : MonoBehaviour {
     private void MoveToNextPlayer()
     {
         currentPlayerIndex++;
-        StartSellingPhase();
+        StartSellingPhaseForNexPlayer();
     }
 
     private void ResetCurentPlayer()
