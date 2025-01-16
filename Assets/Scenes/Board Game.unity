@@ -3621,8 +3621,8 @@ RectTransform:
   - {fileID: 568812898}
   - {fileID: 745911986}
   - {fileID: 1604748360}
-  - {fileID: 655735201}
   - {fileID: 2084378877}
+  - {fileID: 655735201}
   - {fileID: 7623425204470701245}
   - {fileID: 2109890066}
   - {fileID: 1024879592}
@@ -7722,10 +7722,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackSoundMainMenu: {fileID: 0}
-  BackSoundInGame: {fileID: 8300000, guid: e4932ae0f8a52f44a9f802069c401eec, type: 3}
+  BackSoundInGame: {fileID: 8300000, guid: aaa89d0333e78e545834b067d8d885a4, type: 3}
   ButtonSound: {fileID: 8300000, guid: dbd7dded096c5304696cd80c916715d2, type: 3}
   DiceSound: {fileID: 8300000, guid: 2aeaa6512129c13468b9a689415f8a75, type: 3}
-  TransitionPhase: {fileID: 0}
+  TransitionPhase: {fileID: 8300000, guid: c66cc9d95043d814e914e940aa929e5b, type: 3}
   audioClips: []
   soundEffect: []
   isMusicPlaying: 0
@@ -12167,15 +12167,19 @@ MonoBehaviour:
     Consumen:
       Sector: []
       CurrenPriceIndex: 0
+      CurrentPriceSector: 0
     Infrastuctur:
       Sector: []
       CurrenPriceIndex: 0
+      CurrentPriceSector: 0
     Finance:
       Sector: []
       CurrenPriceIndex: 0
+      CurrentPriceSector: 0
     Mining:
       Sector: []
       CurrenPriceIndex: 0
+      CurrentPriceSector: 0
   StockPriceConfiguration:
     offset: 3
     Rotation: {x: 0, y: -76.328, z: 0}

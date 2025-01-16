@@ -47,9 +47,12 @@ public class ResolutionPhase : MonoBehaviour
     private Vector3 initialCameraRotation;
     #endregion
 
+    private ShadowBackground shadowBackground;
+
     #region Unity Methods
 
     private void Start() {
+        shadowBackground = GameObject.FindObjectOfType<ShadowBackground>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
         semesterManager = FindAnyObjectByType<SemesterManager>();
         resolutionPhaseUI = FindAnyObjectByType<ResolutionPhaseUI>();
@@ -80,6 +83,7 @@ public class ResolutionPhase : MonoBehaviour
         yield return new WaitForSeconds(2f);
         MainCameraResetPostion();
         yield return new WaitForSeconds(1.5f);
+
         resolutionPhaseUI.HandleHelpCard(1);
         StartCoroutine(StartForNexPlayer());
     }
@@ -99,6 +103,7 @@ public class ResolutionPhase : MonoBehaviour
 
     public IEnumerator StartForNexPlayer()
     {
+        // shadowBackground.HandleShadowBackground(true);
         if(semesterManager.CurrentSemester < semesterManager.TotalSemester)
         {
             yield return new WaitForSeconds(0.2f);
@@ -116,7 +121,6 @@ public class ResolutionPhase : MonoBehaviour
         }else{
             EndPhase();
         }
-
     }
 
     public void BuyButton()
@@ -331,6 +335,11 @@ public class ResolutionPhase : MonoBehaviour
     #region End Phase
     private void EndPhase()
     {
+        for (int i = 0; i < Players.PlayerCount; i++)
+        {
+            Players.playerList[i].ResetPlayOrder();
+        }
+        // shadowBackground.HandleShadowBackground(false);
         resolutionPhaseUI.HandleHelpCard(0);
         resolutionPhaseUI.HelpCard.SetActive(false);
         gameManager.currentGameState = GameManager.GameState.NextSemester;

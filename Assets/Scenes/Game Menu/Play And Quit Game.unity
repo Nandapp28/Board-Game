@@ -940,7 +940,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BackSoundMainMenu: {fileID: 8300000, guid: f3bf39b376ca5094ba1de83a4c5ab203, type: 3}
-  BackSoundInGame: {fileID: 8300000, guid: e4932ae0f8a52f44a9f802069c401eec, type: 3}
+  BackSoundInGame: {fileID: 8300000, guid: aaa89d0333e78e545834b067d8d885a4, type: 3}
   ButtonSound: {fileID: 8300000, guid: dbd7dded096c5304696cd80c916715d2, type: 3}
   DiceSound: {fileID: 8300000, guid: 2aeaa6512129c13468b9a689415f8a75, type: 3}
   TransitionPhase: {fileID: 8300000, guid: c66cc9d95043d814e914e940aa929e5b, type: 3}

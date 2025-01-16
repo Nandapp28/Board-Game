@@ -26,6 +26,7 @@ public class SellingPhase : MonoBehaviour {
         Players.SortPlayersByPlayOrder();
         sellingPhaseUI.StartSellingPhaseUI();
         StartCoroutine(StartSellingPhaseForNexPlayerhandler());
+        sellingPhaseUI.CollectCurrentPriceSector();
     }
 
     private IEnumerator StartSellingPhaseForNexPlayerhandler()
@@ -37,9 +38,10 @@ public class SellingPhase : MonoBehaviour {
 
     private void StartSellingPhaseForNexPlayer() {
         if (currentPlayerIndex < Players.PlayerCount) {
-            Players.HighightPlayerTurn(currentPlayerIndex);
             Player currentPlayer = Players.GetPlayer(currentPlayerIndex);
             sellingPhaseUI.GetStockData(currentPlayer);
+            Players.HighightPlayerTurn(currentPlayerIndex);
+            sellingPhaseUI.CurrentStock();
             // Lakukan sesuatu dengan currentPlayer
             currentTimerCoroutine = StartCoroutine(SellActionCardsWithTimer());
         }else{
@@ -74,7 +76,7 @@ public class SellingPhase : MonoBehaviour {
         Player currentPlayer = Players.GetPlayer(currentPlayerIndex);
         int TotalEarnings = sellingPhaseUI.CalculateTotalEarnings();
 
-        currentPlayer.Wealth = TotalEarnings;
+        currentPlayer.Wealth += TotalEarnings;
 
         sellingPhaseUI.ResetCounts();
         MoveToNextPlayer();

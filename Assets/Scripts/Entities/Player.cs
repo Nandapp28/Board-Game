@@ -173,6 +173,10 @@ public class Player : MonoBehaviour
     public void SetPriority(float newPriority)
     {
         this.priority = newPriority;
-        // Optionally, you can use the priority for sorting or comparison elsewhere.
+    }
+
+    public void ResetPlayOrder()
+    {
+        playOrder = 0;
     }
 }

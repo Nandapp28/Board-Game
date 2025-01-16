@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
         resolutionPhase = FindObjectOfType<ResolutionPhase>();
         endGame = FindAnyObjectByType<EndGame>();
         AudioManagers.instance.PlayMusic(1);
-        AudioManagers.instance.SetMusicVolume(0.3f);
+        AudioManagers.instance.SetMusicVolume(0.4f);
     }
 
     private IEnumerator StartSemestersCoroutine()
@@ -172,10 +172,19 @@ public class GameManager : MonoBehaviour
     public IEnumerator HandleEndGame()
     {
         Debug.Log("End Phase");
+        stockPriceManager.SetAllPrice();
+        for (int i = 0; i < playerManager.PlayerCount; i++)
+        {
+            Player player = playerManager.GetPlayer(i);
+            int Consumen = player.Consumen*stockPriceManager.allSector.Consumen.CurrentPriceSector;
+            int Infrastuctur = player.Infrastuctur*stockPriceManager.allSector.Infrastuctur.CurrentPriceSector;
+            int Finance = player.Finance*stockPriceManager.allSector.Finance.CurrentPriceSector;
+            int Mining = player.Mining*stockPriceManager.allSector.Mining.CurrentPriceSector;
+            
+            player.Wealth += Consumen + Infrastuctur + Finance + Mining;
+        }
         shadowBackground.HandleShadowBackground(true);
         yield return new WaitForSeconds(1.5f);
         endGame.StartEndGame();
-        yield return new WaitForSeconds(5f);
-        Application.Quit();
     }
 }

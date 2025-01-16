@@ -22,6 +22,7 @@ public class Sectors
 {
     public List<GameObject> Sector; // Daftar objek harga saham dalam sektor
     public int CurrenPriceIndex; // Indeks harga saat ini yang aktif
+    public int CurrentPriceSector;
 }
 
 public class StockPriceManager : MonoBehaviour
@@ -136,8 +137,6 @@ public class StockPriceManager : MonoBehaviour
             new List<int>{2,4,5,7,9},
         };
 
-        // Mendis ```csharp
-        // Mendistribusikan harga ke setiap sektor berdasarkan indeks harga
         for (int i = 0; i < parentSectors.Count; i++)
         {
             GameObject Parent = parentSectors[i];
@@ -265,5 +264,38 @@ public class StockPriceManager : MonoBehaviour
         }
     }
     #endregion
+
+    public void SetAllPrice()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            SetSectorPrice(i);
+        }
+    }
+
+    private void SetSectorPrice(int index)
+    {
+        var allPriceSectors = new[]
+        {
+            new[] { 1, 2, 3, 5, 6, 7, 8 },
+            new[] { 1, 2, 4, 5, 6, 7, 9 },
+            new[] { 1, 3, 4, 5, 6, 7, 9 },
+            new[] { 2, 4, 5, 7, 9 },
+        };
+
+        var sectors = new[]
+        {
+            allSector.Consumen,
+            allSector.Infrastuctur,
+            allSector.Finance,
+            allSector.Mining,
+        };
+
+        if (index >= 0 && index < sectors.Length)
+        {
+            var sector = sectors[index];
+            sector.CurrentPriceSector = allPriceSectors[index][sector.CurrenPriceIndex];
+        }
+    }
 
 }

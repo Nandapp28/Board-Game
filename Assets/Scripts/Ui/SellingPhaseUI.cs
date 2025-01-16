@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SellingPhaseUI : MonoBehaviour
 {
@@ -31,19 +32,20 @@ public class SellingPhaseUI : MonoBehaviour
     public CategoryUI Consumen = new CategoryUI();
     public CategoryUI Finance = new CategoryUI();
     public TextMeshProUGUI TotalEarnings;
+    private StockPriceManager stockPriceManager;
 
     #region Unity Methods
 
 
     public void StartSellingPhaseUI()
     {
+        stockPriceManager = FindAnyObjectByType<StockPriceManager>();
         if (sectorsParent != null)
         {
             sectorsParent.gameObject.SetActive(true);
         }
 
         StartCoroutine(InitializeUIAfterDelay(0.3f));
-
     }
 
     private IEnumerator InitializeUIAfterDelay(float delay)
@@ -91,7 +93,7 @@ public class SellingPhaseUI : MonoBehaviour
     #endregion
 
     #region Stock Management
-    void CurrentStock()
+    public void CurrentStock()
     {
         Infrastuktur.CurrentStockText.text = Infrastuktur.CurrentStock.ToString();
         Mining.CurrentStockText.text = Mining.CurrentStock.ToString();
@@ -171,4 +173,62 @@ public class SellingPhaseUI : MonoBehaviour
     {
         AudioManagers.instance.PlaySoundEffect(0);
     }
+
+    public void CollectCurrentPriceSector()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            UpdateCurrentPriceSector(i);
+        }
+    }
+
+    private void UpdateCurrentPriceSector(int index)
+    {
+        List<List<int>> allPriceSectors = new List<List<int>>
+        {
+            new List<int> { 1, 2, 3, 5, 6, 7, 8 },
+            new List<int> { 1, 2, 4, 5, 6, 7, 9 },
+            new List<int> { 1, 3, 4, 5, 6, 7, 9 },
+            new List<int> { 2, 4, 5, 7, 9 },
+        };
+
+        int sector = GetSector(index) ?? 0;
+        int currentPrice = allPriceSectors[index][sector];
+
+        switch (index)
+        {
+            case 0:
+                Consumen.CurrentPriceSector = currentPrice;
+                break;
+            case 1:
+                Infrastuktur.CurrentPriceSector = currentPrice;
+                break;
+            case 2:
+                Finance.CurrentPriceSector = currentPrice;
+                break;
+            case 3:
+                Mining.CurrentPriceSector = currentPrice;
+                break;
+        }
+
+        Debug.Log(currentPrice);
+    }
+
+    private int? GetSector(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                return stockPriceManager.allSector.Consumen.CurrenPriceIndex;
+            case 1:
+                return stockPriceManager.allSector.Infrastuctur.CurrenPriceIndex;
+            case 2:
+                return stockPriceManager.allSector.Finance.CurrenPriceIndex;
+            case 3:
+                return stockPriceManager.allSector.Mining.CurrenPriceIndex;
+            default:
+                return null;
+        }
+    }
+
 }
